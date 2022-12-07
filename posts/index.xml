@@ -1,44 +1,16 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Posts on YYT6801&#39;s blog</title>
-    <link>https://example.com/posts/</link>
-    <description>Recent content in Posts on YYT6801&#39;s blog</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en</language>
-    <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
-    <lastBuildDate>Fri, 03 Jan 2020 15:43:30 +0800</lastBuildDate>
-    
-	<atom:link href="https://example.com/posts/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>git基本操作</title>
-      <link>https://example.com/2020/01/git%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/</link>
-      <pubDate>Fri, 03 Jan 2020 15:43:30 +0800</pubDate>
-      
-      <guid>https://example.com/2020/01/git%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/</guid>
-      <description>1、	在本地新建文件夹，把远程仓库的克隆到本地: a)	Git clone URL 2、	本地修改后同步到远程仓库： a)	Git status (查看本地是否跟踪到) b)	Git add . (把本地新增的文件添加到缓存) c)	再执行 git status 查看是否已存放至暂存区 d)	Git commit –m “changes” (使用 git add 命令将想要快照的内容写入缓存区， 而执行 git commit 将缓存区内容添加到仓库中。) e)	Git push (把本地代码放到远程仓库) 3、	在本地仓库获取同步最新远程仓库： a)	Git pull (在本地pull远程仓库最新的代码到本地仓库，相当于git fetch + merge) b)	Git fetch 在本地仓库获取最新的代码同步（常用），检查更新，但并未改动本地文件；之后需要加上Git merge 才将本地仓库进行同步 至此，修改全部结束。
-在新环境中与仓库连接: ssh key是连接你的电脑和GitHub服务器的一把钥匙，只有两者建立了联系才能把你本地的代码提交到github上。首先要获取到ssh key公钥。 1.在终端输运行命令： ssh-keygen 获取ssh-key; 把获取到的ssh-key复制到github自己账户setting中,然后回到终端，设置用户名和邮箱，最好与注册的github一致。这个用户名和邮箱是非常重要的，因为每次Git提交都会使用该信息。它被永远的嵌入到了你的提交中。在团队开发中，可以清楚地看到是谁的提交。在终端中输入命令： git config &amp;lsquo;user.name&amp;rsquo; git config &amp;lsquo;useremail@xx&amp;rsquo; 接下来把仓库clone到本地,修改后git commit -am &amp;ldquo;xxx&amp;rdquo; 提交; 在git push 即可.</description>
-    </item>
-    
-    <item>
-      <title>ASCII编码表</title>
-      <link>https://example.com/2020/01/ascii%E7%BC%96%E7%A0%81%E8%A1%A8/</link>
-      <pubDate>Fri, 03 Jan 2020 15:43:25 +0800</pubDate>
-      
-      <guid>https://example.com/2020/01/ascii%E7%BC%96%E7%A0%81%E8%A1%A8/</guid>
-      <description>//这是整理之后的ASCII码对照表和键值码对照表
-ASCII码    Bin Dec Hex 缩写/字符 解释     00000000 0 00 NUL(null) 空字符   00000001 1 01 SOH(start of headling) 标题开始   00000010 2 02 STX (start of text) 正文开始   00000011 3 03 ETX (end of text) 正文结束   00000100 4 04 EOT (end of transmission) 传输结束   00000101 5 05 ENQ (enquiry) 请求   00000110 6 06 ACK (acknowledge) 收到通知   00000111 7 07 BEL (bell) 响铃   00001000 8 08 BS (backspace) 退格   00001001 9 09 HT (horizontal tab) 水平制表符   00001010 10 0A LF (NL line feed, new line) 换行键   00001011 11 0B VT (vertical tab) 垂直制表符   00001100 12 0C FF (NP form feed, new page) 换页键   00001101 13 0D CR (carriage return) 回车键   00001110 14 0E SO (shift out) 不用切换   00001111 15 0F SI (shift in) 启用切换   00010000 16 10 DLE (data link escape) 数据链路转义   00010001 17 11 DC1 (device control 1) 设备控制1   00010010 18 12 DC2 (device control 2) 设备控制2   00010011 19 13 DC3 (device control 3) 设备控制3   00010100 20 14 DC4 (device control 4) 设备控制4   00010101 21 15 NAK (negative acknowledge) 拒绝接收   00010110 22 16 SYN (synchronous idle) 同步空闲   00010111 23 17 ETB (end of trans.</description>
-    </item>
-    
-    <item>
-      <title>docker基本操作</title>
-      <link>https://example.com/2020/01/docker%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/</link>
-      <pubDate>Fri, 03 Jan 2020 15:41:41 +0800</pubDate>
-      
-      <guid>https://example.com/2020/01/docker%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/</guid>
-      <description>docker 使用场景: Docker提供了轻量级的虚拟化，它几乎没有任何额外开销，这个特性非常酷。 首先你在享有Docker带来的虚拟化能力的时候无需担心它带来的额外开销。其次，相比于虚拟机，你可以在同一台机器上创建更多数量的容器。 Docker的另外一个优点是容器的启动与停止都能在几秒中内完成。
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>所有文章 - YYT6801&#39;s Blog</title>
+        <link>https://blog.yyt6801.top/posts/</link>
+        <description>所有文章 | YYT6801&#39;s Blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>yyt6801@gmail.com (YYT6801)</managingEditor>
+            <webMaster>yyt6801@gmail.com (YYT6801)</webMaster><lastBuildDate>Thu, 01 Dec 2022 01:00:00 &#43;0000</lastBuildDate><atom:link href="https://blog.yyt6801.top/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>Docker常用操作</title>
+    <link>https://blog.yyt6801.top/posts/docker-basic-operation-guide/</link>
+    <pubDate>Thu, 01 Dec 2022 01:00:00 &#43;0000</pubDate>
+    <author>YYT6801</author>
+    <guid>https://blog.yyt6801.top/posts/docker-basic-operation-guide/</guid>
+    <description><![CDATA[docker 使用场景: Docker提供了轻量级的虚拟化，它几乎没有任何额外开销，这个特性非常酷。 首先你在享有Docker带来的虚拟化能力的时候无需担心它带来的额外开销。其次，相比于虚拟机，你可以在同一台机器上创建更多数量的容器。 Docker的另外一个优点是容器的启动与停止都能在几秒中内完成。
 1. 简化配置 虚拟机的最大好处是能在你的硬件设施上运行各种配置不一样的平台（软件、系统），Docker在降低额外开销的情况下提供了同样的功能。它能让你将运行环境和配置放在代码中然后部署，同一个Docker的配置可以在不同的环境中使用，这样就降低了硬件要求和应用环境之间耦合度。
 2. 代码流水线（Code Pipeline）管理 前一个场景对于管理代码的流水线起到了很大的帮助。代码从开发者的机器到最终在生产环境上的部署，需要经过很多的中间环境。而每一个中间环境都有自己微小的差别，Docker给应用提供了一个从开发到上线均一致的环境，让代码的流水线变得简单不少。
 3. 提高开发效率 这就带来了一些额外的好处：Docker能提升开发者的开发效率。 不同的开发环境中，我们都想把两件事做好。一是我们想让开发环境尽量贴近生产环境，二是我们想快速搭建开发环境。 理想状态中，要达到第一个目标，我们需要将每一个服务都跑在独立的虚拟机中以便监控生产环境中服务的运行状态。然而，我们却不想每次都需要网络连接，每次重新编译的时候远程连接上去特别麻烦。这就是Docker做的特别好的地方，开发环境的机器通常内存比较小，之前使用虚拟机的时候，我们经常需要为开发环境的机器加内存，而现在Docker可以轻易的让几十个服务在Docker中跑起来。
@@ -47,8 +19,33 @@ ASCII码    Bin Dec Hex 缩写/字符 解释     00000000 0 00 NUL(null) 空字�
 6. 调试能力 Docker提供了很多的工具，这些工具不一定只是针对容器，但是却适用于容器。它们提供了很多的功能，包括可以为容器设置检查点、设置版本和查看两个容器之间的差别，这些特性可以帮助调试Bug。你可以在《Docker拯救世界》的文章中找到这一点的例证。
 7. 多租户环境 另外一个Docker有意思的使用场景是在多租户的应用中，它可以避免关键应用的重写。我们一个特别的关于这个场景的例子是为IoT（物联网）的应用开发一个快速、易用的多租户环境。这种多租户的基本代码非常复杂，很难处理，重新规划这样一个应用不但消耗时间，也浪费金钱。 使用Docker，可以为每一个租户的应用层的多个实例创建隔离的环境，这不仅简单而且成本低廉，当然这一切得益于Docker环境的启动速度和其高效的diff命令。
 8. 快速部署 在虚拟机之前，引入新的硬件资源需要消耗几天的时间。虚拟化技术（Virtualization）将这个时间缩短到了分钟级别。而Docker通过为进程仅仅创建一个容器而无需启动一个操作系统，再次将这个过程缩短到了秒级。这正是Google和Facebook都看重的特性。 你可以在数据中心创建销毁资源而无需担心重新启动带来的开销。通常数据中心的资源利用率只有30%，通过使用Docker并进行有效的资源分配可以提高资源的利用率。
- docker使用基本操作 搜索镜像 docker search mongo  拉取镜像到本地 docker pull mongo docker pull mysql:5.6 拉取5.6版本的mysql镜像  查看所有镜像 docker images -a  把镜像做成容器并运行 docker run --name mongodb -v ~/docker/mongo:/data/db -p 27017:27017 -d mongo docker run -p 3306:3306 --name mymysql -v $PWD/test-mysql/conf:/etc/mysql/conf.</description>
-    </item>
-    
-  </channel>
+docker使用基本操作 开启docker服务 sudo service docker start搜索镜像 docker search mongo拉取镜像到本地 docker pull mongodocker pull mysql:5.6 拉取5.6版本的mysql镜像查看所有镜像 docker images -a把镜像做成容器并运行 docker run --name mongodb -v ~/docker/mongo:/data/db -p 27017:27017 -d mongo通过在创建容器时设置MONGO_INITDB_ROOT_USERNAME和MONGODB_INITDB_ROOT_PASSWORD环境变量来添加初始用户帐户 docker run -d --name mongodb -v /mydata/mongodb/datadb:/data/db -p 27017:27017 -e MONGO_INITDB_ROOT_USERNAME=admin -e MONGO_INITDB_ROOT_PASSWORD=admin --privileged=true mongo 运行mysql5.]]></description>
+</item>
+<item>
+    <title>ASCII码值对照表</title>
+    <link>https://blog.yyt6801.top/posts/ascii%E7%A0%81%E9%94%AE%E5%80%BC%E7%A0%81/</link>
+    <pubDate>Thu, 01 Dec 2022 00:00:00 &#43;0000</pubDate>
+    <author>YYT6801</author>
+    <guid>https://blog.yyt6801.top/posts/ascii%E7%A0%81%E9%94%AE%E5%80%BC%E7%A0%81/</guid>
+    <description><![CDATA[//这是整理之后的ASCII码对照表和键值码对照表
+ASCII码 Bin Dec Hex 缩写/字符 解释 00000000 0 00 NUL(null) 空字符 00000001 1 01 SOH(start of headling) 标题开始 00000010 2 02 STX (start of text) 正文开始 00000011 3 03 ETX (end of text) 正文结束 00000100 4 04 EOT (end of transmission) 传输结束 00000101 5 05 ENQ (enquiry) 请求 00000110 6 06 ACK (acknowledge) 收到通知 00000111 7 07 BEL (bell) 响铃 00001000 8 08 BS (backspace) 退格 00001001 9 09 HT (horizontal tab) 水平制表符 00001010 10 0A LF (NL line feed, new line) 换行键 00001011 11 0B VT (vertical tab) 垂直制表符 00001100 12 0C FF (NP form feed, new page) 换页键 00001101 13 0D CR (carriage return) 回车键 00001110 14 0E SO (shift out) 不用切换 00001111 15 0F SI (shift in) 启用切换 00010000 16 10 DLE (data link escape) 数据链路转义 00010001 17 11 DC1 (device control 1) 设备控制1 00010010 18 12 DC2 (device control 2) 设备控制2 00010011 19 13 DC3 (device control 3) 设备控制3 00010100 20 14 DC4 (device control 4) 设备控制4 00010101 21 15 NAK (negative acknowledge) 拒绝接收 00010110 22 16 SYN (synchronous idle) 同步空闲 00010111 23 17 ETB (end of trans.]]></description>
+</item>
+<item>
+    <title>Git常用操作</title>
+    <link>https://blog.yyt6801.top/posts/git-basic-operation-guide/</link>
+    <pubDate>Thu, 01 Dec 2022 00:00:00 &#43;0000</pubDate>
+    <author>YYT6801</author>
+    <guid>https://blog.yyt6801.top/posts/git-basic-operation-guide/</guid>
+    <description><![CDATA[1、	在本地新建文件夹，把远程仓库的克隆到本地: a)	git clone URL
+2、	本地修改后同步到远程仓库： a)	git status (查看本地是否跟踪到)
+b)	git add . (把本地新增的文件添加到缓存)
+c)	再执行 git status 查看是否已存放至暂存区
+d)	git commit –m &quot;changes&quot; (使用 git add 命令将想要快照的内容写入缓存区， 而执行 git commit 将缓存区内容添加到仓库中。)
+e)	git push (把本地代码放到远程仓库)
+3、	在本地仓库获取同步最新远程仓库： 方法一：	git fetch 在本地仓库获取最新的代码同步（常用），检查更新，但并未改动本地文件；之后需要加上 git merge 才将本地仓库进行同步。 至此，修改全部结束。
+方法二：	直接 git pull 即可实现同步： (在本地pull远程仓库最新的代码到本地仓库，相当于 git fetch + git merge )
+4、 取消本地修改内容 git checkout -- filename filename填写需要撤销修改的文件名(需包含路径)，可以清空所修改内容
+git checkout .]]></description>
+</item>
+</channel>
 </rss>

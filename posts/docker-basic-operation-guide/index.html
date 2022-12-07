@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Docker常用操作 - YYT6801&#39;s Blog</title><meta name="Description" content="YYT6801&#39;s Blog"><meta property="og:title" content="Docker常用操作" />
+<meta property="og:description" content="docker 使用场景: Docker提供了轻量级的虚拟化，它几乎没有任何额外开销，这个特性非常酷。 首先你在享有Docker带来的虚拟化能力的时候无需担心它带来的额外开销。其次，相比于虚拟机，你可以在同一台机器上创建更多数量的容器。 Docker的另外一个优点是容器的启动与停止都能在几秒中内完成。
+1. 简化配置 虚拟机的最大好处是能在你的硬件设施上运行各种配置不一样的平台（软件、系统），Docker在降低额外开销的情况下提供了同样的功能。它能让你将运行环境和配置放在代码中然后部署，同一个Docker的配置可以在不同的环境中使用，这样就降低了硬件要求和应用环境之间耦合度。
+2. 代码流水线（Code Pipeline）管理 前一个场景对于管理代码的流水线起到了很大的帮助。代码从开发者的机器到最终在生产环境上的部署，需要经过很多的中间环境。而每一个中间环境都有自己微小的差别，Docker给应用提供了一个从开发到上线均一致的环境，让代码的流水线变得简单不少。
+3. 提高开发效率 这就带来了一些额外的好处：Docker能提升开发者的开发效率。 不同的开发环境中，我们都想把两件事做好。一是我们想让开发环境尽量贴近生产环境，二是我们想快速搭建开发环境。 理想状态中，要达到第一个目标，我们需要将每一个服务都跑在独立的虚拟机中以便监控生产环境中服务的运行状态。然而，我们却不想每次都需要网络连接，每次重新编译的时候远程连接上去特别麻烦。这就是Docker做的特别好的地方，开发环境的机器通常内存比较小，之前使用虚拟机的时候，我们经常需要为开发环境的机器加内存，而现在Docker可以轻易的让几十个服务在Docker中跑起来。
+4. 隔离应用 有很多种原因会让你选择在一个机器上运行不同的应用，比如之前提到的提高开发效率的场景等。 我们经常需要考虑两点，一是因为要降低成本而进行服务器整合，二是将一个整体式的应用拆分成松耦合的单个服务（微服务架构）。如果你想了解为什么松耦合的应用这么重要，请参考Steve Yege的这篇论文，文中将Google和亚马逊做了比较。
+5. 整合服务器 正如通过虚拟机来整合多个应用，Docker隔离应用的能力使得Docker可以整合多个服务器以降低成本。由于没有多个操作系统的内存占用，以及能在多个实例之间共享没有使用的内存，Docker可以比虚拟机提供更好的服务器整合解决方案。
+6. 调试能力 Docker提供了很多的工具，这些工具不一定只是针对容器，但是却适用于容器。它们提供了很多的功能，包括可以为容器设置检查点、设置版本和查看两个容器之间的差别，这些特性可以帮助调试Bug。你可以在《Docker拯救世界》的文章中找到这一点的例证。
+7. 多租户环境 另外一个Docker有意思的使用场景是在多租户的应用中，它可以避免关键应用的重写。我们一个特别的关于这个场景的例子是为IoT（物联网）的应用开发一个快速、易用的多租户环境。这种多租户的基本代码非常复杂，很难处理，重新规划这样一个应用不但消耗时间，也浪费金钱。 使用Docker，可以为每一个租户的应用层的多个实例创建隔离的环境，这不仅简单而且成本低廉，当然这一切得益于Docker环境的启动速度和其高效的diff命令。
+8. 快速部署 在虚拟机之前，引入新的硬件资源需要消耗几天的时间。虚拟化技术（Virtualization）将这个时间缩短到了分钟级别。而Docker通过为进程仅仅创建一个容器而无需启动一个操作系统，再次将这个过程缩短到了秒级。这正是Google和Facebook都看重的特性。 你可以在数据中心创建销毁资源而无需担心重新启动带来的开销。通常数据中心的资源利用率只有30%，通过使用Docker并进行有效的资源分配可以提高资源的利用率。
+docker使用基本操作 开启docker服务 sudo service docker start搜索镜像 docker search mongo拉取镜像到本地 docker pull mongodocker pull mysql:5.6 拉取5.6版本的mysql镜像查看所有镜像 docker images -a把镜像做成容器并运行 docker run --name mongodb -v ~/docker/mongo:/data/db -p 27017:27017 -d mongo通过在创建容器时设置MONGO_INITDB_ROOT_USERNAME和MONGODB_INITDB_ROOT_PASSWORD环境变量来添加初始用户帐户 docker run -d --name mongodb -v /mydata/mongodb/datadb:/data/db -p 27017:27017 -e MONGO_INITDB_ROOT_USERNAME=admin -e MONGO_INITDB_ROOT_PASSWORD=admin --privileged=true mongo 运行mysql5." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.yyt6801.top/posts/docker-basic-operation-guide/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-12-01T01:00:00+00:00" />
+<meta property="article:modified_time" content="2022-12-01T01:00:00+00:00" /><meta property="og:site_name" content="YYT6801&#39;s Blog" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Docker常用操作"/>
+<meta name="twitter:description" content="docker 使用场景: Docker提供了轻量级的虚拟化，它几乎没有任何额外开销，这个特性非常酷。 首先你在享有Docker带来的虚拟化能力的时候无需担心它带来的额外开销。其次，相比于虚拟机，你可以在同一台机器上创建更多数量的容器。 Docker的另外一个优点是容器的启动与停止都能在几秒中内完成。
+1. 简化配置 虚拟机的最大好处是能在你的硬件设施上运行各种配置不一样的平台（软件、系统），Docker在降低额外开销的情况下提供了同样的功能。它能让你将运行环境和配置放在代码中然后部署，同一个Docker的配置可以在不同的环境中使用，这样就降低了硬件要求和应用环境之间耦合度。
+2. 代码流水线（Code Pipeline）管理 前一个场景对于管理代码的流水线起到了很大的帮助。代码从开发者的机器到最终在生产环境上的部署，需要经过很多的中间环境。而每一个中间环境都有自己微小的差别，Docker给应用提供了一个从开发到上线均一致的环境，让代码的流水线变得简单不少。
+3. 提高开发效率 这就带来了一些额外的好处：Docker能提升开发者的开发效率。 不同的开发环境中，我们都想把两件事做好。一是我们想让开发环境尽量贴近生产环境，二是我们想快速搭建开发环境。 理想状态中，要达到第一个目标，我们需要将每一个服务都跑在独立的虚拟机中以便监控生产环境中服务的运行状态。然而，我们却不想每次都需要网络连接，每次重新编译的时候远程连接上去特别麻烦。这就是Docker做的特别好的地方，开发环境的机器通常内存比较小，之前使用虚拟机的时候，我们经常需要为开发环境的机器加内存，而现在Docker可以轻易的让几十个服务在Docker中跑起来。
+4. 隔离应用 有很多种原因会让你选择在一个机器上运行不同的应用，比如之前提到的提高开发效率的场景等。 我们经常需要考虑两点，一是因为要降低成本而进行服务器整合，二是将一个整体式的应用拆分成松耦合的单个服务（微服务架构）。如果你想了解为什么松耦合的应用这么重要，请参考Steve Yege的这篇论文，文中将Google和亚马逊做了比较。
+5. 整合服务器 正如通过虚拟机来整合多个应用，Docker隔离应用的能力使得Docker可以整合多个服务器以降低成本。由于没有多个操作系统的内存占用，以及能在多个实例之间共享没有使用的内存，Docker可以比虚拟机提供更好的服务器整合解决方案。
+6. 调试能力 Docker提供了很多的工具，这些工具不一定只是针对容器，但是却适用于容器。它们提供了很多的功能，包括可以为容器设置检查点、设置版本和查看两个容器之间的差别，这些特性可以帮助调试Bug。你可以在《Docker拯救世界》的文章中找到这一点的例证。
+7. 多租户环境 另外一个Docker有意思的使用场景是在多租户的应用中，它可以避免关键应用的重写。我们一个特别的关于这个场景的例子是为IoT（物联网）的应用开发一个快速、易用的多租户环境。这种多租户的基本代码非常复杂，很难处理，重新规划这样一个应用不但消耗时间，也浪费金钱。 使用Docker，可以为每一个租户的应用层的多个实例创建隔离的环境，这不仅简单而且成本低廉，当然这一切得益于Docker环境的启动速度和其高效的diff命令。
+8. 快速部署 在虚拟机之前，引入新的硬件资源需要消耗几天的时间。虚拟化技术（Virtualization）将这个时间缩短到了分钟级别。而Docker通过为进程仅仅创建一个容器而无需启动一个操作系统，再次将这个过程缩短到了秒级。这正是Google和Facebook都看重的特性。 你可以在数据中心创建销毁资源而无需担心重新启动带来的开销。通常数据中心的资源利用率只有30%，通过使用Docker并进行有效的资源分配可以提高资源的利用率。
+docker使用基本操作 开启docker服务 sudo service docker start搜索镜像 docker search mongo拉取镜像到本地 docker pull mongodocker pull mysql:5.6 拉取5.6版本的mysql镜像查看所有镜像 docker images -a把镜像做成容器并运行 docker run --name mongodb -v ~/docker/mongo:/data/db -p 27017:27017 -d mongo通过在创建容器时设置MONGO_INITDB_ROOT_USERNAME和MONGODB_INITDB_ROOT_PASSWORD环境变量来添加初始用户帐户 docker run -d --name mongodb -v /mydata/mongodb/datadb:/data/db -p 27017:27017 -e MONGO_INITDB_ROOT_USERNAME=admin -e MONGO_INITDB_ROOT_PASSWORD=admin --privileged=true mongo 运行mysql5."/>
+<meta name="application-name" content="YYT6801&#39;s Blog">
+<meta name="apple-mobile-web-app-title" content="YYT6801&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="/images/me.jpg"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://blog.yyt6801.top/posts/docker-basic-operation-guide/" /><link rel="prev" href="https://blog.yyt6801.top/posts/ascii%E7%A0%81%E9%94%AE%E5%80%BC%E7%A0%81/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Docker常用操作",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/blog.yyt6801.top\/posts\/docker-basic-operation-guide\/"
+        },"genre": "posts","wordcount":  355 ,
+        "url": "https:\/\/blog.yyt6801.top\/posts\/docker-basic-operation-guide\/","datePublished": "2022-12-01T01:00:00+00:00","dateModified": "2022-12-01T01:00:00+00:00","publisher": {
+            "@type": "Organization",
+            "name": "yyt6801"},"author": {
+                "@type": "Person",
+                "name": "YYT6801"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="YYT6801&#39;s Blog">Yuán</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/" title="文章列表"> 文章 </a><a class="menu-item" href="/tags/" title="分标签展示"> 标签 </a><a class="menu-item" href="/categories/" title="分类展示"> 分类 </a><a class="menu-item" href="/about" title="关于我"> 关于 </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="YYT6801&#39;s Blog">Yuán</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="文章列表">文章</a><a class="menu-item" href="/tags/" title="分标签展示">标签</a><a class="menu-item" href="/categories/" title="分类展示">分类</a><a class="menu-item" href="/about" title="关于我">关于</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Docker常用操作</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://blog.yyt6801.top/" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>YYT6801</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-12-01">2022-12-01</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 355 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 2 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#1-简化配置">1. 简化配置</a></li>
+        <li><a href="#2-代码流水线code-pipeline管理">2. 代码流水线（Code Pipeline）管理</a></li>
+        <li><a href="#3-提高开发效率">3. 提高开发效率</a></li>
+        <li><a href="#4-隔离应用">4. 隔离应用</a></li>
+        <li><a href="#5-整合服务器">5. 整合服务器</a></li>
+        <li><a href="#6-调试能力">6. 调试能力</a></li>
+        <li><a href="#7-多租户环境">7. 多租户环境</a></li>
+        <li><a href="#8-快速部署">8. 快速部署</a></li>
+      </ul>
+    </li>
+  </ul>
+
+  <ul>
+    <li><a href="#开启docker服务">开启docker服务</a></li>
+    <li><a href="#搜索镜像">搜索镜像</a></li>
+    <li><a href="#拉取镜像到本地">拉取镜像到本地</a></li>
+    <li><a href="#查看所有镜像">查看所有镜像</a></li>
+    <li><a href="#把镜像做成容器并运行">把镜像做成容器并运行</a>
+      <ul>
+        <li></li>
+        <li><a href="#各参数含义">各参数含义:</a></li>
+      </ul>
+    </li>
+    <li><a href="#查看所有的容器">查看所有的容器</a></li>
+    <li><a href="#开启关闭容器">开启/关闭容器</a></li>
+    <li><a href="#查看容器详细信息">查看容器详细信息:</a></li>
+    <li><a href="#进入容器交互模式">进入容器交互模式:</a></li>
+    <li><a href="#删除某容器">删除某容器</a></li>
+    <li><a href="#删除某镜像">删除某镜像</a></li>
+    <li><a href="#更新镜像">更新镜像</a>
+      <ul>
+        <li></li>
+        <li><a href="#交互模式下常用vim编辑需更新安装vim">交互模式下常用vim编辑,需更新安装vim:</a></li>
+        <li><a href="#1从容器拷贝文件到宿主机">1、从容器拷贝文件到宿主机</a></li>
+        <li><a href="#2从宿主机拷贝文件到容器">2、从宿主机拷贝文件到容器</a></li>
+        <li><a href="#1-根据requirementstxt-和dockerfile打包成镜像">1、 根据requirements.txt 和Dockerfile打包成镜像</a></li>
+        <li><a href="#2-将镜像运行容器运行后台-d映射-v">2、 将镜像运行(容器运行)，后台-d，映射-v</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="docker-使用场景">docker 使用场景:</h1>
+<p>Docker提供了轻量级的虚拟化，它几乎没有任何额外开销，这个特性非常酷。
+首先你在享有Docker带来的虚拟化能力的时候无需担心它带来的额外开销。其次，相比于虚拟机，你可以在同一台机器上创建更多数量的容器。
+Docker的另外一个优点是容器的启动与停止都能在几秒中内完成。</p>
+<h3 id="1-简化配置">1. 简化配置</h3>
+<p>虚拟机的最大好处是能在你的硬件设施上运行各种配置不一样的平台（软件、系统），Docker在降低额外开销的情况下提供了同样的功能。它能让你将运行环境和配置放在代码中然后部署，同一个Docker的配置可以在不同的环境中使用，这样就降低了硬件要求和应用环境之间耦合度。</p>
+<h3 id="2-代码流水线code-pipeline管理">2. 代码流水线（Code Pipeline）管理</h3>
+<p>前一个场景对于管理代码的流水线起到了很大的帮助。代码从开发者的机器到最终在生产环境上的部署，需要经过很多的中间环境。而每一个中间环境都有自己微小的差别，Docker给应用提供了一个从开发到上线均一致的环境，让代码的流水线变得简单不少。</p>
+<h3 id="3-提高开发效率">3. 提高开发效率</h3>
+<p>这就带来了一些额外的好处：Docker能提升开发者的开发效率。
+不同的开发环境中，我们都想把两件事做好。一是我们想让开发环境尽量贴近生产环境，二是我们想快速搭建开发环境。
+理想状态中，要达到第一个目标，我们需要将每一个服务都跑在独立的虚拟机中以便监控生产环境中服务的运行状态。然而，我们却不想每次都需要网络连接，每次重新编译的时候远程连接上去特别麻烦。这就是Docker做的特别好的地方，开发环境的机器通常内存比较小，之前使用虚拟机的时候，我们经常需要为开发环境的机器加内存，而现在Docker可以轻易的让几十个服务在Docker中跑起来。</p>
+<h3 id="4-隔离应用">4. 隔离应用</h3>
+<p>有很多种原因会让你选择在一个机器上运行不同的应用，比如之前提到的提高开发效率的场景等。
+我们经常需要考虑两点，一是因为要降低成本而进行服务器整合，二是将一个整体式的应用拆分成松耦合的单个服务（微服务架构）。如果你想了解为什么松耦合的应用这么重要，请参考Steve Yege的这篇论文，文中将Google和亚马逊做了比较。</p>
+<h3 id="5-整合服务器">5. 整合服务器</h3>
+<p>正如通过虚拟机来整合多个应用，Docker隔离应用的能力使得Docker可以整合多个服务器以降低成本。由于没有多个操作系统的内存占用，以及能在多个实例之间共享没有使用的内存，Docker可以比虚拟机提供更好的服务器整合解决方案。</p>
+<h3 id="6-调试能力">6. 调试能力</h3>
+<p>Docker提供了很多的工具，这些工具不一定只是针对容器，但是却适用于容器。它们提供了很多的功能，包括可以为容器设置检查点、设置版本和查看两个容器之间的差别，这些特性可以帮助调试Bug。你可以在《Docker拯救世界》的文章中找到这一点的例证。</p>
+<h3 id="7-多租户环境">7. 多租户环境</h3>
+<p>另外一个Docker有意思的使用场景是在多租户的应用中，它可以避免关键应用的重写。我们一个特别的关于这个场景的例子是为IoT（物联网）的应用开发一个快速、易用的多租户环境。这种多租户的基本代码非常复杂，很难处理，重新规划这样一个应用不但消耗时间，也浪费金钱。
+使用Docker，可以为每一个租户的应用层的多个实例创建隔离的环境，这不仅简单而且成本低廉，当然这一切得益于Docker环境的启动速度和其高效的diff命令。</p>
+<h3 id="8-快速部署">8. 快速部署</h3>
+<p>在虚拟机之前，引入新的硬件资源需要消耗几天的时间。虚拟化技术（Virtualization）将这个时间缩短到了分钟级别。而Docker通过为进程仅仅创建一个容器而无需启动一个操作系统，再次将这个过程缩短到了秒级。这正是Google和Facebook都看重的特性。
+你可以在数据中心创建销毁资源而无需担心重新启动带来的开销。通常数据中心的资源利用率只有30%，通过使用Docker并进行有效的资源分配可以提高资源的利用率。</p>
+<hr>
+<h1 id="docker使用基本操作">docker使用基本操作</h1>
+<h2 id="开启docker服务">开启docker服务</h2>
+<pre><code>sudo service docker start
+</code></pre>
+<h2 id="搜索镜像">搜索镜像</h2>
+<pre><code>docker search mongo
+</code></pre>
+<h2 id="拉取镜像到本地">拉取镜像到本地</h2>
+<pre><code>docker pull mongo
+
+docker pull mysql:5.6    拉取5.6版本的mysql镜像
+</code></pre>
+<h2 id="查看所有镜像">查看所有镜像</h2>
+<pre><code>docker images -a
+</code></pre>
+<h2 id="把镜像做成容器并运行">把镜像做成容器并运行</h2>
+<pre><code>docker run --name mongodb -v ~/docker/mongo:/data/db -p 27017:27017 -d mongo
+</code></pre>
+<h4 id="通过在创建容器时设置mongo_initdb_root_username和mongodb_initdb_root_password环境变量来添加初始用户帐户">通过在创建容器时设置MONGO_INITDB_ROOT_USERNAME和MONGODB_INITDB_ROOT_PASSWORD环境变量来添加初始用户帐户</h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-docker" data-lang="docker"><span class="line"><span class="cl">docker run -d --name mongodb -v /mydata/mongodb/datadb:/data/db -p 27017:27017 -e <span class="nv">MONGO_INITDB_ROOT_USERNAME</span><span class="o">=</span>admin -e <span class="nv">MONGO_INITDB_ROOT_PASSWORD</span><span class="o">=</span>admin --privileged<span class="o">=</span><span class="nb">true</span> mongo  <span class="err">
+</span></span></span></code></pre></div><ul>
+<li>运行mysql5.6</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-docker" data-lang="docker"><span class="line"><span class="cl">docker run -p 3306:3306 --name mymysql -v <span class="nv">$PWD</span>/test-mysql/conf:/etc/mysql/conf.d -v <span class="nv">$PWD</span>/test-mysql/logs:/logs -v <span class="nv">$PWD</span>/test-mysql/data:/var/lib/mysql -e <span class="nv">MYSQL_ROOT_PASSWORD</span><span class="o">=</span><span class="m">123456</span> -d mysql:5.6<span class="err">
+</span></span></span></code></pre></div><h3 id="各参数含义">各参数含义:</h3>
+<ul>
+<li><code>--name</code> 设置了容器的自定义名字</li>
+<li><code>-v</code> 设置了路径的映射, 将本地路径映射到容器中（把一个本地/宿主机上的目录挂载到镜像里）. 此处, 路径可以自定义：冒号前为宿主机目录，必须为绝对路径，冒号后为镜像内挂载的路径。
+-v $PWD/conf:/etc/mysql/conf.d：将主机当前目录下的 conf/my.cnf 挂载到容器的 /etc/mysql/my.cnf<br>
+-v $PWD/logs:/logs：将主机当前目录下的 logs 目录挂载到容器的 /logs<br>
+-v $PWD/data:/var/lib/mysql ：将主机当前目录下的data目录挂载到容器的 /var/lib/mysql</li>
+<li><code>-p</code> 设置了端口的映射(主机在前，容器在后), 将容器的27017端口映射到了本地的27017端口(map port 27017 of the host to port 27017 in the container) <br>
+注： -P参数会随机分配一个49000~49900之间的端口到容器内部开放的网络（通过EXPORT指定的）端口<br>
+-p则可以具体指定要映射的端口，并且在一个指定端口上只能绑定一个容器 <br>
+例如：-p 127.0.0.1:5001:5000  通过访问 127.0.0.1:5001 来访问容器的 5000 端口</li>
+<li><code>-d</code> 设置当前容器为守护进程,后台运行</li>
+<li><code>-e</code> MYSQL_ROOT_PASSWORD=123456：初始化 root 用户的密码。</li>
+</ul>
+<h4 id="例----构建nginx容器映射到本机html目录中">例:    构建nginx容器映射到本机html目录中</h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-docker" data-lang="docker"><span class="line"><span class="cl">docker run --name nginx -d -p 80:80 -v /my_folder/my_nginx/html:/usr/share/nginx/html -v /my_folder/my_nginx/logs:/var/log/nginx nginx<span class="err">
+</span></span></span></code></pre></div><h2 id="查看所有的容器">查看所有的容器</h2>
+<pre><code>docker ps -a
+</code></pre>
+<h2 id="开启关闭容器">开启/关闭容器</h2>
+<pre><code>docker start/stop +CONTAINER_NAME
+</code></pre>
+<h2 id="查看容器详细信息">查看容器详细信息:</h2>
+<pre><code>docker inspect +CONTAINER_NAME
+</code></pre>
+<h2 id="进入容器交互模式">进入容器交互模式:</h2>
+<pre><code>docker exec -it mongodb bash    
+</code></pre>
+<p>使用交互的形式, 在 名字为 <code>mongodb</code> 的容器中实行 <code>bash</code>这个命令</p>
+<h2 id="删除某容器">删除某容器</h2>
+<pre><code>docker rm +CONTAINER_NAME
+</code></pre>
+<h2 id="删除某镜像">删除某镜像</h2>
+<pre><code>docker rmi +IMAGE_NAME
+</code></pre>
+<h2 id="更新镜像">更新镜像</h2>
+<h5 id="通过命令-docker-commit来提交容器副本">通过命令 docker commit来提交容器副本</h5>
+<pre><code>docker commit -m=&quot;has update&quot; -a=&quot;runoob&quot; e218edb10161 +NEW_IMAGE_NAME:+TAG_NAME   
+</code></pre>
+<h5 id="各个参数说明">各个参数说明：</h5>
+<ul>
+<li><code>-m</code>:提交的描述信息</li>
+<li><code>-a</code>:指定镜像作者</li>
+<li><code>e218edb10161</code>：容器ID</li>
+<li><code>runoob/ubuntu:v2</code>:指定要创建的目标镜像名和标签名</li>
+</ul>
+<h3 id="交互模式下常用vim编辑需更新安装vim">交互模式下常用vim编辑,需更新安装vim:</h3>
+<h4 id="更新源">更新源</h4>
+<pre><code>apt-get update
+</code></pre>
+<h4 id="安装-vim">安装 vim</h4>
+<pre><code>apt-get install vim
+</code></pre>
+<h4 id="修改-mongo-配置文件">修改 mongo 配置文件</h4>
+<p>vim /etc/mongod.conf.orig</p>
+<p>关于使用docker的一些问题: <br>
+Q: 修改部署的容器配置,如tomcat中的一些端口配置等的修改 <br>
+A: 通过vim编辑修改?</p>
+<p>Q:随机端口映射,如何设置 <br>
+A:用-P为随机端口映射,用-p为制定端口映射.但同一端口不能被两个容器使用.</p>
+<p>Q:已配置好的容器如何运行到其他电脑中? 如果跨平台呢? <br>
+A:把容器打包save成镜像</p>
+<p>安装和常用CLI：
+添加阿里云镜像：sudo yum-config-manager &ndash;add-repo <a href="https://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo" target="_blank" rel="noopener noreffer ">https://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo</a>
+安装命令：sudo yum install -y  docker-ce docker-ce-cli containerd.io
+启动命令：sudo systemctl start docker
+添加当前用户到docker用户组：sudo usermod -aG docker $USER （需注销），newgrp docker （立即生效）
+Helloworld：docker run hello-world  （本地没有镜像的话会自动从远端仓库pull）
+pull nginx 镜像：docker pull nginx（等效于nginx:latest）
+运行：docker run -【d】（后台运行不阻塞shell） 【-p 80:80】（指定容器端口映射，内部：外部） nginx
+查看正在运行：docker ps
+删除容器：docker rm -f &lt;container id(不用打全，前缀区分)&gt;
+进入bash：docker exec -it &lt;container id(不用打全，前缀区分)&gt; bash
+commit镜像：docker commit &lt;container id(不用打全，前缀区分)&gt;  <!-- raw HTML omitted -->
+查看镜像列表：docker images （刚才commit的镜像）
+使用运行刚才commit的镜像：docker run -d <!-- raw HTML omitted -->
+使用Dockerfile构建镜像：docker build -t <!-- raw HTML omitted --> &lt;存放Dockerfile的文件夹&gt;
+删除镜像：docker rmi <!-- raw HTML omitted -->
+保存为tar：docker save <!-- raw HTML omitted --> &gt; <!-- raw HTML omitted -->
+从tar加载：docker load &lt; <!-- raw HTML omitted --></p>
+<p>一些启动参数：
+后台运行容器：-d
+容器内外端口映射：-p 内部端口号:外部端口号
+目录映射：-v &lsquo;dir name&rsquo; : <!-- raw HTML omitted -->
+指定映像版本：<!-- raw HTML omitted -->:<!-- raw HTML omitted --></p>
+<hr>
+<p>docker中宿主机与容器（container）互相拷贝传递文件的方法</p>
+<h3 id="1从容器拷贝文件到宿主机">1、从容器拷贝文件到宿主机</h3>
+<p>docker cp mycontainer:/opt/testnew/file.txt /opt/test/</p>
+<h3 id="2从宿主机拷贝文件到容器">2、从宿主机拷贝文件到容器</h3>
+<p>docker cp /opt/test/file.txt mycontainer:/opt/testnew/</p>
+<h3 id="1-根据requirementstxt-和dockerfile打包成镜像">1、 根据requirements.txt 和Dockerfile打包成镜像</h3>
+<p><code>docker build -t docker-flask:0.1 .</code>   注意最后一个点</p>
+<h3 id="2-将镜像运行容器运行后台-d映射-v">2、 将镜像运行(容器运行)，后台-d，映射-v</h3>
+<p><code>docker run -d --name flask_app -v $PWD/app:/app -p 5000:5000 docker-flask:0.2</code></p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-12-01</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/ascii%E7%A0%81%E9%94%AE%E5%80%BC%E7%A0%81/" class="prev" rel="prev" title="ASCII码值对照表"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>ASCII码值对照表</a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://blog.yyt6801.top/" target="_blank">YYT6801</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":50},"comment":{}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
