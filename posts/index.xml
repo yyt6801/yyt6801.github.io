@@ -42,7 +42,7 @@ renewIP.bat ipconfig/flushdns ipconfig/release ipconfig/renew pause
     <pubDate>Thu, 08 Dec 2022 17:49:05 &#43;0800</pubDate>
     <author>YYT6801</author>
     <guid>https://blog.yyt6801.top/posts/usefultools-and-software/</guid>
-    <description><![CDATA[那些超实用的程序清单(持续完善中) 搜索资源网站 搜索引擎 学习技术过程我们经常需要使用搜索引擎来检索资料，国内常用的也就是某度了。 当然有条件的话，搜索引擎首先还是推荐使用 Google，如果没办法使用，可以使用以下几个作为备用：
+    <description><![CDATA[资源、软件工具清单(持续完善中) 在线工具网址 搜索引擎/资源网站 学习技术过程我们经常需要使用搜索引擎来检索资料，国内常用的也就是某度了。 当然有条件的话，搜索引擎首先还是推荐使用 Google，如果没办法使用，可以使用以下几个作为备用：
 Bing 国际版
 比某度好用，之前还被停用了几天，最近可以了。
 DuckDuckGo
@@ -123,7 +123,7 @@ ASCII码 Bin Dec Hex 缩写/字符 解释 00000000 0 00 NUL(null) 空字符 0000
     <pubDate>Thu, 01 Dec 2022 00:00:01 &#43;0800</pubDate>
     <author>YYT6801</author>
     <guid>https://blog.yyt6801.top/posts/my-notes/</guid>
-    <description><![CDATA[需求：我的笔记需要有的功能 搜索查询 云同步 图片/文件 直接拖拽，无需oss 表格格式 代码格式化 解决方案：目前的笔记方案： 笔记使用Obsidian编辑 使用坚果云同步content文件夹 Hugo将笔记创建为静态Blog 将静态Blog 发布于 github pages ]]></description>
+    <description><![CDATA[需求：我的笔记需要有的功能 搜索查询 云同步 图片/文件 直接拖拽，无需oss 表格格式 代码格式化 解决方案：目前的笔记方案： 笔记使用Obsidian编辑 使用坚果云同步content文件夹 Hugo将笔记创建为静态Blog 将静态Blog 发布于 github pages 及时整理，知识沉淀 ]]></description>
 </item>
 </channel>
 </rss>
