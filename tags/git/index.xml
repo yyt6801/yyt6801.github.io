@@ -1,0 +1,25 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Git - 标签 - YYT6801&#39;s Blog</title>
+        <link>https://blog.yyt6801.top/tags/git/</link>
+        <description>Git - 标签 - YYT6801&#39;s Blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>yyt6801@gmail.com (YYT6801)</managingEditor>
+            <webMaster>yyt6801@gmail.com (YYT6801)</webMaster><lastBuildDate>Thu, 01 Dec 2022 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://blog.yyt6801.top/tags/git/" rel="self" type="application/rss+xml" /><item>
+    <title>Git常用操作</title>
+    <link>https://blog.yyt6801.top/posts/git-basic-operation-guide/</link>
+    <pubDate>Thu, 01 Dec 2022 00:00:00 &#43;0000</pubDate>
+    <author>YYT6801</author>
+    <guid>https://blog.yyt6801.top/posts/git-basic-operation-guide/</guid>
+    <description><![CDATA[1、	在本地新建文件夹，把远程仓库的克隆到本地: a)	git clone URL
+2、	本地修改后同步到远程仓库： a)	git status (查看本地是否跟踪到)
+b)	git add . (把本地新增的文件添加到缓存)
+c)	再执行 git status 查看是否已存放至暂存区
+d)	git commit –m &quot;changes&quot; (使用 git add 命令将想要快照的内容写入缓存区， 而执行 git commit 将缓存区内容添加到仓库中。)
+e)	git push (把本地代码放到远程仓库)
+3、	在本地仓库获取同步最新远程仓库： 方法一：	git fetch 在本地仓库获取最新的代码同步（常用），检查更新，但并未改动本地文件；之后需要加上 git merge 才将本地仓库进行同步。 至此，修改全部结束。
+方法二：	直接 git pull 即可实现同步： (在本地pull远程仓库最新的代码到本地仓库，相当于 git fetch + git merge )
+4、 取消本地修改内容 git checkout -- filename filename填写需要撤销修改的文件名(需包含路径)，可以清空所修改内容
+git checkout .]]></description>
+</item>
+</channel>
+</rss>

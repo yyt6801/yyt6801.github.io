@@ -1,0 +1,46 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Software - 标签 - YYT6801&#39;s Blog</title>
+        <link>https://blog.yyt6801.top/tags/software/</link>
+        <description>Software - 标签 - YYT6801&#39;s Blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>yyt6801@gmail.com (YYT6801)</managingEditor>
+            <webMaster>yyt6801@gmail.com (YYT6801)</webMaster><lastBuildDate>Thu, 08 Dec 2022 17:49:05 &#43;0800</lastBuildDate><atom:link href="https://blog.yyt6801.top/tags/software/" rel="self" type="application/rss+xml" /><item>
+    <title>Useful Tools and Software</title>
+    <link>https://blog.yyt6801.top/posts/usefultools-and-software/</link>
+    <pubDate>Thu, 08 Dec 2022 17:49:05 &#43;0800</pubDate>
+    <author>YYT6801</author>
+    <guid>https://blog.yyt6801.top/posts/usefultools-and-software/</guid>
+    <description><![CDATA[那些超实用的程序清单(持续完善中) 搜索资源网站 搜索引擎 学习技术过程我们经常需要使用搜索引擎来检索资料，国内常用的也就是某度了。 当然有条件的话，搜索引擎首先还是推荐使用 Google，如果没办法使用，可以使用以下几个作为备用：
+Bing 国际版
+比某度好用，之前还被停用了几天，最近可以了。
+DuckDuckGo
+从官网的介绍来看这个搜索引擎不收集用户信息，而且没有广告。
+Stack Overflow
+我们如果常用 Google，很多技术问题的答案就在这个网站上，如果你无法使用 Google 可以在这个网站上直接检索就好了。
+Gitlogs
+Gitlogs 是专门针对 GitHub 项目的搜索引擎，我们通过他可以快速找到想要项目。
+资源搜索引擎 jiumo search文档搜索引擎 鸠摩搜书
+可以用来找一些技术文档手册，很多在百度网盘里。
+Ebooke
+Ebookee 是一个基于互联网并提供免费电子图书下载的搜索引擎网站。
+Iconfinder图标搜索
+用来查找 logo 图片。
+TinEye
+用图片来检索图片，我们可以上传图片或输入图片的 URL 来检索。
+SemanticScholar
+SemanticScholar 是一个免费学术搜索引擎，其检索结果来自于期刊、学术会议资料或者是学术机构的文献。
+LibreStock
+LibreStock 上可以检索一些优质的高清图片。
+CC Search
+CC Search 上搜索到的图片资源都是无版权的，我们可以免费的使用。
+Pexels
+高质量的图片网站，可以免费使用。
+Unsplash
+免费高清素材网站。
+The App Store
+The App Store 是一个针对苹果手机、iPad、Mac 设备的应用搜索工具。
+工具类 图片相关工具 TinyPNG 免费的在线图片压缩工具，压缩率高，无损画质，直接拖拽使用，很方便。
+picdiet 独特且强悍的JavaScript 算法，能极速压缩 80% 的图片大小，而不损害其质量。]]></description>
+</item>
+</channel>
+</rss>

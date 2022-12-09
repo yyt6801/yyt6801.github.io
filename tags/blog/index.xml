@@ -1,0 +1,16 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Blog - 标签 - YYT6801&#39;s Blog</title>
+        <link>https://blog.yyt6801.top/tags/blog/</link>
+        <description>Blog - 标签 - YYT6801&#39;s Blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>yyt6801@gmail.com (YYT6801)</managingEditor>
+            <webMaster>yyt6801@gmail.com (YYT6801)</webMaster><lastBuildDate>Thu, 01 Dec 2022 00:00:01 &#43;0800</lastBuildDate><atom:link href="https://blog.yyt6801.top/tags/blog/" rel="self" type="application/rss+xml" /><item>
+    <title>笔记整合记录</title>
+    <link>https://blog.yyt6801.top/posts/my-notes/</link>
+    <pubDate>Thu, 01 Dec 2022 00:00:01 &#43;0800</pubDate>
+    <author>YYT6801</author>
+    <guid>https://blog.yyt6801.top/posts/my-notes/</guid>
+    <description><![CDATA[需求：我的笔记需要有的功能 搜索查询 云同步 图片/文件 直接拖拽，无需oss 表格格式 代码格式化 解决方案：目前的笔记方案： 笔记使用Obsidian编辑 使用坚果云同步content文件夹 Hugo将笔记创建为静态Blog 将静态Blog 发布于 github pages ]]></description>
+</item>
+</channel>
+</rss>

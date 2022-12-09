@@ -6,10 +6,10 @@
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>yyt6801@gmail.com (YYT6801)</managingEditor>
             <webMaster>yyt6801@gmail.com (YYT6801)</webMaster><lastBuildDate>Thu, 01 Dec 2022 00:00:01 &#43;0800</lastBuildDate><atom:link href="https://blog.yyt6801.top/tags/ascii/" rel="self" type="application/rss+xml" /><item>
     <title>ASCII码值对照表</title>
-    <link>https://blog.yyt6801.top/posts/ascii%E7%A0%81%E9%94%AE%E5%80%BC%E7%A0%81/</link>
+    <link>https://blog.yyt6801.top/posts/ascii/</link>
     <pubDate>Thu, 01 Dec 2022 00:00:01 &#43;0800</pubDate>
     <author>YYT6801</author>
-    <guid>https://blog.yyt6801.top/posts/ascii%E7%A0%81%E9%94%AE%E5%80%BC%E7%A0%81/</guid>
+    <guid>https://blog.yyt6801.top/posts/ascii/</guid>
     <description><![CDATA[//这是整理之后的ASCII码对照表和键值码对照表
 ASCII码 Bin Dec Hex 缩写/字符 解释 00000000 0 00 NUL(null) 空字符 00000001 1 01 SOH(start of headling) 标题开始 00000010 2 02 STX (start of text) 正文开始 00000011 3 03 ETX (end of text) 正文结束 00000100 4 04 EOT (end of transmission) 传输结束 00000101 5 05 ENQ (enquiry) 请求 00000110 6 06 ACK (acknowledge) 收到通知 00000111 7 07 BEL (bell) 响铃 00001000 8 08 BS (backspace) 退格 00001001 9 09 HT (horizontal tab) 水平制表符 00001010 10 0A LF (NL line feed, new line) 换行键 00001011 11 0B VT (vertical tab) 垂直制表符 00001100 12 0C FF (NP form feed, new page) 换页键 00001101 13 0D CR (carriage return) 回车键 00001110 14 0E SO (shift out) 不用切换 00001111 15 0F SI (shift in) 启用切换 00010000 16 10 DLE (data link escape) 数据链路转义 00010001 17 11 DC1 (device control 1) 设备控制1 00010010 18 12 DC2 (device control 2) 设备控制2 00010011 19 13 DC3 (device control 3) 设备控制3 00010100 20 14 DC4 (device control 4) 设备控制4 00010101 21 15 NAK (negative acknowledge) 拒绝接收 00010110 22 16 SYN (synchronous idle) 同步空闲 00010111 23 17 ETB (end of trans.]]></description>
 </item>

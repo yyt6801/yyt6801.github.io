@@ -14,7 +14,7 @@
 6. 调试能力 Docker提供了很多的工具，这些工具不一定只是针对容器，但是却适用于容器。它们提供了很多的功能，包括可以为容器设置检查点、设置版本和查看两个容器之间的差别，这些特性可以帮助调试Bug。你可以在《Docker拯救世界》的文章中找到这一点的例证。
 7. 多租户环境 另外一个Docker有意思的使用场景是在多租户的应用中，它可以避免关键应用的重写。我们一个特别的关于这个场景的例子是为IoT（物联网）的应用开发一个快速、易用的多租户环境。这种多租户的基本代码非常复杂，很难处理，重新规划这样一个应用不但消耗时间，也浪费金钱。 使用Docker，可以为每一个租户的应用层的多个实例创建隔离的环境，这不仅简单而且成本低廉，当然这一切得益于Docker环境的启动速度和其高效的diff命令。
 8. 快速部署 在虚拟机之前，引入新的硬件资源需要消耗几天的时间。虚拟化技术（Virtualization）将这个时间缩短到了分钟级别。而Docker通过为进程仅仅创建一个容器而无需启动一个操作系统，再次将这个过程缩短到了秒级。这正是Google和Facebook都看重的特性。 你可以在数据中心创建销毁资源而无需担心重新启动带来的开销。通常数据中心的资源利用率只有30%，通过使用Docker并进行有效的资源分配可以提高资源的利用率。
-docker使用基本操作 开启docker服务 sudo service docker start搜索镜像 docker search mongo拉取镜像到本地 docker pull mongodocker pull mysql:5.6 拉取5.6版本的mysql镜像查看所有镜像 docker images -a把镜像做成容器并运行 docker run --name mongodb -v ~/docker/mongo:/data/db -p 27017:27017 -d mongo通过在创建容器时设置MONGO_INITDB_ROOT_USERNAME和MONGODB_INITDB_ROOT_PASSWORD环境变量来添加初始用户帐户 docker run -d --name mongodb -v /mydata/mongodb/datadb:/data/db -p 27017:27017 -e MONGO_INITDB_ROOT_USERNAME=admin -e MONGO_INITDB_ROOT_PASSWORD=admin --privileged=true mongo 运行mysql5." />
+docker使用基本操作 开启docker服务 sudo service docker start 搜索镜像 docker search mongo 拉取镜像到本地 docker pull mongo docker pull mysql:5.6 拉取5.6版本的mysql镜像 查看所有镜像 docker images -a 把镜像做成容器并运行 docker run --name mongodb -v ~/docker/mongo:/data/db -p 27017:27017 -d mongo 通过在创建容器时设置MONGO_INITDB_ROOT_USERNAME和MONGODB_INITDB_ROOT_PASSWORD环境变量来添加初始用户帐户 docker run -d --name mongodb -v /mydata/mongodb/datadb:/data/db -p 27017:27017 -e MONGO_INITDB_ROOT_USERNAME=admin -e MONGO_INITDB_ROOT_PASSWORD=admin --privileged=true mongo 运行mysql5." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://blog.yyt6801.top/posts/docker-basic-operation-guide/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2022-12-01T01:00:00+00:00" />
@@ -31,9 +31,9 @@ docker使用基本操作 开启docker服务 sudo service docker start搜索镜�
 6. 调试能力 Docker提供了很多的工具，这些工具不一定只是针对容器，但是却适用于容器。它们提供了很多的功能，包括可以为容器设置检查点、设置版本和查看两个容器之间的差别，这些特性可以帮助调试Bug。你可以在《Docker拯救世界》的文章中找到这一点的例证。
 7. 多租户环境 另外一个Docker有意思的使用场景是在多租户的应用中，它可以避免关键应用的重写。我们一个特别的关于这个场景的例子是为IoT（物联网）的应用开发一个快速、易用的多租户环境。这种多租户的基本代码非常复杂，很难处理，重新规划这样一个应用不但消耗时间，也浪费金钱。 使用Docker，可以为每一个租户的应用层的多个实例创建隔离的环境，这不仅简单而且成本低廉，当然这一切得益于Docker环境的启动速度和其高效的diff命令。
 8. 快速部署 在虚拟机之前，引入新的硬件资源需要消耗几天的时间。虚拟化技术（Virtualization）将这个时间缩短到了分钟级别。而Docker通过为进程仅仅创建一个容器而无需启动一个操作系统，再次将这个过程缩短到了秒级。这正是Google和Facebook都看重的特性。 你可以在数据中心创建销毁资源而无需担心重新启动带来的开销。通常数据中心的资源利用率只有30%，通过使用Docker并进行有效的资源分配可以提高资源的利用率。
-docker使用基本操作 开启docker服务 sudo service docker start搜索镜像 docker search mongo拉取镜像到本地 docker pull mongodocker pull mysql:5.6 拉取5.6版本的mysql镜像查看所有镜像 docker images -a把镜像做成容器并运行 docker run --name mongodb -v ~/docker/mongo:/data/db -p 27017:27017 -d mongo通过在创建容器时设置MONGO_INITDB_ROOT_USERNAME和MONGODB_INITDB_ROOT_PASSWORD环境变量来添加初始用户帐户 docker run -d --name mongodb -v /mydata/mongodb/datadb:/data/db -p 27017:27017 -e MONGO_INITDB_ROOT_USERNAME=admin -e MONGO_INITDB_ROOT_PASSWORD=admin --privileged=true mongo 运行mysql5."/>
+docker使用基本操作 开启docker服务 sudo service docker start 搜索镜像 docker search mongo 拉取镜像到本地 docker pull mongo docker pull mysql:5.6 拉取5.6版本的mysql镜像 查看所有镜像 docker images -a 把镜像做成容器并运行 docker run --name mongodb -v ~/docker/mongo:/data/db -p 27017:27017 -d mongo 通过在创建容器时设置MONGO_INITDB_ROOT_USERNAME和MONGODB_INITDB_ROOT_PASSWORD环境变量来添加初始用户帐户 docker run -d --name mongodb -v /mydata/mongodb/datadb:/data/db -p 27017:27017 -e MONGO_INITDB_ROOT_USERNAME=admin -e MONGO_INITDB_ROOT_PASSWORD=admin --privileged=true mongo 运行mysql5."/>
 <meta name="application-name" content="YYT6801&#39;s Blog">
-<meta name="apple-mobile-web-app-title" content="YYT6801&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="/images/me.jpg"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://blog.yyt6801.top/posts/docker-basic-operation-guide/" /><link rel="prev" href="https://blog.yyt6801.top/posts/git-basic-operation-guide/" /><link rel="next" href="https://blog.yyt6801.top/posts/url%E7%BC%96%E7%A0%81%E8%A1%A8/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<meta name="apple-mobile-web-app-title" content="YYT6801&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="/images/me.jpg"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://blog.yyt6801.top/posts/docker-basic-operation-guide/" /><link rel="prev" href="https://blog.yyt6801.top/posts/git-basic-operation-guide/" /><link rel="next" href="https://blog.yyt6801.top/posts/usefultools-and-software/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
         <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
         <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
     {
@@ -44,7 +44,7 @@ docker使用基本操作 开启docker服务 sudo service docker start搜索镜�
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/blog.yyt6801.top\/posts\/docker-basic-operation-guide\/"
-        },"genre": "posts","wordcount":  355 ,
+        },"genre": "posts","keywords": "Docker","wordcount":  355 ,
         "url": "https:\/\/blog.yyt6801.top\/posts\/docker-basic-operation-guide\/","datePublished": "2022-12-01T01:00:00+00:00","dateModified": "2022-12-01T01:00:00+00:00","publisher": {
             "@type": "Organization",
             "name": "yyt6801"},"author": {
@@ -117,7 +117,7 @@ docker使用基本操作 开启docker服务 sudo service docker start搜索镜�
             <h2 class="toc-title">目录</h2>
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Docker常用操作</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="https://blog.yyt6801.top/" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>YYT6801</a></span></div>
+            <div class="post-meta-line"><span class="post-author"><a href="https://blog.yyt6801.top/" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>YYT6801</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>计算机基础知识</a>&nbsp;<a href="/categories/%E5%B7%A5%E5%85%B7/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>工具</a></span></div>
             <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-12-01">2022-12-01</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 355 字&nbsp;
                 <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 2 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
@@ -127,7 +127,7 @@ docker使用基本操作 开启docker服务 sudo service docker start搜索镜�
                 </div>
                 <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
-    <li>
+    <li><a href="#docker-使用场景">docker 使用场景:</a>
       <ul>
         <li><a href="#1-简化配置">1. 简化配置</a></li>
         <li><a href="#2-代码流水线code-pipeline管理">2. 代码流水线（Code Pipeline）管理</a></li>
@@ -170,7 +170,7 @@ docker使用基本操作 开启docker服务 sudo service docker start搜索镜�
     </li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><h1 id="docker-使用场景">docker 使用场景:</h1>
+            </div><div class="content" id="content"><h2 id="docker-使用场景">docker 使用场景:</h2>
 <p>Docker提供了轻量级的虚拟化，它几乎没有任何额外开销，这个特性非常酷。
 首先你在享有Docker带来的虚拟化能力的时候无需担心它带来的额外开销。其次，相比于虚拟机，你可以在同一台机器上创建更多数量的容器。
 Docker的另外一个优点是容器的启动与停止都能在几秒中内完成。</p>
@@ -330,14 +330,14 @@ commit镜像：docker commit &lt;container id(不用打全，前缀区分)&gt;  
     </div>
 
     <div class="post-info-more">
-        <section class="post-tags"></section>
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/docker/">Docker</a></section>
         <section>
             <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
         </section>
     </div>
 
     <div class="post-nav"><a href="/posts/git-basic-operation-guide/" class="prev" rel="prev" title="Git常用操作"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Git常用操作</a>
-            <a href="/posts/url%E7%BC%96%E7%A0%81%E8%A1%A8/" class="next" rel="next" title="URL编码表">URL编码表<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+            <a href="/posts/usefultools-and-software/" class="next" rel="next" title="Useful Tools and Software">Useful Tools and Software<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
 </div>
 </article></div>
             </main><footer class="footer">
