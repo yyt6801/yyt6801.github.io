@@ -44,7 +44,7 @@ git checkout ."/>
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/blog.yyt6801.top\/posts\/git-basic-operation-guide\/"
-        },"genre": "posts","keywords": "Git","wordcount":  355 ,
+        },"genre": "posts","keywords": "Git","wordcount":  364 ,
         "url": "https:\/\/blog.yyt6801.top\/posts\/git-basic-operation-guide\/","datePublished": "2022-12-01T00:00:00+00:00","dateModified": "2022-12-01T00:00:00+00:00","publisher": {
             "@type": "Organization",
             "name": "yyt6801"},"author": {
@@ -118,7 +118,7 @@ git checkout ."/>
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Git常用操作</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://blog.yyt6801.top/" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>YYT6801</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>计算机基础知识</a>&nbsp;<a href="/categories/%E5%B7%A5%E5%85%B7/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>工具</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-12-01">2022-12-01</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 355 字&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-12-01">2022-12-01</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 364 字&nbsp;
                 <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 2 分钟&nbsp;<span id="/posts/git-basic-operation-guide/" class="leancloud_visitors" data-flag-title="Git常用操作">
                         <i class="far fa-eye fa-fw" aria-hidden="true"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
                     </span>&nbsp;</div>
@@ -141,7 +141,7 @@ git checkout ."/>
       </ul>
     </li>
     <li><a href="#git分支操作">git分支操作：</a></li>
-    <li><a href="#回退命令git-reset">回退命令git reset：</a></li>
+    <li><a href="#撤回已经提交的commit-回退命令git-reset">撤回已经提交的commit 回退命令git reset：</a></li>
     <li><a href="#修改已提交命令git-rebase">修改已提交命令git rebase：</a></li>
     <li><a href="#git-基本操作注意点总结">git 基本操作注意点总结:</a></li>
   </ul>
@@ -164,11 +164,17 @@ e)	<code>git push</code> (把本地代码放到远程仓库)</p>
 <hr>
 <h2 id="将本地代码上传到git新仓库中">将本地代码上传到git新仓库中</h2>
 <p>1.本地仓库中添加Readme.md文件和.gitignore文件<br>
-2.初始化仓库 <code>git init</code><br>
-3.添加当前目录下的所有文件到暂存区： <code>git add . </code><br>
-4.将暂存区内容添加到本地仓库中。： <code>git commit -m &quot;first commit&quot;</code><br>
-5.将本地仓库和github远程仓库绑定：<code>git remote add origin https://github.com/....git</code><br>
-6.提交至远程仓库：<code>git push -u origin main</code></p>
+2.初始化仓库
+<code>git init</code><br>
+3.添加当前目录下的所有文件到暂存区：
+<code>git add . </code><br>
+4.将暂存区内容添加到本地仓库中。：
+<code>git commit -m &quot;first commit&quot;</code><br>
+5.将本地仓库和github远程仓库绑定：
+<code>git remote add origin https://github.com/....git</code><br>
+6.提交至远程仓库：
+<code>git push -u origin main</code><br>
+<code>git push --set-upstream origin master</code></p>
 <hr>
 <hr>
 <h2 id="在新环境中与仓库连接">在新环境中与仓库连接:</h2>
@@ -213,8 +219,8 @@ e)	<code>git push</code> (把本地代码放到远程仓库)</p>
 <code>$ git push</code>  把当前的修改push到远程仓库中</p>
 <hr>
 <hr>
-<h2 id="回退命令git-reset">回退命令git reset：</h2>
-<p><code>$ git reset --hard HEAD^ </code>        回退到上个版本<br>
+<h2 id="撤回已经提交的commit-回退命令git-reset">撤回已经提交的commit 回退命令git reset：</h2>
+<p><code>$ git reset --hard HEAD^ </code>        回退到上个版本 ，用于撤回已经提交的commit但还未push的提交；如果想要连着add也撤销的话，–soft改为–hard（删除工作空间的改动代码）
 <code>$ git reset --hard HEAD~3  </code>      回退到前3次提交之前，以此类推，回退到n次提交之前<br>
 <code>$ git reset --hard commit_id </code>    	 退到/进到 指定commit的sha码</p>
 <hr>
@@ -280,7 +286,7 @@ drop：我要丢弃该commit（缩写：d）
                 Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
             </noscript></div></article></div>
             </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://blog.yyt6801.top/" target="_blank">YYT6801</a></span></div>
+        <div class="footer-container"><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://blog.yyt6801.top/" target="_blank">YYT6801</a></span></div>
         </div>
     </footer></div>
 
