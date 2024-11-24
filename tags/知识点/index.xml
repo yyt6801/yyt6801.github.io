@@ -1,36 +1,23 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
-    <channel>
-        <title>知识点 - 标签 - YYT6801&#39;s Blog</title>
-        <link>https://blog.yyt6801.top/tags/%E7%9F%A5%E8%AF%86%E7%82%B9/</link>
-        <description>知识点 - 标签 - YYT6801&#39;s Blog</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>yyt6801@gmail.com (YYT6801)</managingEditor>
-            <webMaster>yyt6801@gmail.com (YYT6801)</webMaster><lastBuildDate>Wed, 14 Dec 2022 14:46:55 &#43;0800</lastBuildDate><atom:link href="https://blog.yyt6801.top/tags/%E7%9F%A5%E8%AF%86%E7%82%B9/" rel="self" type="application/rss+xml" /><item>
-    <title>Practical configuration of Nginx</title>
-    <link>https://blog.yyt6801.top/posts/nginx/</link>
-    <pubDate>Wed, 14 Dec 2022 14:46:55 &#43;0800</pubDate>
-    <author>YYT6801</author>
-    <guid>https://blog.yyt6801.top/posts/nginx/</guid>
-    <description><![CDATA[Nginx操作 1.启动nginx:
-在nginx的安装目录
-start nginx 或 nginx.exe
-2.停止nginx
-(stop是快速停止nginx，可能并不保存相关信息；quit是完整有序的停止nginx，并保存相关信息)
-nginx.exe -s stop 或 nginx.exe -s quit
-3.检查 重启：
-nginx -t 修改nginx配置后执行检查配置是否正确
-nginx -s reload 重启nginx]]></description>
-</item>
-<item>
-    <title>my Learn Notes</title>
-    <link>https://blog.yyt6801.top/posts/my-learn-notes/</link>
-    <pubDate>Thu, 08 Dec 2022 17:49:05 &#43;0800</pubDate>
-    <author>YYT6801</author>
-    <guid>https://blog.yyt6801.top/posts/my-learn-notes/</guid>
-    <description><![CDATA[BUPT&mdash; 803计算机学科基础综合 试卷内容结构 数据结构 45分 计算机组成原理 45分 操作系统 35分 计算机网络 25分
-试卷题型结构 单项选择题 80分 (40小题，每小题2分) 综合应用题 70分
-选择40道(80') 分值构成: 1~11 数据结构22&rsquo; (112) 12~22 计算机组成原理22&rsquo; (112) 23~33 操作系统20&rsquo; (102) 33~40 计算机网络16&rsquo; (82)
-大题共有7道题:(70') 分值构成: 2018: 10+13+11+12+7+8+9 2017: 10+13+11+12+7+8+9 2016: 8+15+11+12+7+8+9 41,42&mdash;数据结构23' 43,44&mdash;计算机组成原理23' 45,46&mdash;操作系统15' 47&mdash;计算机网络9'
-大题前两道-数据结构题: 2018(10&rsquo;) 1.队列顺序存储-假溢出-解决方法,队列当前长度,判定队空/队满 2018(13&rsquo;) 2.设计算法&mdash;哈系表存储-哈系函数-链地址法处理冲突-设计哈系表的初始化,插入元素和删除元素的算法 2017(10&rsquo;) 有向图::有向图描述，两定点间的权值，画有向图，迪杰斯特拉算法求顶点到顶点的最短距离 2017(13&rsquo;) 设计算法&mdash;Search_Insert非空二叉排序树-查找元素值为e的结点,若存在则返回指针,若不存在则插入一个元素值为e的新结点,并返回新结点的指针 2016(8&rsquo;) 二叉树-先序-中序-后序;画二叉树 2016(15&rsquo;) 设计算法&mdash;邻接矩阵-顶点到顶点有边：求矩阵的传递包：使得若从顶点到顶点有一条或多条路径 大题43,44-计算机组成原理题: 2018(11&rsquo;) 主存地址空间-字节编址-指令Cache和数据Cache分离,数据Cache采用直接映射&hellip;&hellip;&hellip;.补码,行优先存放/列优先存放,主存块对应的Cache行号 2016年803学科综合计算机(个人整理历年考点汇总) 知识点： 数据的存储结构术语： 循环队列？线索树？栈？数组？ 栈-栈满条件 带头节点-单循环链表-非空队列，队列指针，新元素结点， 模式串-nextval数组值 关键字的3阶B树，关键字的结点个数 关键路径-AOE网络， 源点-汇点，最长回路-最短回路 强连通图-边数 顺序存储结构排序算法-关键字比较次数-元素初始排列次序，快速排序、堆排序、直接插入排序、简单选择排序 堆排序-初始堆 二叉排序树-平均查找长度-数量级，顺序查找、折半查找、分块查找 冯·诺依曼计算机-特点： 二进制？存储程序？控制流驱动方式？数据流驱动方式？ 8位计算机存储器按字节编码-存储器单元的值，补码？负数？值？ IEEE754浮点数格式，？尾数-阶码-补码-规格化数-非规格化数？ 八体低位交叉存储器，容量-存储周期-最大带宽 八路组相联Cache块-主存块-字节-标记、组号、块内地址 累加器-堆栈指示器-栈顶单元，进栈操作顺序-出栈操作顺序 四级流水线-浮点加法器-流水线时钟周期-不是流水线方式所需时间 PCI总线特性， 进程从运行状态转为就绪状态的条件 进程-线程 单处理器并发执行进程-最小平均等待时间 分页内存管理系统-物理内存空间大小-逻辑地址空间-页面大小-页表进行逻辑地址到物理地址，定义页框（帧）号的位数 I/O设备中引入缓冲机制的目的 死锁问题处理机制-银行家算法 位图管理磁盘自由空间-磁盘块-位图占用字节数 CPU调度算法-硬实时系统 硬盘调度算法-先来先服务磁盘调度算法（FCFS） UDP-七层参考模型 带宽-信道-二进制信号-信噪比-最大传输速率 信道噪音-数据链路层成帧方法 链路状态路由选择协议 IP-子网掩码-广播数据-IP数据报目的地址 IPv6地址长度 TCP协议-慢启动算法 DNS]]></description>
-</item>
-</channel>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>知识点 - 标签 - YYT6801&#39;s Blog</title>
+    <link>https://blog.yyt6801.top/tags/%E7%9F%A5%E8%AF%86%E7%82%B9/</link>
+    <description>YYT6801&#39;s Blog</description>
+    <generator>Hugo 0.139.2 &amp; FixIt v0.3.15</generator>
+    <language>zh-CN</language>
+    <managingEditor>yyt6801@gmail.com (YYT6801)</managingEditor>
+    <webMaster>yyt6801@gmail.com (YYT6801)</webMaster>
+    <copyright>YYT6801</copyright>
+    <lastBuildDate>Wed, 14 Dec 2022 14:46:55 +0800</lastBuildDate>
+    <atom:link href="https://blog.yyt6801.top/tags/%E7%9F%A5%E8%AF%86%E7%82%B9/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Nginx常用配置</title>
+      <link>https://blog.yyt6801.top/posts/nginx%E5%B8%B8%E7%94%A8%E9%85%8D%E7%BD%AE/</link>
+      <pubDate>Wed, 14 Dec 2022 14:46:55 +0800</pubDate><author>yyt6801@gmail.com (YYT6801)</author>
+      <guid>https://blog.yyt6801.top/posts/nginx%E5%B8%B8%E7%94%A8%E9%85%8D%E7%BD%AE/</guid>
+      <category domain="https://blog.yyt6801.top/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</category>
+      <description>&lt;h3 id=&#34;nginx操作&#34; class=&#34;heading-element&#34;&gt;&lt;span&gt;Nginx操作&lt;/span&gt;&#xA;  &lt;a href=&#34;#nginx%e6%93%8d%e4%bd%9c&#34; class=&#34;heading-mark&#34;&gt;&#xA;    &lt;svg class=&#34;octicon octicon-link&#34; viewBox=&#34;0 0 16 16&#34; version=&#34;1.1&#34; width=&#34;16&#34; height=&#34;16&#34; aria-hidden=&#34;true&#34;&gt;&lt;path d=&#34;m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z&#34;&gt;&lt;/path&gt;&lt;/svg&gt;&#xA;  &lt;/a&gt;&#xA;&lt;/h3&gt;&lt;ul&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;1.启动nginx:&lt;br&gt;&#xA;在nginx的安装目录&lt;br&gt;&#xA;&lt;code&gt;start nginx 或 nginx.exe&lt;/code&gt;&lt;/p&gt;</description>
+    </item>
+  </channel>
 </rss>
