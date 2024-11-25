@@ -1,7 +1,7 @@
 {
 	"version": 3,
 	"file": "style.min.css",
-	"sourceRoot": "F:/002Dev/github/github.io/myblog/my-blog",
+	"sourceRoot": "C:/Users/Administrator/Desktop/git/my-blog",
 	"sources": [
 		"themes/FixIt/assets/css/style.scss",
 		"themes/FixIt/assets/css/_variables.scss",

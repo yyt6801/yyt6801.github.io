@@ -37,19 +37,13 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://blog.yyt6801.top/tags/%E5%AD%A6%E4%B9%A0/</loc>
+    <loc>https://blog.yyt6801.top/tags/%E5%B7%A5%E5%85%B7/</loc>
     <lastmod>2022-12-14T14:46:55+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://blog.yyt6801.top/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</loc>
-    <lastmod>2022-12-14T14:46:55+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://blog.yyt6801.top/tags/%E7%9F%A5%E8%AF%86%E7%82%B9/</loc>
+    <loc>https://blog.yyt6801.top/categories/%E5%B7%A5%E5%85%B7/</loc>
     <lastmod>2022-12-14T14:46:55+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -140,12 +134,6 @@
   </url>
   <url>
     <loc>https://blog.yyt6801.top/posts/docker%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/</loc>
-    <lastmod>2022-12-01T01:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://blog.yyt6801.top/categories/%E5%B7%A5%E5%85%B7/</loc>
     <lastmod>2022-12-01T01:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
