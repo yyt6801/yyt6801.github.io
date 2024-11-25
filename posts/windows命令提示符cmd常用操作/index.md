@@ -71,5 +71,5 @@ exit
 ---
 
 > 作者: [YYT6801](https://blog.yyt6801.top/)  
-> URL: http://localhost:1313/posts/windows%E5%91%BD%E4%BB%A4%E6%8F%90%E7%A4%BA%E7%AC%A6cmd%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/  
+> URL: https://blog.yyt6801.top/posts/windows%E5%91%BD%E4%BB%A4%E6%8F%90%E7%A4%BA%E7%AC%A6cmd%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/  
 

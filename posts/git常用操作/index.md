@@ -141,5 +141,5 @@ ssh key是连接你的电脑和GitHub服务器的一把钥匙，只有两者建�
 ---
 
 > 作者: [YYT6801](https://blog.yyt6801.top/)  
-> URL: http://localhost:1313/posts/git%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/  
+> URL: https://blog.yyt6801.top/posts/git%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/  
 
