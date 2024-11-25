@@ -231,5 +231,5 @@ HTML、CSS、JS、设计类的工具
 ---
 
 > 作者: [YYT6801](https://blog.yyt6801.top/)  
-> URL: https://blog.yyt6801.top/posts/%E8%B5%84%E6%BA%90%E8%BD%AF%E4%BB%B6%E5%B7%A5%E5%85%B7%E8%B5%84%E6%BA%90%E6%B8%85%E5%8D%95/  
+> URL: http://localhost:1313/posts/%E8%B5%84%E6%BA%90%E8%BD%AF%E4%BB%B6%E5%B7%A5%E5%85%B7%E8%B5%84%E6%BA%90%E6%B8%85%E5%8D%95/  
 

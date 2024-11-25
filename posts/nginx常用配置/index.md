@@ -17,5 +17,5 @@
 ---
 
 > 作者: [YYT6801](https://blog.yyt6801.top/)  
-> URL: https://blog.yyt6801.top/posts/nginx%E5%B8%B8%E7%94%A8%E9%85%8D%E7%BD%AE/  
+> URL: http://localhost:1313/posts/nginx%E5%B8%B8%E7%94%A8%E9%85%8D%E7%BD%AE/  
 
