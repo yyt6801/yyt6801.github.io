@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <head>
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+    <meta name="robots" content="noodp" />
+    <title>MongoDB常用操作 - YYT6801&#39;s Blog</title><meta name="author" content="YYT6801">
+<meta name="description" content="MongoDB是Nosql数据库，以文档形式存储，适合大规模非关系型数据归档。
+MongoDB与关系型数据库的对应关系： SQL MongoDB 备注 database database 数据库 table collection 表 -&gt; 集合 row document 某条数据记录 -&gt; 文档 column field 字段 -&gt; 域/键 MongoDB安装 MongoDB目录中新建data文件夹，data中新建db和log文件夹 mongod.cfg中配置数据保存路径（db）、日志目录（log）
+安装命令：
+mongod
+&ndash;bind_ip 0.0.0.0
+&ndash;logpath c:\MongoD..log文件的路径
+&ndash;logappend
+&ndash;dbpath c:\MongoD…data\db文件夹路径
+&ndash;port 27017
+&ndash;serviceName &ldquo;MongoDB&rdquo;
+&ndash;serviceDisplayName &ldquo;MongoDB&rdquo;
+&ndash;install
+"><meta name="keywords" content='MongoDB, 数据库'>
+  <meta itemprop="name" content="MongoDB常用操作">
+  <meta itemprop="description" content="MongoDB是Nosql数据库，以文档形式存储，适合大规模非关系型数据归档。
+MongoDB与关系型数据库的对应关系： SQL MongoDB 备注 database database 数据库 table collection 表 -&gt; 集合 row document 某条数据记录 -&gt; 文档 column field 字段 -&gt; 域/键 MongoDB安装 MongoDB目录中新建data文件夹，data中新建db和log文件夹 mongod.cfg中配置数据保存路径（db）、日志目录（log）
+安装命令：
+mongod
+–bind_ip 0.0.0.0
+–logpath c:\MongoD..log文件的路径
+–logappend
+–dbpath c:\MongoD…data\db文件夹路径
+–port 27017
+–serviceName “MongoDB”
+–serviceDisplayName “MongoDB”
+–install">
+  <meta itemprop="datePublished" content="2024-12-08T09:35:55+08:00">
+  <meta itemprop="dateModified" content="2024-12-08T09:35:55+08:00">
+  <meta itemprop="wordCount" content="68">
+  <meta itemprop="keywords" content="MongoDB,数据库"><meta property="og:url" content="https://blog.yyt6801.top/posts/mongodb%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/">
+  <meta property="og:site_name" content="YYT6801&#39;s Blog">
+  <meta property="og:title" content="MongoDB常用操作">
+  <meta property="og:description" content="MongoDB是Nosql数据库，以文档形式存储，适合大规模非关系型数据归档。
+MongoDB与关系型数据库的对应关系： SQL MongoDB 备注 database database 数据库 table collection 表 -&gt; 集合 row document 某条数据记录 -&gt; 文档 column field 字段 -&gt; 域/键 MongoDB安装 MongoDB目录中新建data文件夹，data中新建db和log文件夹 mongod.cfg中配置数据保存路径（db）、日志目录（log）
+安装命令：
+mongod
+–bind_ip 0.0.0.0
+–logpath c:\MongoD..log文件的路径
+–logappend
+–dbpath c:\MongoD…data\db文件夹路径
+–port 27017
+–serviceName “MongoDB”
+–serviceDisplayName “MongoDB”
+–install">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2024-12-08T09:35:55+08:00">
+    <meta property="article:modified_time" content="2024-12-08T09:35:55+08:00">
+    <meta property="article:tag" content="MongoDB">
+    <meta property="article:tag" content="数据库">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="MongoDB常用操作">
+  <meta name="twitter:description" content="MongoDB是Nosql数据库，以文档形式存储，适合大规模非关系型数据归档。
+MongoDB与关系型数据库的对应关系： SQL MongoDB 备注 database database 数据库 table collection 表 -&gt; 集合 row document 某条数据记录 -&gt; 文档 column field 字段 -&gt; 域/键 MongoDB安装 MongoDB目录中新建data文件夹，data中新建db和log文件夹 mongod.cfg中配置数据保存路径（db）、日志目录（log）
+安装命令：
+mongod
+–bind_ip 0.0.0.0
+–logpath c:\MongoD..log文件的路径
+–logappend
+–dbpath c:\MongoD…data\db文件夹路径
+–port 27017
+–serviceName “MongoDB”
+–serviceDisplayName “MongoDB”
+–install">
+<meta name="application-name" content="YYT">
+<meta name="apple-mobile-web-app-title" content="YYT"><meta name="theme-color" data-light="#f8f8f8" data-dark="#252627" content="#f8f8f8"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" type="text/html" href="https://blog.yyt6801.top/posts/mongodb%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/" title="MongoDB常用操作 - YYT6801&#39;s Blog" /><link rel="prev" type="text/html" href="https://blog.yyt6801.top/posts/oracle_operation/" title="Oracle操作维护手册" /><link rel="next" type="text/html" href="https://blog.yyt6801.top/posts/markdown%E8%AF%AD%E6%B3%95/" title="Markdown语法" /><link rel="alternate" type="text/markdown" href="https://blog.yyt6801.top/posts/mongodb%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/index.md" title="MongoDB常用操作 - YYT6801's Blog"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "headline": "MongoDB常用操作",
+    "inLanguage": "zh-CN",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https:\/\/blog.yyt6801.top\/posts\/mongodb%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C\/"
+    },"genre": "posts","keywords": "MongoDB, 数据库","wordcount":  68 ,
+    "url": "https:\/\/blog.yyt6801.top\/posts\/mongodb%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C\/","datePublished": "2024-12-08T09:35:55+08:00","dateModified": "2024-12-08T09:35:55+08:00","license": "YYT6801","publisher": {
+      "@type": "Organization",
+      "name": ""},"author": {
+        "@type": "Person",
+        "name": "YYT6801"
+      },"description": ""
+  }
+  </script><script src="/js/head/color-scheme.min.js"></script></head>
+  <body data-header-desktop="auto" data-header-mobile="auto"><div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
+  <div class="header-wrapper">
+    <div class="header-title">
+      <a href="/" title="YYT6801&#39;s Blog"><span class="header-title-text">Yuán</span></a><span class="header-subtitle"></span></div>
+    <nav>
+      <ul class="menu"><li class="menu-item">
+              <a class="menu-link" href="/" title="Blog首页"><i class='fa fa-home'></i> 首页</a></li><li class="menu-item">
+              <a class="menu-link" href="/archives/" title="文章列表"><i class="fa-solid fa-archive fa-fw fa-sm" aria-hidden="true"></i> 文章</a></li><li class="menu-item">
+              <a class="menu-link" href="/categories/" title="分类展示"><i class="fa-solid fa-folder-tree fa-fw fa-sm" aria-hidden="true"></i> 分类</a></li><li class="menu-item">
+              <a class="menu-link" href="/tags/" title="分标签展示"><i class="fa-solid fa-tags fa-fw fa-sm" aria-hidden="true"></i> 标签</a></li><li class="menu-item">
+              <a class="menu-link" href="/about/" title="关于我"><i class='fa fa-heart'></i> 关于</a></li><li class="menu-item delimiter"></li><li class="menu-item search" id="search-desktop">
+            <input type="text" placeholder="搜一下试试" id="search-input-desktop">
+            <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+              <i class="fa-solid fa-search fa-fw" aria-hidden="true"></i>
+            </a>
+            <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+              <i class="fa-solid fa-times-circle fa-fw" aria-hidden="true"></i>
+            </a>
+            <span class="search-button search-loading" id="search-loading-desktop">
+              <i class="fa-solid fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+            </span>
+          </li><li class="menu-item theme-switch" title="切换主题">
+          <i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i>
+        </li></ul>
+    </nav>
+  </div>
+</header><header class="mobile animate__faster" id="header-mobile">
+  <div class="header-container">
+    <div class="header-wrapper">
+      <div class="header-title">
+        <a href="/" title="YYT6801&#39;s Blog"><span class="header-title-text">Yuán</span></a><span class="header-subtitle"></span></div>
+      <div class="menu-toggle" id="menu-toggle-mobile">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+    <nav>
+      <ul class="menu" id="menu-mobile"><li class="search-wrapper">
+            <div class="search mobile" id="search-mobile">
+              <input type="text" placeholder="搜一下试试" id="search-input-mobile">
+              <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                <i class="fa-solid fa-search fa-fw" aria-hidden="true"></i>
+              </a>
+              <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                <i class="fa-solid fa-times-circle fa-fw" aria-hidden="true"></i>
+              </a>
+              <span class="search-button search-loading" id="search-loading-mobile">
+                <i class="fa-solid fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+              </span>
+            </div>
+            <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+              取消
+            </a>
+          </li><li class="menu-item"><a class="menu-link" href="/" title="Blog首页"><i class='fa fa-home'></i> 首页</a></li><li class="menu-item"><a class="menu-link" href="/archives/" title="文章列表"><i class="fa-solid fa-archive fa-fw fa-sm" aria-hidden="true"></i> 文章</a></li><li class="menu-item"><a class="menu-link" href="/categories/" title="分类展示"><i class="fa-solid fa-folder-tree fa-fw fa-sm" aria-hidden="true"></i> 分类</a></li><li class="menu-item"><a class="menu-link" href="/tags/" title="分标签展示"><i class="fa-solid fa-tags fa-fw fa-sm" aria-hidden="true"></i> 标签</a></li><li class="menu-item"><a class="menu-link" href="/about/" title="关于我"><i class='fa fa-heart'></i> 关于</a></li><li class="menu-item menu-system">
+          <span class="menu-system-item theme-switch" title="切换主题"><i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i></span></li>
+      </ul>
+    </nav>
+  </div>
+</header><div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+  </div>
+  <div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+  </div><nav aria-label="breadcrumb" class="breadcrumb-container">
+    <ol class="breadcrumb"><li class="breadcrumb-item" data-separator="/"><a href="/" title="YYT6801&#39;s Blog">主页</a></li><li class="breadcrumb-item" data-separator="/"><a href="/posts/" title="Posts">文章</a></li><li class="breadcrumb-item active" data-separator="/" aria-current="page">MongoDB常用操作</li>
+    </ol>
+  </nav><main class="container"><aside class="aside-collection animate__animated animate__fadeIn animate__faster" aria-label="合集"></aside>
+
+  <article class="page single">
+    <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>MongoDB常用操作</span>
+      </h1></div><div class="post-meta">
+      <div class="post-meta-line"><span class="post-author"><a href="https://blog.yyt6801.top/" title="作者"target="_blank" rel="external nofollow noopener noreferrer author" class="author"><i class="fa-solid fa-user-circle" aria-hidden="true"></i>
+    YYT6801</a></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="post-category" title="分类 - 学习笔记"><i class="fa-regular fa-folder fa-fw" aria-hidden="true"></i> 学习笔记</a></span></div><div class="post-meta-line"><span title="发布于 2024-12-08 09:35:55"><i class="fa-solid fa-calendar-days fa-fw me-1" aria-hidden="true"></i><time datetime="2024-12-08">2024-12-08</time></span>&nbsp;<span title="68 字"><i class="fa-solid fa-pencil-alt fa-fw me-1" aria-hidden="true"></i>约 100 字</span>&nbsp;<span><i class="fa-regular fa-clock fa-fw me-1" aria-hidden="true"></i>预计阅读 1 分钟</span>&nbsp;</div>
+    </div><div class="details toc" id="toc-static" data-kept="false">
+        <div class="details-summary toc-title">
+          <span>目录</span>
+          <span><i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></span>
+        </div>
+        <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#mongodb与关系型数据库的对应关系">MongoDB与关系型数据库的对应关系：</a></li>
+        <li><a href="#mongodb安装">MongoDB安装</a></li>
+        <li><a href="#mongodb工具推荐">MongoDB工具推荐：</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+      </div><div class="content" id="content"><p>MongoDB是Nosql数据库，以文档形式存储，适合大规模非关系型数据归档。</p>
+<h3 id="mongodb与关系型数据库的对应关系" class="heading-element"><span>MongoDB与关系型数据库的对应关系：</span>
+  <a href="#mongodb%e4%b8%8e%e5%85%b3%e7%b3%bb%e5%9e%8b%e6%95%b0%e6%8d%ae%e5%ba%93%e7%9a%84%e5%af%b9%e5%ba%94%e5%85%b3%e7%b3%bb" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><table>
+  <thead>
+      <tr>
+          <th>SQL</th>
+          <th>MongoDB</th>
+          <th>备注</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>database</td>
+          <td>database</td>
+          <td>数据库</td>
+      </tr>
+      <tr>
+          <td>table</td>
+          <td>collection</td>
+          <td>表 -&gt; 集合</td>
+      </tr>
+      <tr>
+          <td>row</td>
+          <td>document</td>
+          <td>某条数据记录 -&gt; 文档</td>
+      </tr>
+      <tr>
+          <td>column</td>
+          <td>field</td>
+          <td>字段 -&gt; 域/键</td>
+      </tr>
+  </tbody>
+</table>
+<h3 id="mongodb安装" class="heading-element"><span>MongoDB安装</span>
+  <a href="#mongodb%e5%ae%89%e8%a3%85" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>MongoDB目录中新建data文件夹，data中新建db和log文件夹
+mongod.cfg中配置数据保存路径（db）、日志目录（log）<br>
+安装命令：<br>
+mongod<br>
+&ndash;bind_ip 0.0.0.0<br>
+&ndash;logpath c:\MongoD..log文件的路径<br>
+&ndash;logappend<br>
+&ndash;dbpath c:\MongoD…data\db文件夹路径<br>
+&ndash;port 27017<br>
+&ndash;serviceName &ldquo;MongoDB&rdquo;<br>
+&ndash;serviceDisplayName &ldquo;MongoDB&rdquo;<br>
+&ndash;install</p>
+<p>例如：在  bin目录中执行：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">mongod --bind_ip 0.0.0.0 --logpath C:\mongodb\data\log\mongod.log --logappend --dbpath C:\mongodb\data\db --port 27017 --serviceName &#34;MongoDB&#34; --serviceDisplayName &#34;MongoDB&#34; --install</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="mongodb工具推荐" class="heading-element"><span>MongoDB工具推荐：</span>
+  <a href="#mongodb%e5%b7%a5%e5%85%b7%e6%8e%a8%e8%8d%90" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>Robo 3T (但Mongo4.0以后停止更新了，最后版本为1.4.4。 重构为更名为Studio 3T，体验比之前繁琐)；<br>
+Navicat Lite也完美支持MongoDB，并且现在免费了，也强烈推荐</p>
+</div><div class="post-footer" id="post-footer">
+  <div class="post-info">
+    <div class="post-info-line">
+      <div class="post-info-mod">
+        <span title="更新于 2024-12-08 09:35:55">更新于 2024-12-08&nbsp;</span>
+      </div><div class="post-info-license">
+            <span><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a></span>
+          </div></div><div class="post-info-line">
+        <div class="post-info-md"><span><a href="/posts/mongodb%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/index.md" title="阅读原始文档" class="link-to-markdown">阅读原始文档</a></span></div>
+        <div class="post-info-share">
+          <span><a href="javascript:void(0);" title="分享到 X" data-sharer="twitter" data-url="https://blog.yyt6801.top/posts/mongodb%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/" data-title="MongoDB常用操作" data-hashtags="MongoDB,数据库"><i class="fa-brands fa-x-twitter fa-fw" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://blog.yyt6801.top/posts/mongodb%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/" data-hashtag="MongoDB"><i class="fa-brands fa-facebook-square fa-fw" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://blog.yyt6801.top/posts/mongodb%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/" data-title="MongoDB常用操作"><i class="fa-brands fa-weibo fa-fw" aria-hidden="true"></i></a>
+  </span>
+        </div>
+      </div></div>
+
+  <div class="post-info-more">
+    <section class="post-tags"><i class="fa-solid fa-tags fa-fw me-1" aria-hidden="true"></i><a href="/tags/mongodb/" class="post-tag" title="标签 - MongoDB">MongoDB</a><a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" class="post-tag" title="标签 - 数据库">数据库</a></section>
+    <section>
+      <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+    </section>
+  </div><div class="post-nav"><a href="/posts/oracle_operation/" class="post-nav-item" rel="prev" title="Oracle操作维护手册"><i class="fa-solid fa-angle-left fa-fw" aria-hidden="true"></i>Oracle操作维护手册</a><a href="/posts/markdown%E8%AF%AD%E6%B3%95/" class="post-nav-item" rel="next" title="Markdown语法">Markdown语法<i class="fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article>
+
+  <aside class="toc" id="toc-auto" aria-label="目录"><h2 class="toc-title">目录&nbsp;<i class="toc-icon fa-solid fa-angle-down fa-fw" aria-hidden="true"></i></h2>
+      <div class="toc-content" id="toc-content-auto"></div></aside></main><footer class="footer">
+    <div class="footer-container"><div class="footer-line copyright" itemscope itemtype="http://schema.org/CreativeWork"><i class="fa-regular fa-copyright fa-fw" aria-hidden="true"></i>
+            <span itemprop="copyrightYear">2022 - 2024</span><span class="author" itemprop="copyrightHolder">
+              <a href="https://blog.yyt6801.top/"target="_blank" rel="external nofollow noopener noreferrer">YYT6801</a></span></div></div>
+  </footer></div><div class="widgets"><div class="fixed-buttons animate__faster d-none"><div class="fixed-button back-to-top" role="button" aria-label="回到顶部"><i class="fa-solid fa-arrow-up fa-fw" aria-hidden="true"></i><span class="variant-numeric">0%</span>
+        </div></div><div id="mask"></div><noscript>
+    <div class="noscript-warning">该网站在启用 JavaScript 的情况下效果最佳。</div>
+  </noscript>
+</div><link rel="preload" href="/lib/katex/katex.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/katex/katex.min.css"></noscript><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/fuse/fuse.min.js" defer></script><script src="/lib/sharer/sharer.min.js" async defer></script><script src="/lib/katex/katex.min.js" defer></script><script src="/lib/katex/auto-render.min.js" defer></script><script src="/lib/katex/copy-tex.min.js" defer></script><script src="/lib/katex/mhchem.min.js" defer></script><script>window.config={"code":{"copyTitle":"复制到剪贴板","editLockTitle":"锁定可编辑代码块","editUnLockTitle":"解锁可编辑代码块","editable":true,"maxShownLines":10},"comment":{"enable":false},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"distance":100,"findAllMatches":false,"fuseIndexURL":"/search.json","highlightTag":"em","ignoreFieldNorm":false,"ignoreLocation":false,"isCaseSensitive":false,"location":0,"maxResultLength":10,"minMatchCharLength":2,"noResultsFound":"没有找到结果","snippetLength":30,"threshold":0.3,"type":"fuse","useExtendedSearch":false},"version":"v0.3.15"};</script><script src="/js/theme.min.js" defer></script></body>
+</html>
