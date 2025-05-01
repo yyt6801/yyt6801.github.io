@@ -108,7 +108,8 @@ Oracle的故障排除包括错误日志分析、性能调优、故障恢复等�
    RMAN&gt; RESTORE DATABASE;
    ```
    
-
+###### 查询表中重复的数据
+select * from tb_product where coilno in (select coilno from tb_product group by coilno having count(*)&gt;1) 
 
 ---
 
