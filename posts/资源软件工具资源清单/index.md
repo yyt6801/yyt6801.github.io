@@ -3,23 +3,14 @@
 
 # 资源、软件工具清单(持续完善中)
 
-## 在线工具网址
-### 搜索引擎/资源网站
-学习技术过程我们经常需要使用搜索引擎来检索资料，国内常用的也就是某度了。
-当然有条件的话，搜索引擎首先还是推荐使用 Google，如果没办法使用，可以使用以下几个作为备用：
+## 搜索引擎/资源网站
 * [Bing 国际版](https://cn.bing.com/ )  
 比某度好用，之前还被停用了几天，最近可以了。
-
-* [DuckDuckGo](https://duckduckgo.com/)  
-从官网的介绍来看这个搜索引擎不收集用户信息，而且没有广告。
 
 * [Stack Overflow](https://stackoverflow.com/)  
 我们如果常用 Google，很多技术问题的答案就在这个网站上，如果你无法使用 Google 可以在这个网站上直接检索就好了。
 
-* [Gitlogs](https://www.gitlogs.com/)  
-Gitlogs 是专门针对 GitHub 项目的搜索引擎，我们通过他可以快速找到想要项目。
-
-#### 资源搜索引擎
+### 资源搜索引擎
 * [jiumo search文档搜索引擎 鸠摩搜书](https://www.jiumodiary.com/)  
 可以用来找一些技术文档手册，很多在百度网盘里。
 
@@ -50,8 +41,7 @@ CC Search 上搜索到的图片资源都是无版权的，我们可以免费的�
 * [The App Store](https://theappstore.org/)  
 The App Store 是一个针对苹果手机、iPad、Mac 设备的应用搜索工具。
 
-### 工具类
-#### 图片相关工具
+### 图片相关工具
 
 * [TinyPNG](https://tinypng.com/)
 免费的在线图片压缩工具，压缩率高，无损画质，直接拖拽使用，很方便。
@@ -62,13 +52,13 @@ The App Store 是一个针对苹果手机、iPad、Mac 设备的应用搜索工�
 * [SmartResize](https://www.smartresize.com/zh-cn)
 这个工具基于 javascript&#43;HTML5 编写而成的，是一个批量裁剪缩放图片的神器！
 
-#### 正则表达式相关工具
+### 文本处理工具
 以下两个工具以图形的方式来展示正则表达式，更易于理解：
 * [regexr](https://regexr.com/)  
 * [jex](https://jex.im/regulex/#!flags=&amp;re=%5E(a%7Cb)*%3F%24)  
 
-#### 文件转换工具
-以下资源支持各种格式（PDF、图片、Word）相互转换。
+### 文件格式转换工具
+以下资源支持各种格式（PDF、图片、Word）相互转换  
 * [smallpdf](https://smallpdf.com/cn)  
 * [convertio](https://convertio.co/zh/)  
 * [online-convert](https://www.online-convert.com/)  
@@ -76,24 +66,7 @@ The App Store 是一个针对苹果手机、iPad、Mac 设备的应用搜索工�
 * [pdf24](https://tools.pdf24.org/zh/)  
 * [office-converter](https://cn.office-converter.com/)  
 
-#### 在线编译器
-包含前后端（php、java、c等）都可以在线运行测试
-* [rextester](https://rextester.com/)  
-* [onlinegdb](https://www.onlinegdb.com/)  
-* [runoob](https://c.runoob.com/)  
-
-HTML、CSS、JS、设计类的工具
-* [JSFiddle](https://jsfiddle.net/)  
-* [CodePen](https://codepen.io/)  
-* [Runoob](https://c.runoob.com/front-end/61)  
-* [JSON解析器](https://c.runoob.com/front-end/53)  
-* [在线PS](http://www.kantu.com/)  
-* [表格转换工具](https://tableconvert.com/)  
-支持的 Markdown、HTML table、CSV 和 Excel 的相互转换。
-* [DesignCap](https://www.designcap.com/)
-在线设计海报，内置众多模板及素材。
-
-#### 在线绘图工具：
+### 在线绘图工具：
 * [Xmind 思维导图工具](https://www.xmind.cn/)  
 跨平台、跨终端，拥有全功能的思维导图软件。
 
@@ -113,28 +86,52 @@ HTML、CSS、JS、设计类的工具
 我们可以在 Chrome 浏览器上安装 gliffy 插件。
 可以在线创建流程图、UML图、线框图、BPNM、组织架构图等。
 
+## 开发类
+### 在线编译器
+包含前后端（php、java、c等）都可以在线运行测试
+* [rextester](https://rextester.com/)  
+* [onlinegdb](https://www.onlinegdb.com/)  
+* [runoob](https://c.runoob.com/)  
+
+### 前端工具
+* [JSFiddle](https://jsfiddle.net/)  
+* [CodePen](https://codepen.io/)  
+* [Runoob](https://c.runoob.com/front-end/61)  
+* [JSON解析器](https://c.runoob.com/front-end/53)  
+* [在线PS](http://www.kantu.com/)  
+* [表格转换工具](https://tableconvert.com/)  支持 Markdown、HTML table、CSV 和 Excel 的相互转换。
+* [DesignCap](https://www.designcap.com/)
+在线设计海报，内置众多模板及素材。
+
+
 -------
-# 软件
+
+# 软件、工具
 ## 图片查看器
 * HoneyView(加载有些慢,占用内存有些多)  
 * 360Ablum(360全家桶中提取出来的单独版本，速度快占用低，图片质量高)
-
-## PDF阅读器
-* Sumatrapdf (突然间发现的一款神器，再大的pdf也能秒开，基本不占用内存，可配置，也可以免安装，打开即用)  
-* 稻壳阅读器 （基于开源Sumatrapdf的套壳pdf阅读器，可做笔记，体验略有提升）
-
-## 解压缩工具
-* Bindzip(挺不错的解压缩工具)  
 
 ## 音视频播放器
 * 网易云UWP(windows10应用商店自带,基本不占内存)  
 * potplayer(超好用)  
 * MVP(轻量便携开源视频播放器，速度快占用低，支持全键盘操作，需要一点学习成本)
 
+## PDF阅读器
+* [Sumatrapdf](https://www.sumatrapdfreader.org/download-free-pdf-viewer)  (突然间发现的一款神器，再大的pdf也能秒开，基本不占用内存，可配置，也可以免安装，打开即用)  
+  * [Github](https://github.com/sumatrapdfreader/sumatrapdf)
+* 稻壳阅读器 （基于开源Sumatrapdf的套壳pdf阅读器，可做笔记，体验略有提升）
+
+## 解压缩工具
+* [Bindzip](https://www.bandisoft.com/bandizip/)  (挺不错的解压缩工具，格式支持多，早起版本无广告，可在压缩文件预览里直接打开文件)  
+  * [下载地址一](https://www.jianguoyun.com/p/DZF7YegQxM_ACRjJru8EIAA)
+
 ## 文本编辑器
-* VSCode (微软基于Electron的开源代码编写利器，丰富的插件生态，全栈开发均可)
-* Notepad3 (弥补windows自带的记事本的所有不足，可以直接替换掉记事本，开源编辑器，超轻量，体验极佳)
-* Notepad&#43;&#43; (占用少,内存少,简洁使用,临时修改些东西不错,比windows自带的记事本好太多)
+* [Notepad3](http://notepad3.cn/) (弥补windows自带的记事本的所有不足，可以直接替换掉记事本，开源编辑器，超轻量，体验极佳)
+  * [下载地址一](https://wwi.lanzoup.com/ieFJ00z8ztve)
+  * [下载地址二](https://www.jianguoyun.com/p/DaHTA_MQxM_ACRjHru8EIAA)
+
+* [Notepad&#43;&#43;](https://notepad-plus-plus.org/) (工具本身不错)
+
 * Ultra Edit (支持各种格式,查看数据等,基本秒开)  
 * EmEditor (支持打开超大文本，动则上G的日志也能直接打开，可以便携安装)
 
@@ -153,7 +150,7 @@ HTML、CSS、JS、设计类的工具
 * Antdownload (第三方的百度网盘不限速下载工具，作者仍在维护，速度挺快，应急使用)
 
 ## 安全/杀毒/清理工具
-* 火绒  (不打扰人,占用较低,功能简洁实用)  
+* [火绒](https://www.huorong.cn/)  (不打扰人,占用较低,功能简洁实用)  
 * CCleaner  (还好吧,解压即用的清理工具)  
 
 ## 修图
@@ -172,20 +169,26 @@ HTML、CSS、JS、设计类的工具
 * xmind (思维导图必备)  
 
 ### 开发环境/容器：
+* [Nginx](https://nginx.org/)
+* [NVM](https://nvm.uihtm.com/) (node版本管理器)
 * Docker
 * Tomcat
-* Nginx
 * Python
 * Jdk
 * Node.js
 
 ### IDE
-* Visual Studio    
-* Visual Studio  Code
+* Visual Studio (宇宙最强IDE)  
+  * VS2017社区在线安装 
+    * [下载地址一](https://wwi.lanzoup.com/i2R8r0k53fnc) 
+    * [下载地址二](https://wwi.lanzoup.com/iZSnS0z8ztdg)
+
+* [VSCode](https://code.visualstudio.com/) (微软基于Electron的开源代码编写利器，丰富的插件生态，全栈开发均可)
+
 * IDEA （功能、生态完整，Java开发首选；缺点：启动慢、占用高；需要正版授权）
 
 ### 输入法：
-* 搜狗输入法 （最强大的词库，缺点：有广告）    
+* 搜狗输入法 （最强大的词库，缺点：有广告）
 * QQ拼音 (符合国人习惯，没有广告和其他多余的功能)
 
 ### 科学上网：
