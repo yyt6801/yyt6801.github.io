@@ -107,6 +107,10 @@ The App Store 是一个针对苹果手机、iPad、Mac 设备的应用搜索工�
 -------
 
 # 软件、工具
+## 安全/杀毒/清理工具
+* [火绒](https://www.huorong.cn/)  (不打扰人,占用较低,功能简洁实用)  
+* CCleaner  (还好吧,解压即用的清理工具)  
+
 ## 图片查看器
 * HoneyView(加载有些慢,占用内存有些多)  
 * 360Ablum(360全家桶中提取出来的单独版本，速度快占用低，图片质量高)
@@ -131,6 +135,7 @@ The App Store 是一个针对苹果手机、iPad、Mac 设备的应用搜索工�
   * [下载地址二](https://www.jianguoyun.com/p/DaHTA_MQxM_ACRjHru8EIAA)
 
 * [Notepad&#43;&#43;](https://notepad-plus-plus.org/) (工具本身不错)
+  * [下载地址一](https://www.jianguoyun.com/p/DS_HlA8QxM_ACRjXru8EIAA)
 
 * Ultra Edit (支持各种格式,查看数据等,基本秒开)  
 * EmEditor (支持打开超大文本，动则上G的日志也能直接打开，可以便携安装)
@@ -143,22 +148,13 @@ The App Store 是一个针对苹果手机、iPad、Mac 设备的应用搜索工�
 * Everything (目前没有找到替代的,首次打开会加载好久的数据库)  
 * Listary (简洁、高速的文件搜索工具，查询比Everything快，主要是打开时不会加载好久，配置开机启动后基本无感，双击Ctrl即可搜索，但目前还不支持正则)
 
-
 ## 下载器
 * Pandownload、
 * IDM (最强下载工具，配合油猴等插件体验完美，需要正版授权)  
 * Antdownload (第三方的百度网盘不限速下载工具，作者仍在维护，速度挺快，应急使用)
 
-## 安全/杀毒/清理工具
-* [火绒](https://www.huorong.cn/)  (不打扰人,占用较低,功能简洁实用)  
-* CCleaner  (还好吧,解压即用的清理工具)  
-
 ## 修图
 * photoshop7.0   (内存超级小的一个老版本，应急改个图尺寸大小之类基本够用)
-
-## FTP工具
-* Filezilla FTP Client (一直在用的ftp工具,还可以)  
-
 
 ## 其他：
 
@@ -187,9 +183,13 @@ The App Store 是一个针对苹果手机、iPad、Mac 设备的应用搜索工�
 
 * IDEA （功能、生态完整，Java开发首选；缺点：启动慢、占用高；需要正版授权）
 
-### 输入法：
-* 搜狗输入法 （最强大的词库，缺点：有广告）
-* QQ拼音 (符合国人习惯，没有广告和其他多余的功能)
+## FTP工具
+* [Filezilla](https://filezilla-project.org/) FTP Client (一直在用的ftp工具,还可以)  
+
+### 调试工具
+* [HTTPie](https://httpie.io/) 
+* [Reqable](https://reqable.com/)
+* VSCode 中有 Thunder Client 插件，体验效果不错
 
 ### 科学上网：
 * V2ray  
