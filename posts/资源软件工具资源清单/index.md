@@ -4,11 +4,9 @@
 # 资源、软件工具清单(持续完善中)
 
 ## 搜索引擎/资源网站
-* [Bing 国际版](https://cn.bing.com/ )  
-比某度好用，之前还被停用了几天，最近可以了。
+* [Bing 国际版](https://cn.bing.com/)  
 
 * [Stack Overflow](https://stackoverflow.com/)  
-我们如果常用 Google，很多技术问题的答案就在这个网站上，如果你无法使用 Google 可以在这个网站上直接检索就好了。
 
 ### 资源搜索引擎
 * [jiumo search文档搜索引擎 鸠摩搜书](https://www.jiumodiary.com/)  
@@ -111,9 +109,10 @@ The App Store 是一个针对苹果手机、iPad、Mac 设备的应用搜索工�
 * [火绒](https://www.huorong.cn/)  (不打扰人,占用较低,功能简洁实用)  
 * CCleaner  (还好吧,解压即用的清理工具)  
 
-## 图片查看器
-* HoneyView(加载有些慢,占用内存有些多)  
-* 360Ablum(360全家桶中提取出来的单独版本，速度快占用低，图片质量高)
+## 图片查看器 
+* [360Ablum](https://yyt6801.lanzouo.com/i135zyf2cfi)  360全家桶中提取出来的单独版本，速度快占用低，图片质量高
+* [JPEGView]() JPEGViewPortable 轻量，清晰度高，免安装
+* [HoneyView](https://yyt6801.lanzouo.com/ioVtayf2fof) (加载有些慢,占用内存有些多) 
 
 ## 音视频播放器
 * 网易云UWP(windows10应用商店自带,基本不占内存)  
@@ -123,16 +122,16 @@ The App Store 是一个针对苹果手机、iPad、Mac 设备的应用搜索工�
 ## PDF阅读器
 * [Sumatrapdf](https://www.sumatrapdfreader.org/download-free-pdf-viewer)  (突然间发现的一款神器，再大的pdf也能秒开，基本不占用内存，可配置，也可以免安装，打开即用)  
   * [Github](https://github.com/sumatrapdfreader/sumatrapdf)
-* 稻壳阅读器 （基于开源Sumatrapdf的套壳pdf阅读器，可做笔记，体验略有提升）
+* 稻壳阅读器 （道客巴巴家的pdf阅读器，轻量简洁实用，CAJ文件也支持，难得的好工具）
 
 ## 解压缩工具
-* [Bindzip](https://www.bandisoft.com/bandizip/)  (挺不错的解压缩工具，格式支持多，早起版本无广告，可在压缩文件预览里直接打开文件)  
-  * [下载地址一](https://www.jianguoyun.com/p/DZF7YegQxM_ACRjJru8EIAA)
+* [Bindzip](https://www.bandisoft.com/bandizip/)  (挺不错的解压缩工具，格式支持多，早期版本无广告，可在压缩文件预览里直接打开文件)  
+  * [v6.2版本下载地址](https://www.jianguoyun.com/p/DZF7YegQxM_ACRjJru8EIAA)
 
 ## 文本编辑器
 * [Notepad3](http://notepad3.cn/) (弥补windows自带的记事本的所有不足，可以直接替换掉记事本，开源编辑器，超轻量，体验极佳)
-  * [下载地址一](https://wwi.lanzoup.com/ieFJ00z8ztve)
-  * [下载地址二](https://www.jianguoyun.com/p/DaHTA_MQxM_ACRjHru8EIAA)
+  * [v6.23版本下载地址一](https://wwi.lanzoup.com/ieFJ00z8ztve)
+  * [v6.23版本下载地址二](https://www.jianguoyun.com/p/DaHTA_MQxM_ACRjHru8EIAA)
 
 * [Notepad&#43;&#43;](https://notepad-plus-plus.org/) (工具本身不错)
   * [下载地址一](https://www.jianguoyun.com/p/DS_HlA8QxM_ACRjXru8EIAA)
@@ -167,6 +166,8 @@ The App Store 是一个针对苹果手机、iPad、Mac 设备的应用搜索工�
 ### 开发环境/容器：
 * [Nginx](https://nginx.org/)
 * [NVM](https://nvm.uihtm.com/) (node版本管理器)
+* [MiniConda]() (python版本管理器)
+* WSL2 (Windows上的linux版本，基本功能够用)
 * Docker
 * Tomcat
 * Python
@@ -205,9 +206,10 @@ The App Store 是一个针对苹果手机、iPad、Mac 设备的应用搜索工�
 * VirtualBox (开源，占用低，除了没有图形化其他都还好，支持vagrant使得配置开发或测试环境机器方便)
 
 ### 远程：
+* [ToDesk](https://www.todesk.com/) (免费远程，体验不错，占用低，速度快)
 * TeamViewer (前几年爆出有漏洞，之后使用的就少了)
 * 向日葵 
-* TailScale&#43;HeadScale (需要一定配置基础和公网IP)
+* TailScale &#43; HeadScale (需要一定配置基础和公网IP)
 
 ### 抓包工具：
 * Wireshark (抓包必备)
@@ -218,6 +220,11 @@ The App Store 是一个针对苹果手机、iPad、Mac 设备的应用搜索工�
 ### 数据库连接:
 * Navicat Premium (自带各种数据库连接驱动 支持MySQL、Oracle、MSSql等关系型数据库，速度快，体验较好，需要正版授权)
 * DBeaver (社区版开源，所有数据库均支持，由于是java开发的首次连接需联网下载驱动，社区版不支持MongoDB)
+
+### 博客运行环境
+* [Hexo](https://hexo.io/zh-cn/) (静态博客生成器，支持Markdown，可部署到github、coding等)
+* [Hugo](https://gohugo.io/) (静态博客生成器，支持Markdown，可部署到github、coding等)
+  * [下载地址一](https://yyt6801.lanzouo.com/iZgSo2whkp0h) 
 
 ### 文档笔记平台
 推荐几个常用的国内外云笔记平台，比较常用的应该是印象、有道、石墨，有一些国外的访问速度比较慢，影响体验。
