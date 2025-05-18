@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <head>
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+    <meta name="robots" content="noodp" />
+    <title>Nginx常用配置 - YYT6801&#39;s Blog</title><meta name="author" content="YYT6801">
+<meta name="description" content="Nginx是一个高性能的HTTP和反向代理服务器，常用于负载均衡、静态资源处理、反向代理等场景。
+1. Nginx操作 1.启动nginx:
+在nginx的安装目录
+start nginx 或 nginx.exe
+"><meta name="keywords" content='Nginx, 知识点, 学习'>
+  <meta itemprop="name" content="Nginx常用配置">
+  <meta itemprop="description" content="Nginx是一个高性能的HTTP和反向代理服务器，常用于负载均衡、静态资源处理、反向代理等场景。
+1. Nginx操作 1.启动nginx:
+在nginx的安装目录
+start nginx 或 nginx.exe">
+  <meta itemprop="datePublished" content="2022-12-14T14:46:55+08:00">
+  <meta itemprop="dateModified" content="2022-12-14T14:46:55+08:00">
+  <meta itemprop="wordCount" content="254">
+  <meta itemprop="keywords" content="Nginx,知识点,学习"><meta property="og:url" content="https://blog.yyt6801.top/posts/nginx_operation/">
+  <meta property="og:site_name" content="YYT6801&#39;s Blog">
+  <meta property="og:title" content="Nginx常用配置">
+  <meta property="og:description" content="Nginx是一个高性能的HTTP和反向代理服务器，常用于负载均衡、静态资源处理、反向代理等场景。
+1. Nginx操作 1.启动nginx:
+在nginx的安装目录
+start nginx 或 nginx.exe">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2022-12-14T14:46:55+08:00">
+    <meta property="article:modified_time" content="2022-12-14T14:46:55+08:00">
+    <meta property="article:tag" content="Nginx">
+    <meta property="article:tag" content="知识点">
+    <meta property="article:tag" content="学习">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Nginx常用配置">
+  <meta name="twitter:description" content="Nginx是一个高性能的HTTP和反向代理服务器，常用于负载均衡、静态资源处理、反向代理等场景。
+1. Nginx操作 1.启动nginx:
+在nginx的安装目录
+start nginx 或 nginx.exe">
+<meta name="application-name" content="YYT">
+<meta name="apple-mobile-web-app-title" content="YYT"><meta name="theme-color" data-light="#f8f8f8" data-dark="#252627" content="#f8f8f8"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" type="text/html" href="https://blog.yyt6801.top/posts/nginx_operation/" title="Nginx常用配置 - YYT6801&#39;s Blog" /><link rel="prev" type="text/html" href="https://blog.yyt6801.top/posts/url_encoding_table/" title="URL编码表" /><link rel="next" type="text/html" href="https://blog.yyt6801.top/posts/oracle_operation/" title="Oracle操作维护手册" /><link rel="alternate" type="text/markdown" href="https://blog.yyt6801.top/posts/nginx_operation/index.md" title="Nginx常用配置 - YYT6801's Blog"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Nginx常用配置",
+    "inLanguage": "zh-CN",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https:\/\/blog.yyt6801.top\/posts\/nginx_operation\/"
+    },"genre": "posts","keywords": "Nginx, 知识点, 学习","wordcount":  254 ,
+    "url": "https:\/\/blog.yyt6801.top\/posts\/nginx_operation\/","datePublished": "2022-12-14T14:46:55+08:00","dateModified": "2022-12-14T14:46:55+08:00","license": "YYT6801","publisher": {
+      "@type": "Organization",
+      "name": ""},"author": {
+        "@type": "Person",
+        "name": "YYT6801"
+      },"description": ""
+  }
+  </script><script src="/js/head/color-scheme.min.js"></script></head>
+  <body data-header-desktop="auto" data-header-mobile="auto"><div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
+  <div class="header-wrapper">
+    <div class="header-title">
+      <a href="/" title="YYT6801&#39;s Blog"><span class="header-title-text">Yuán</span></a><span class="header-subtitle"></span></div>
+    <nav>
+      <ul class="menu"><li class="menu-item">
+              <a class="menu-link" href="/" title="Blog首页"><i class='fa fa-home'></i> 首页</a></li><li class="menu-item">
+              <a class="menu-link" href="/archives/" title="文章列表"><i class="fa-solid fa-archive fa-fw fa-sm" aria-hidden="true"></i> 文章</a></li><li class="menu-item">
+              <a class="menu-link" href="/categories/" title="分类展示"><i class="fa-solid fa-folder-tree fa-fw fa-sm" aria-hidden="true"></i> 分类</a></li><li class="menu-item">
+              <a class="menu-link" href="/tags/" title="分标签展示"><i class="fa-solid fa-tags fa-fw fa-sm" aria-hidden="true"></i> 标签</a></li><li class="menu-item">
+              <a class="menu-link" href="/about/" title="关于我"><i class='fa fa-heart'></i> 关于</a></li><li class="menu-item delimiter"></li><li class="menu-item search" id="search-desktop">
+            <input type="text" placeholder="搜一下试试" id="search-input-desktop">
+            <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+              <i class="fa-solid fa-search fa-fw" aria-hidden="true"></i>
+            </a>
+            <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+              <i class="fa-solid fa-times-circle fa-fw" aria-hidden="true"></i>
+            </a>
+            <span class="search-button search-loading" id="search-loading-desktop">
+              <i class="fa-solid fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+            </span>
+          </li><li class="menu-item theme-switch" title="切换主题">
+          <i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i>
+        </li></ul>
+    </nav>
+  </div>
+</header><header class="mobile animate__faster" id="header-mobile">
+  <div class="header-container">
+    <div class="header-wrapper">
+      <div class="header-title">
+        <a href="/" title="YYT6801&#39;s Blog"><span class="header-title-text">Yuán</span></a><span class="header-subtitle"></span></div>
+      <div class="menu-toggle" id="menu-toggle-mobile">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+    <nav>
+      <ul class="menu" id="menu-mobile"><li class="search-wrapper">
+            <div class="search mobile" id="search-mobile">
+              <input type="text" placeholder="搜一下试试" id="search-input-mobile">
+              <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                <i class="fa-solid fa-search fa-fw" aria-hidden="true"></i>
+              </a>
+              <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                <i class="fa-solid fa-times-circle fa-fw" aria-hidden="true"></i>
+              </a>
+              <span class="search-button search-loading" id="search-loading-mobile">
+                <i class="fa-solid fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+              </span>
+            </div>
+            <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+              取消
+            </a>
+          </li><li class="menu-item"><a class="menu-link" href="/" title="Blog首页"><i class='fa fa-home'></i> 首页</a></li><li class="menu-item"><a class="menu-link" href="/archives/" title="文章列表"><i class="fa-solid fa-archive fa-fw fa-sm" aria-hidden="true"></i> 文章</a></li><li class="menu-item"><a class="menu-link" href="/categories/" title="分类展示"><i class="fa-solid fa-folder-tree fa-fw fa-sm" aria-hidden="true"></i> 分类</a></li><li class="menu-item"><a class="menu-link" href="/tags/" title="分标签展示"><i class="fa-solid fa-tags fa-fw fa-sm" aria-hidden="true"></i> 标签</a></li><li class="menu-item"><a class="menu-link" href="/about/" title="关于我"><i class='fa fa-heart'></i> 关于</a></li><li class="menu-item menu-system">
+          <span class="menu-system-item theme-switch" title="切换主题"><i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i></span></li>
+      </ul>
+    </nav>
+  </div>
+</header><div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+  </div>
+  <div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+  </div><nav aria-label="breadcrumb" class="breadcrumb-container">
+    <ol class="breadcrumb"><li class="breadcrumb-item" data-separator="/"><a href="/" title="YYT6801&#39;s Blog">主页</a></li><li class="breadcrumb-item" data-separator="/"><a href="/posts/" title="Posts">文章</a></li><li class="breadcrumb-item active" data-separator="/" aria-current="page">Nginx常用配置</li>
+    </ol>
+  </nav><main class="container"><aside class="aside-collection animate__animated animate__fadeIn animate__faster" aria-label="合集"></aside>
+
+  <article class="page single">
+    <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>Nginx常用配置</span>
+      </h1></div><div class="post-meta">
+      <div class="post-meta-line"><span class="post-author"><a href="https://blog.yyt6801.top/" title="作者"target="_blank" rel="external nofollow noopener noreferrer author" class="author"><i class="fa-solid fa-user-circle" aria-hidden="true"></i>
+    YYT6801</a></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/%E7%BC%96%E7%A8%8B%E4%B8%8E%E5%BC%80%E5%8F%91/" class="post-category" title="分类 - 编程与开发"><i class="fa-regular fa-folder fa-fw" aria-hidden="true"></i> 编程与开发</a></span></div><div class="post-meta-line"><span title="发布于 2022-12-14 14:46:55"><i class="fa-solid fa-calendar-days fa-fw me-1" aria-hidden="true"></i><time datetime="2022-12-14">2022-12-14</time></span>&nbsp;<span title="254 字"><i class="fa-solid fa-pencil-alt fa-fw me-1" aria-hidden="true"></i>约 300 字</span>&nbsp;<span><i class="fa-regular fa-clock fa-fw me-1" aria-hidden="true"></i>预计阅读 2 分钟</span>&nbsp;</div>
+    </div><div class="details toc" id="toc-static" data-kept="false">
+        <div class="details-summary toc-title">
+          <span>目录</span>
+          <span><i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></span>
+        </div>
+        <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#1-nginx操作">1. Nginx操作</a></li>
+        <li><a href="#2-nginx配置">2. Nginx配置</a>
+          <ul>
+            <li><a href="#最基本的http配置">最基本的http配置</a></li>
+            <li><a href="#配置多个虚拟主机web容器服务">配置多个虚拟主机(web容器服务)</a></li>
+            <li><a href="#最基本的server配置">最基本的server配置</a></li>
+            <li><a href="#配置多个web容器服务">配置多个web容器服务</a></li>
+            <li><a href="#配置反向代理">配置反向代理</a></li>
+            <li><a href="#配置负载均衡">配置负载均衡</a></li>
+            <li><a href="#配置静态资源如图片视频等">配置静态资源，如图片、视频等</a></li>
+            <li><a href="#配置二级域名转发">配置二级域名转发</a></li>
+            <li><a href="#前端静态打包请求代理">前端静态打包请求代理</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+      </div><div class="content" id="content"><p>Nginx是一个高性能的HTTP和反向代理服务器，常用于负载均衡、静态资源处理、反向代理等场景。</p>
+<h3 id="1-nginx操作" class="heading-element"><span>1. Nginx操作</span>
+  <a href="#1-nginx%e6%93%8d%e4%bd%9c" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><ul>
+<li>
+<p>1.启动nginx:<br>
+在nginx的安装目录<br>
+<code>start nginx</code>  或  <code>nginx.exe</code></p>
+</li>
+<li>
+<p>2.停止nginx<br>
+(stop是快速停止nginx，可能并不保存相关信息；quit是完整有序的停止nginx，并保存相关信息)<br>
+<code>nginx.exe  -s stop</code>  或  <code>nginx.exe -s quit</code></p>
+</li>
+<li>
+<p>3.检查 重启：<br>
+<code>nginx -t</code>  检查修改后的nginx.conf配置是否正确<br>
+<code>nginx -s reload</code> 重启nginx</p>
+</li>
+</ul>
+<h3 id="2-nginx配置" class="heading-element"><span>2. Nginx配置</span>
+  <a href="#2-nginx%e9%85%8d%e7%bd%ae" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>Nginx配置文件为conf文件夹下的nginx.conf配置文件，主要分为三部分：</p>
+<ul>
+<li>1.http部分：<br>
+http部分是nginx最核心的部分，包含了http请求的处理、负载均衡、缓存等配置</li>
+<li>2.server部分：<br>
+server部分是http部分的子部分，每个server部分定义了一个虚拟主机，包含了监听的端口、域名、请求的处理等配置</li>
+<li>3.location部分：<br>
+location部分是server部分的子部分，每个location部分定义了一个请求的处理规则，包含了请求的路径、请求的处理方式等配置</li>
+</ul>
+<h4 id="最基本的http配置" class="heading-element"><span>最基本的http配置</span>
+  <a href="#%e6%9c%80%e5%9f%ba%e6%9c%ac%e7%9a%84http%e9%85%8d%e7%bd%ae" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><pre><code>http {
+    include       mime.types;
+    default_type  application/octet-stream;
+    sendfile        on;
+    keepalive_timeout  65;
+    server {
+        listen       80;
+        server_name  localhost;
+        location / {
+            root   html;
+            index  index.html index.htm;
+        }
+    }
+}
+</code></pre>
+<p>上述配置定义了一个http请求的处理规则，监听80端口，当访问localhost时，返回html目录下的index.html文件。一个http部分可以包含多个server部分，每个server部分定义了一个虚拟主机，一个server部分可以包含多个location部分，每个location部分定义了一个请求的处理规则。</p>
+<h4 id="配置多个虚拟主机web容器服务" class="heading-element"><span>配置多个虚拟主机(web容器服务)</span>
+  <a href="#%e9%85%8d%e7%bd%ae%e5%a4%9a%e4%b8%aa%e8%99%9a%e6%8b%9f%e4%b8%bb%e6%9c%baweb%e5%ae%b9%e5%99%a8%e6%9c%8d%e5%8a%a1" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><h4 id="最基本的server配置" class="heading-element"><span>最基本的server配置</span>
+  <a href="#%e6%9c%80%e5%9f%ba%e6%9c%ac%e7%9a%84server%e9%85%8d%e7%bd%ae" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><pre><code>server {  
+    listen  80;
+    server_name  localhost;
+    location / {
+        root   html;
+        index  index.html index.htm;
+    }
+}  
+</code></pre>
+<p>上述配置监听80端口，当访问localhost时，返回html目录下的index.html文件</p>
+<h4 id="配置多个web容器服务" class="heading-element"><span>配置多个web容器服务</span>
+  <a href="#%e9%85%8d%e7%bd%ae%e5%a4%9a%e4%b8%aaweb%e5%ae%b9%e5%99%a8%e6%9c%8d%e5%8a%a1" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><pre><code>server {  
+    listen  80;
+    server_name  localhost;
+    location / {
+        root   path1;
+        index  index.html index.htm;
+    }
+}  
+
+server {  
+    listen  8080;
+    server_name  localhost;
+    location / {
+        root   path2;
+        index  index.html index.htm;
+    }
+}  
+</code></pre>
+<p>上述配置监听80端口和8080端口，当访问localhost时，返回path1目录下的index.html文件，当访问localhost:8080时，返回path2目录下的index.html文件</p>
+<h4 id="配置反向代理" class="heading-element"><span>配置反向代理</span>
+  <a href="#%e9%85%8d%e7%bd%ae%e5%8f%8d%e5%90%91%e4%bb%a3%e7%90%86" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><pre><code>server {  
+    listen  80;
+    server_name  localhost;
+    location / {
+        proxy_pass  http://localhost:8080;
+    }
+}  
+</code></pre>
+<p>上述配置监听80端口，当访问localhost时，将请求转发到http://localhost:8080</p>
+<h4 id="配置负载均衡" class="heading-element"><span>配置负载均衡</span>
+  <a href="#%e9%85%8d%e7%bd%ae%e8%b4%9f%e8%bd%bd%e5%9d%87%e8%a1%a1" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><pre><code>http {
+    upstream myserver {
+        server localhost:8080;
+        server localhost:8081;
+    }
+    server {
+        listen  80;
+        server_name  localhost;
+        location / {
+            proxy_pass  http://myserver;
+        }
+    }
+}
+</code></pre>
+<p>上述配置监听80端口，当访问localhost时，将请求转发到http://myserver，myserver是一个负载均衡组，包含两个服务器，当请求到达时，nginx会根据负载均衡算法将请求转发到其中一个服务器</p>
+<h4 id="配置静态资源如图片视频等" class="heading-element"><span>配置静态资源，如图片、视频等</span>
+  <a href="#%e9%85%8d%e7%bd%ae%e9%9d%99%e6%80%81%e8%b5%84%e6%ba%90%e5%a6%82%e5%9b%be%e7%89%87%e8%a7%86%e9%a2%91%e7%ad%89" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><pre><code>server {
+    listen       80;
+    server_name  localhost;
+    location ~* \.jpg$ {  
+      root D:/img; 
+    }
+    location ~* \.wav$ {  
+      root D:/wav; 
+    }
+    location ~* \.mp4$ {  
+      root D:/video;
+    }
+}
+</code></pre>
+<p>上述配置实现监听8080端口,当访问localhost时，根据请求的文件类型，将请求转发到对应的目录。<br>
+如访问localhost/1.jpg时，将请求转发到D:/img/1.jpg；访问localhost/1.wav时，将请求转发到D:/wav/1.wav；访问localhost/1.mp4时，将请求转发到D:/video/1.mp4</p>
+<h4 id="配置二级域名转发" class="heading-element"><span>配置二级域名转发</span>
+  <a href="#%e9%85%8d%e7%bd%ae%e4%ba%8c%e7%ba%a7%e5%9f%9f%e5%90%8d%e8%bd%ac%e5%8f%91" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><pre><code>server {
+    listen       80;
+    server_name demo.test.com;
+    location / {
+        proxy_pass http://localhost:8001;
+    }
+}
+server {
+    listen       80;
+    server_name product.test.com;
+    location / {
+        proxy_pass http://localhost:8002;
+    }
+}
+</code></pre>
+<p>上述配置实现监听80端口,当访问demo.test.com时，将请求转发到http://localhost:8001；当访问product.test.com时，将请求转发到http://localhost:8002</p>
+<h4 id="前端静态打包请求代理" class="heading-element"><span>前端静态打包请求代理</span>
+  <a href="#%e5%89%8d%e7%ab%af%e9%9d%99%e6%80%81%e6%89%93%e5%8c%85%e8%af%b7%e6%b1%82%e4%bb%a3%e7%90%86" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><p>针对前端项目有多个请求接口，打包为静态资源后，需配置代理，将请求转发到后端接口</p>
+<pre><code>server {
+    listen       80;
+    server_name  localhost;
+    location / {
+      root   /path/to/dist;
+      index  index.html index.htm;
+      try_files $uri $uri/ /index.html;
+    }
+    location /api1/ {
+        proxy_pass http://localhost:8001;
+    }
+    location /api2/ {
+        proxy_pass http://localhost:8002;
+    }
+}
+</code></pre>
+<p>上述配置实现监听80端口，请求的静态资源路径为/path/to/dist  前端接口请求localhost/api1/时，将请求转发到http://localhost:8001；前端接口请求localhost/api2/时，将请求转发到http://localhost:8002</p>
+</div><div class="post-footer" id="post-footer">
+  <div class="post-info">
+    <div class="post-info-line">
+      <div class="post-info-mod">
+        <span title="更新于 2022-12-14 14:46:55">更新于 2022-12-14&nbsp;</span>
+      </div><div class="post-info-license">
+            <span><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a></span>
+          </div></div><div class="post-info-line">
+        <div class="post-info-md"><span><a href="/posts/nginx_operation/index.md" title="阅读原始文档" class="link-to-markdown">阅读原始文档</a></span></div>
+        <div class="post-info-share">
+          <span><a href="javascript:void(0);" title="分享到 X" data-sharer="twitter" data-url="https://blog.yyt6801.top/posts/nginx_operation/" data-title="Nginx常用配置" data-hashtags="Nginx,知识点,学习"><i class="fa-brands fa-x-twitter fa-fw" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://blog.yyt6801.top/posts/nginx_operation/" data-hashtag="Nginx"><i class="fa-brands fa-facebook-square fa-fw" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://blog.yyt6801.top/posts/nginx_operation/" data-title="Nginx常用配置"><i class="fa-brands fa-weibo fa-fw" aria-hidden="true"></i></a>
+  </span>
+        </div>
+      </div></div>
+
+  <div class="post-info-more">
+    <section class="post-tags"><i class="fa-solid fa-tags fa-fw me-1" aria-hidden="true"></i><a href="/tags/nginx/" class="post-tag" title="标签 - Nginx">Nginx</a><a href="/tags/%E7%9F%A5%E8%AF%86%E7%82%B9/" class="post-tag" title="标签 - 知识点">知识点</a><a href="/tags/%E5%AD%A6%E4%B9%A0/" class="post-tag" title="标签 - 学习">学习</a></section>
+    <section>
+      <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+    </section>
+  </div><div class="post-nav"><a href="/posts/url_encoding_table/" class="post-nav-item" rel="prev" title="URL编码表"><i class="fa-solid fa-angle-left fa-fw" aria-hidden="true"></i>URL编码表</a><a href="/posts/oracle_operation/" class="post-nav-item" rel="next" title="Oracle操作维护手册">Oracle操作维护手册<i class="fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article>
+
+  <aside class="toc" id="toc-auto" aria-label="目录"><h2 class="toc-title">目录&nbsp;<i class="toc-icon fa-solid fa-angle-down fa-fw" aria-hidden="true"></i></h2>
+      <div class="toc-content" id="toc-content-auto"></div></aside></main><footer class="footer">
+    <div class="footer-container"><div class="footer-line copyright" itemscope itemtype="http://schema.org/CreativeWork"><i class="fa-regular fa-copyright fa-fw" aria-hidden="true"></i>
+            <span itemprop="copyrightYear">2022 - 2025</span><span class="author" itemprop="copyrightHolder">
+              <a href="https://blog.yyt6801.top/"target="_blank" rel="external nofollow noopener noreferrer">YYT6801</a></span></div></div>
+  </footer></div><div class="widgets"><div class="fixed-buttons animate__faster d-none"><div class="fixed-button back-to-top" role="button" aria-label="回到顶部"><i class="fa-solid fa-arrow-up fa-fw" aria-hidden="true"></i><span class="variant-numeric">0%</span>
+        </div></div><div id="mask"></div><noscript>
+    <div class="noscript-warning">该网站在启用 JavaScript 的情况下效果最佳。</div>
+  </noscript>
+</div><link rel="preload" href="/lib/katex/katex.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/katex/katex.min.css"></noscript><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/fuse/fuse.min.js" defer></script><script src="/lib/sharer/sharer.min.js" async defer></script><script src="/lib/katex/katex.min.js" defer></script><script src="/lib/katex/auto-render.min.js" defer></script><script src="/lib/katex/copy-tex.min.js" defer></script><script src="/lib/katex/mhchem.min.js" defer></script><script>window.config={"code":{"copyTitle":"复制到剪贴板","editLockTitle":"锁定可编辑代码块","editUnLockTitle":"解锁可编辑代码块","editable":true,"maxShownLines":10},"comment":{"enable":false},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"distance":100,"findAllMatches":false,"fuseIndexURL":"/search.json","highlightTag":"em","ignoreFieldNorm":false,"ignoreLocation":false,"isCaseSensitive":false,"location":0,"maxResultLength":10,"minMatchCharLength":2,"noResultsFound":"没有找到结果","snippetLength":30,"threshold":0.3,"type":"fuse","useExtendedSearch":false},"version":"v0.3.15"};</script><script src="/js/theme.min.js" defer></script></body>
+</html>

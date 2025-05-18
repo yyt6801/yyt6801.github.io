@@ -1,0 +1,199 @@
+# URL编码表
+
+
+# URL编码表
+URL 编码将字符转换为可通过因特网传输的格式。  
+
+URL 只能使用 ASCII 字符集 通过因特网进行发送。  
+
+由于 URL 通常包含 ASCII 集之外的字符，因此必须将 URL 转换为有效的 ASCII 格式。  
+
+URL 编码使用后跟十六进制数字的 &#34;%&#34; 替代不安全的 ASCII 字符。  
+
+URL 不能包含空格。URL 编码通常使用加号（&#43;）或 %20 替代空格。  
+    
+| 字符  | 编码  
+|-- | --
+|backspace           |%08			   
+|tab                 |%09	        		   
+|linefeed            |%0A			   
+|creturn             |%0D	    		   
+|space               |%20	    		   
+|!                   |%21			           
+|&#34;                   |%22			           
+|#                   |%23			           
+|$                   |%24			           
+|%                   |%25			           
+|&amp;                   |%26			           
+|&#39;                   |%27			           
+|(                   |%28			           
+|)                   |%29		  
+|*                   |%2A		  
+|&#43;                   |%2B		  
+|,                   |%2C		  
+|-                   |%2D		  
+|.                   |%2E		  
+|/                   |%2F		  
+|0                   |%30		  
+|1                   |%31		  
+|2                   |%32		  
+|3                   |%33		
+|4                   |%34		
+|5                   |%35		
+|6                   |%36		  
+|7                   |%37		  
+|8                   |%38		  
+|9                   |%39		
+|:                   |%3A		  
+|;                   |%3B		  
+|&lt;                   |%3C		  
+|=                   |%3D		
+|&gt;                   |%3E		    	  
+|@                   |%40		  
+|A                   |%41		  
+|B                   |%42		  
+|C                   |%43		  
+|D                   |%44		  
+|E                   |%45		  
+|F                   |%46		  
+|G                   |%47		
+|H                   |%48		
+|I                   |%49
+|J                   |%4A
+|K                   |%4B
+|L                   |%4C
+|M                   |%4D
+|N                   |%4E
+|O                   |%4F
+|P                   |%50
+|Q                   |%51
+|R                   |%52
+|S                   |%53
+|T                   |%54
+|U                   |%55
+|V                   |%56
+|W                   |%57
+|X                   |%58
+|Y                   |%59
+|Z                   |%5A
+|[                   |%5B
+|\                   |%5C
+|]                   |%5D
+|^                   |%5E
+|_                   |%5F
+|`                   |%60
+|a                   |%61
+|b                   |%62
+|c                   |%63
+|d                   |%64
+|e                   |%65
+|f                   |%66
+|g                   |%67
+|h                   |%68
+|i                   |%69
+|j                   |%6A
+|k                   |%6B
+|l                   |%6C
+|m                   |%6D
+|n                   |%6E
+|o                   |%6F
+|p                   |%70
+|q                   |%71
+|r                   |%72
+|s                   |%73
+|t                   |%74
+|u                   |%75
+|v                   |%76
+|w                   |%77
+|x                   |%78
+|y                   |%79
+|z                   |%7A
+|{                   |%7B
+||                   |%7C
+|}                   |%7D
+|~                   |%7E
+|￠                  %|A2
+|￡                  %|A3
+|￥                  %|A5
+||                   |%A6
+|§                   |%A7	         
+|&amp;laquo;             |%AB	 
+|&amp;not;               |%AC	 
+|ˉ                   |%AD	     
+|o                   |%B0	     
+|±                   |%B1	     
+|a                   |%B2	     
+|,                   |%B4	     
+|μ                   |%B5	     
+|&amp;raquo;             |%BB	 
+|&amp;frac14;            |%BC
+|&amp;frac12;            |%BD
+|&amp;iquest;            |%BF
+|à                   |%C0	     
+|á                   |%C1	     
+|&amp;Atilde;            |%C3
+|&amp;Auml;              |%C4	 
+|&amp;Aring;             |%C5	 
+|&amp;AElig;             |%C6	 
+|&amp;Ccedil;            |%C7
+|è                   |%C8	     
+|é　                 |%C9	     
+|ê                   |%CA	     
+|&amp;Euml;              |%CB	 
+|ì　                 |%CC	     
+|í                   |%CD	     
+|&amp;Icirc;             |%CE	 
+|&amp;Iuml;              |%CF	 
+|D                   |%D0	     
+|&amp;Ntilde;            |%D1
+|ò                   |%D2	
+|ó                   |%D3
+|&amp;Ocirc;             |%D4
+|&amp;Otilde;            |%D5
+|&amp;Ouml;              |%D6
+|&amp;Oslash;            |%D8
+|ù                   |%D9
+|ú　                 |%DA
+|&amp;Ucirc;             |%DB
+|ü                   |%DC
+|Y                   |%DD
+|T                   |%DE
+|&amp;szlig;             |%DF
+|à                   |%E0
+|á                   |%E1
+|a                   |%E2
+|&amp;atilde;            |%E3
+|&amp;auml;              |%E4
+|&amp;aring;             |%E5
+|&amp;aelig;             |%E6
+|&amp;ccedil;            |%E7
+|è                   |%E8
+|é                   |%E9
+|ê                   |%EA
+|&amp;euml;              |%EB
+|ì                   |%EC
+|í                   |%ED
+|&amp;icirc;             |%EE
+|&amp;iuml;              |%EF
+|e                   |%F0
+|&amp;ntilde;            |%F1
+|ò                   |%F2
+|ó                   |%F3
+|&amp;ocirc;             |%F4
+|&amp;otilde;            |%F5
+|&amp;ouml;              |%F6
+|÷　                 |%F7
+|&amp;oslash;            |%F8
+|ù                   |%F9
+|ú　                 |%FA
+|&amp;ucirc;             |%FB
+|ü                   |%FC
+|y                   |%FD
+|t                   |%FE
+|&amp;yuml;              |%FF
+
+---
+
+> 作者: [YYT6801](https://blog.yyt6801.top/)  
+> URL: https://blog.yyt6801.top/posts/url_encoding_table/  
+

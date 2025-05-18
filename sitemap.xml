@@ -13,7 +13,7 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://blog.yyt6801.top/posts/markdown%E8%AF%AD%E6%B3%95/</loc>
+    <loc>https://blog.yyt6801.top/posts/markdown_operation/</loc>
     <lastmod>2024-12-08T10:26:55+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -55,7 +55,7 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://blog.yyt6801.top/posts/mongodb%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/</loc>
+    <loc>https://blog.yyt6801.top/posts/mongodb_operation/</loc>
     <lastmod>2024-12-08T09:35:55+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -91,7 +91,7 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://blog.yyt6801.top/posts/nginx%E5%B8%B8%E7%94%A8%E9%85%8D%E7%BD%AE/</loc>
+    <loc>https://blog.yyt6801.top/posts/nginx_operation/</loc>
     <lastmod>2022-12-14T14:46:55+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -127,13 +127,13 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://blog.yyt6801.top/posts/url%E7%BC%96%E7%A0%81%E8%A1%A8/</loc>
+    <loc>https://blog.yyt6801.top/posts/url_encoding_table/</loc>
     <lastmod>2022-12-08T17:49:05+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://blog.yyt6801.top/posts/windows%E5%91%BD%E4%BB%A4%E6%8F%90%E7%A4%BA%E7%AC%A6cmd%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/</loc>
+    <loc>https://blog.yyt6801.top/posts/windows_cmd_operation/</loc>
     <lastmod>2022-12-08T17:49:05+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -163,7 +163,7 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://blog.yyt6801.top/posts/%E8%B5%84%E6%BA%90%E8%BD%AF%E4%BB%B6%E5%B7%A5%E5%85%B7%E8%B5%84%E6%BA%90%E6%B8%85%E5%8D%95/</loc>
+    <loc>https://blog.yyt6801.top/posts/efficiency_tools/</loc>
     <lastmod>2022-12-09T15:10:37+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -181,7 +181,7 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://blog.yyt6801.top/posts/docker%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/</loc>
+    <loc>https://blog.yyt6801.top/posts/docker_operation/</loc>
     <lastmod>2022-12-01T01:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -193,7 +193,7 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://blog.yyt6801.top/posts/git%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/</loc>
+    <loc>https://blog.yyt6801.top/posts/git_operation/</loc>
     <lastmod>2025-05-17T22:36:37+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -205,7 +205,7 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://blog.yyt6801.top/posts/ascii%E7%A0%81%E5%80%BC%E5%AF%B9%E7%85%A7%E8%A1%A8/</loc>
+    <loc>https://blog.yyt6801.top/posts/ascii_encoding_table/</loc>
     <lastmod>2022-12-01T00:00:01+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -229,13 +229,13 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://blog.yyt6801.top/posts/%E5%BB%BA%E7%AB%99%E7%AC%94%E8%AE%B0/</loc>
+    <loc>https://blog.yyt6801.top/tags/%E6%9F%A5%E8%AF%A2%E8%A1%A8/</loc>
     <lastmod>2022-12-01T00:00:01+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://blog.yyt6801.top/tags/%E6%9F%A5%E8%AF%A2%E8%A1%A8/</loc>
+    <loc>https://blog.yyt6801.top/posts/blog_building_notes/</loc>
     <lastmod>2022-12-01T00:00:01+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
