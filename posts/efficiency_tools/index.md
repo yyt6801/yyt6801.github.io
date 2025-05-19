@@ -65,8 +65,7 @@ The App Store 是一个针对苹果手机、iPad、Mac 设备的应用搜索工�
 * [office-converter](https://cn.office-converter.com/)  
 
 ### 在线绘图工具：
-* [Xmind 思维导图工具](https://www.xmind.cn/)  
-跨平台、跨终端，拥有全功能的思维导图软件。
+* [Xmind 思维导图工具](https://www.xmind.cn/)  跨平台、跨终端，拥有全功能的思维导图软件。  
 
 * [ProcessOn 在线流程图](https://www.processon.com/)  
 免费在线作图，实时协作，支持流程图、思维导图、原型图、UML、网络拓扑图、组织结构图等。
@@ -109,6 +108,12 @@ The App Store 是一个针对苹果手机、iPad、Mac 设备的应用搜索工�
 * [火绒](https://www.huorong.cn/)  (不打扰人,占用较低,功能简洁实用)  
 * CCleaner  (还好吧,解压即用的清理工具)  
 
+## 浏览器
+* [Chrome](https://www.google.cn/chrome/)
+  * [Portable版本下载地址](https://wwi.lanzoup.com/iSFktyf2fkb)  
+
+* [Microsoft Edge](https://www.microsoft.com/zh-cn/edge)
+
 ## 图片查看器 
 * [360Ablum](https://yyt6801.lanzouo.com/i135zyf2cfi)  360全家桶中提取出来的单独版本，速度快占用低，图片质量高
 * [JPEGView]() JPEGViewPortable 轻量，清晰度高，免安装
@@ -126,7 +131,8 @@ The App Store 是一个针对苹果手机、iPad、Mac 设备的应用搜索工�
 
 ## 解压缩工具
 * [Bindzip](https://www.bandisoft.com/bandizip/)  (挺不错的解压缩工具，格式支持多，早期版本无广告，可在压缩文件预览里直接打开文件)  
-  * [v6.2版本下载地址](https://www.jianguoyun.com/p/DZF7YegQxM_ACRjJru8EIAA)
+  * [v6.2版本下载地址一](https://yyt6801.lanzouo.com/io6NW8hgsed)
+  * [v6.2版本下载地址二](https://www.jianguoyun.com/p/DZF7YegQxM_ACRjJru8EIAA)
 
 ## 文本编辑器
 * [Notepad3](http://notepad3.cn/) (弥补windows自带的记事本的所有不足，可以直接替换掉记事本，开源编辑器，超轻量，体验极佳)
@@ -134,7 +140,8 @@ The App Store 是一个针对苹果手机、iPad、Mac 设备的应用搜索工�
   * [v6.23版本下载地址二](https://www.jianguoyun.com/p/DaHTA_MQxM_ACRjHru8EIAA)
 
 * [Notepad&#43;&#43;](https://notepad-plus-plus.org/) (工具本身不错)
-  * [下载地址一](https://www.jianguoyun.com/p/DS_HlA8QxM_ACRjXru8EIAA)
+  * [v7.7.1版本下载地址一](https://yyt6801.lanzouo.com/iir278hguof)
+  * [v7.7.1版本下载地址二](https://www.jianguoyun.com/p/DS_HlA8QxM_ACRjXru8EIAA)
 
 * Ultra Edit (支持各种格式,查看数据等,基本秒开)  
 * EmEditor (支持打开超大文本，动则上G的日志也能直接打开，可以便携安装)
@@ -156,22 +163,32 @@ The App Store 是一个针对苹果手机、iPad、Mac 设备的应用搜索工�
 * photoshop7.0   (内存超级小的一个老版本，应急改个图尺寸大小之类基本够用)
 
 ## 其他：
+### 开发环境/容器：
+* [Dism&#43;&#43;](https://www.chuyu.me/zh-Hans/index.html) (windows系统优化工具，可以用来卸载系统自带软件，清理系统垃圾，卸载系统补丁等)
+  * [下载地址一](https://yyt6801.lanzouo.com/i2j2Qyf2e2h)
+
 
 ### 多种工具集
 * 盘姬工具箱(AIDA,科学上网...)  
 
 ### 思维导图
-* xmind (思维导图必备)  
+* XMind (思维导图必备)  
+  * XMind2020版本
+    * [下载地址一](https://wwi.lanzoup.com/i3NxPyf2j4j)  
+    * [下载地址二](https://www.jianguoyun.com/p/DcFzRE4QxM_ACRjNru8EIAA)  
 
 ### 开发环境/容器：
 * [Nginx](https://nginx.org/)
+  * [v1.18.0版本下载地址一](https://wwi.lanzoup.com/ibyFsyf2fyf)
+  * [v1.18.0版本下载地址二](https://www.jianguoyun.com/p/DX0w0eAQxM_ACRjLru8EIAA)
+
 * [NVM](https://nvm.uihtm.com/) (node版本管理器)
 * [MiniConda]() (python版本管理器)
 * WSL2 (Windows上的linux版本，基本功能够用)
 * Docker
 * Tomcat
 * Python
-* Jdk
+* Jdk/Jre
 * Node.js
 
 ### IDE
