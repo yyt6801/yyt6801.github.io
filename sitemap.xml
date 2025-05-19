@@ -145,6 +145,12 @@
     <priority>0.5</priority>
   </url>
   <url>
+    <loc>https://blog.yyt6801.top/posts/efficiency_tools/</loc>
+    <lastmod>2025-05-19T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
     <loc>https://blog.yyt6801.top/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/</loc>
     <lastmod>2022-12-08T17:49:05+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -159,12 +165,6 @@
   <url>
     <loc>https://blog.yyt6801.top/tags/%E6%96%B0%E6%8A%80%E8%83%BDget/</loc>
     <lastmod>2022-12-08T17:49:05+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://blog.yyt6801.top/posts/efficiency_tools/</loc>
-    <lastmod>2025-05-19T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
