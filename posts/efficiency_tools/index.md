@@ -83,6 +83,8 @@
     * [下载地址二](https://www.jianguoyun.com/p/DcFzRE4QxM_ACRjNru8EIAA)  
 
 ### 开发环境/容器：
+* [Git](https://git-scm.com/) (版本控制工具)
+
 * [Nginx](https://nginx.org/)
   * v1.18.0版本
     * [下载地址一](https://wwi.lanzoup.com/ibyFsyf2fyf)
