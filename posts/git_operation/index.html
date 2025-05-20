@@ -11,8 +11,8 @@
   <meta itemprop="name" content="Git常用操作">
   <meta itemprop="description" content="将远程仓库的代码克隆到本地 在本地新建文件夹，进入文件夹内； 在文件夹内打开git bash终端，使用 git clone url 命令把远程仓库的克隆到本地.例如将github上的某仓库克隆到本地: 1 git clone https://github.com/yyt6801/for-my-dream.git 本地修改后同步到远程仓库： 查看本地是否跟踪到 1 git status 把本地新增的文件添加到缓存区 1 git add . 查看是否已存放至暂存区 1 git status 使用 git add . 命令是将想要快照的内容写入缓存区中， 通过进一步执行 git commit 命令是将缓存区的内容添加到本地仓库中 1 git commit –m &#34;changes&#34; 把本地仓库代码推送到远程仓库 1 git push 将本地仓库与远程仓库同步： 方法一： 在本地仓库获取最新的代码，检查所有更新，但并未改动本地仓库的代码。">
   <meta itemprop="datePublished" content="2022-12-01T00:00:00+00:00">
-  <meta itemprop="dateModified" content="2025-05-17T22:36:37+00:00">
-  <meta itemprop="wordCount" content="413">
+  <meta itemprop="dateModified" content="2025-05-20T00:00:00+00:00">
+  <meta itemprop="wordCount" content="446">
   <meta itemprop="keywords" content="Git"><meta property="og:url" content="https://blog.yyt6801.top/posts/git_operation/">
   <meta property="og:site_name" content="YYT6801&#39;s Blog">
   <meta property="og:title" content="Git常用操作">
@@ -21,7 +21,7 @@
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
     <meta property="article:published_time" content="2022-12-01T00:00:00+00:00">
-    <meta property="article:modified_time" content="2025-05-17T22:36:37+00:00">
+    <meta property="article:modified_time" content="2025-05-20T00:00:00+00:00">
     <meta property="article:tag" content="Git">
 
   <meta name="twitter:card" content="summary">
@@ -41,8 +41,8 @@
     "mainEntityOfPage": {
       "@type": "WebPage",
       "@id": "https:\/\/blog.yyt6801.top\/posts\/git_operation\/"
-    },"genre": "posts","keywords": "Git","wordcount":  413 ,
-    "url": "https:\/\/blog.yyt6801.top\/posts\/git_operation\/","datePublished": "2022-12-01T00:00:00+00:00","dateModified": "2025-05-17T22:36:37+00:00","license": "YYT6801","publisher": {
+    },"genre": "posts","keywords": "Git","wordcount":  446 ,
+    "url": "https:\/\/blog.yyt6801.top\/posts\/git_operation\/","datePublished": "2022-12-01T00:00:00+00:00","dateModified": "2025-05-20T00:00:00+00:00","license": "YYT6801","publisher": {
       "@type": "Organization",
       "name": ""},"author": {
         "@type": "Person",
@@ -121,7 +121,7 @@
     <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>Git常用操作</span>
       </h1></div><div class="post-meta">
       <div class="post-meta-line"><span class="post-author"><a href="https://blog.yyt6801.top/" title="作者"target="_blank" rel="external nofollow noopener noreferrer author" class="author"><i class="fa-solid fa-user-circle" aria-hidden="true"></i>
-    YYT6801</a></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/%E7%BC%96%E7%A8%8B%E4%B8%8E%E5%BC%80%E5%8F%91/" class="post-category" title="分类 - 编程与开发"><i class="fa-regular fa-folder fa-fw" aria-hidden="true"></i> 编程与开发</a></span></div><div class="post-meta-line"><span title="发布于 2022-12-01 00:00:00"><i class="fa-solid fa-calendar-days fa-fw me-1" aria-hidden="true"></i><time datetime="2022-12-01">2022-12-01</time></span>&nbsp;<span title="更新于 2025-05-17 22:36:37"><i class="fa-regular fa-calendar-check fa-fw me-1" aria-hidden="true"></i><time datetime="2025-05-17">2025-05-17</time></span>&nbsp;<span title="413 字"><i class="fa-solid fa-pencil-alt fa-fw me-1" aria-hidden="true"></i>约 500 字</span>&nbsp;<span><i class="fa-regular fa-clock fa-fw me-1" aria-hidden="true"></i>预计阅读 2 分钟</span>&nbsp;</div>
+    YYT6801</a></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/%E7%BC%96%E7%A8%8B%E4%B8%8E%E5%BC%80%E5%8F%91/" class="post-category" title="分类 - 编程与开发"><i class="fa-regular fa-folder fa-fw" aria-hidden="true"></i> 编程与开发</a></span></div><div class="post-meta-line"><span title="发布于 2022-12-01 00:00:00"><i class="fa-solid fa-calendar-days fa-fw me-1" aria-hidden="true"></i><time datetime="2022-12-01">2022-12-01</time></span>&nbsp;<span title="更新于 2025-05-20 00:00:00"><i class="fa-regular fa-calendar-check fa-fw me-1" aria-hidden="true"></i><time datetime="2025-05-20">2025-05-20</time></span>&nbsp;<span title="446 字"><i class="fa-solid fa-pencil-alt fa-fw me-1" aria-hidden="true"></i>约 500 字</span>&nbsp;<span><i class="fa-regular fa-clock fa-fw me-1" aria-hidden="true"></i>预计阅读 3 分钟</span>&nbsp;</div>
     </div><div class="details toc" id="toc-static" data-kept="false">
         <div class="details-summary toc-title">
           <span>目录</span>
@@ -154,6 +154,13 @@
     <li><a href="#在新环境中与仓库连接">在新环境中与仓库连接:</a>
       <ul>
         <li><a href="#git-使用-ssh-方式clone和push-无需用户名密码">git 使用 <em><code>ssh</code></em> 方式<code>clone</code>和<code>push</code> 无需用户名密码</a></li>
+      </ul>
+    </li>
+    <li><a href="#git配置代理">git配置代理</a>
+      <ul>
+        <li><a href="#查看全局设置">查看全局设置</a></li>
+        <li><a href="#设置git全局走代理">设置git全局走代理</a></li>
+        <li><a href="#取消全局代理">取消全局代理</a></li>
       </ul>
     </li>
     <li><a href="#git分支操作">git分支操作：</a></li>
@@ -410,7 +417,48 @@
 </div>
 </div><p>即可完成使用ssh连接本地</p>
 <hr>
-<hr>
+<h2 id="git配置代理" class="heading-element"><span>git配置代理</span>
+  <a href="#git%e9%85%8d%e7%bd%ae%e4%bb%a3%e7%90%86" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><h3 id="查看全局设置" class="heading-element"><span>查看全局设置</span>
+  <a href="#%e6%9f%a5%e7%9c%8b%e5%85%a8%e5%b1%80%e8%ae%be%e7%bd%ae" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Bash" data-lang="Bash"><span class="line"><span class="cl">git config --global --list</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="设置git全局走代理" class="heading-element"><span>设置git全局走代理</span>
+  <a href="#%e8%ae%be%e7%bd%aegit%e5%85%a8%e5%b1%80%e8%b5%b0%e4%bb%a3%e7%90%86" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Bash" data-lang="Bash"><span class="line"><span class="cl">git config --global http.proxy http://127.0.0.1:10809
+</span></span><span class="line"><span class="cl">git config --global https.proxy http://127.0.0.1:10809</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="取消全局代理" class="heading-element"><span>取消全局代理</span>
+  <a href="#%e5%8f%96%e6%b6%88%e5%85%a8%e5%b1%80%e4%bb%a3%e7%90%86" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Bash" data-lang="Bash"><span class="line"><span class="cl">git config --global --unset http.proxy
+</span></span><span class="line"><span class="cl">git config --global --unset https.proxy</span></span></code></pre></td></tr></table>
+</div>
+</div><hr>
 <h2 id="git分支操作" class="heading-element"><span>git分支操作：</span>
   <a href="#git%e5%88%86%e6%94%af%e6%93%8d%e4%bd%9c" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
@@ -587,7 +635,7 @@ reset 是替换整个目录树，多余的文件将被删除。而 checkout 只�
   <div class="post-info">
     <div class="post-info-line">
       <div class="post-info-mod">
-        <span title="更新于 2025-05-17 22:36:37">更新于 2025-05-17&nbsp;</span>
+        <span title="更新于 2025-05-20 00:00:00">更新于 2025-05-20&nbsp;</span>
       </div><div class="post-info-license">
             <span><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a></span>
           </div></div><div class="post-info-line">

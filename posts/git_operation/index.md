@@ -119,6 +119,25 @@ git branch --set-upstream-to=origin/master master
 ```
 即可完成使用ssh连接本地
 ***
+
+## git配置代理
+### 查看全局设置
+```Bash
+git config --global --list
+```
+
+### 设置git全局走代理
+```Bash
+git config --global http.proxy http://127.0.0.1:10809
+git config --global https.proxy http://127.0.0.1:10809
+```
+
+### 取消全局代理
+```Bash
+git config --global --unset http.proxy
+git config --global --unset https.proxy
+```
+
 ----
 
 
@@ -240,7 +259,6 @@ reset 是替换整个目录树，多余的文件将被删除。而 checkout 只�
 ## 删除操作
 *`git rm`*  把文件从工作区和暂存区中删除。使用 *`—cached`* 只从暂存区中删除。使用 *`–rf &lt;directory&gt;`* 可删除指定目录下的所有文件和子目录。  
 *`git mv &lt;source&gt; &lt;destination&gt;`*  在工作区和暂存区中进行移动或重命名。若 *`&lt;destination&gt;`* 不为一个目录名，则执行重命名。如果为一个目录名，则执行移动。  
-
 
 
 ---
