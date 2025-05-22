@@ -13,8 +13,8 @@
   <meta itemprop="description" content="Oracle是一款关系型数据库管理系统，广泛应用于企业级应用中。本文档将介绍Oracle的基本操作和维护方法，帮助用户更好地管理和维护Oracle数据库。
 1. Oracle 安装 Oracle的安装过程比较复杂，需要按照官方文档进行操作。以下是一些基本的安装步骤：">
   <meta itemprop="datePublished" content="2024-11-28T09:10:23+08:00">
-  <meta itemprop="dateModified" content="2025-03-04T15:58:26+08:00">
-  <meta itemprop="wordCount" content="163">
+  <meta itemprop="dateModified" content="2025-05-23T15:58:26+08:00">
+  <meta itemprop="wordCount" content="431">
   <meta itemprop="keywords" content="Oracle"><meta property="og:url" content="https://blog.yyt6801.top/posts/oracle_operation/">
   <meta property="og:site_name" content="YYT6801&#39;s Blog">
   <meta property="og:title" content="Oracle操作维护手册">
@@ -24,7 +24,7 @@
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
     <meta property="article:published_time" content="2024-11-28T09:10:23+08:00">
-    <meta property="article:modified_time" content="2025-03-04T15:58:26+08:00">
+    <meta property="article:modified_time" content="2025-05-23T15:58:26+08:00">
     <meta property="article:tag" content="Oracle">
 
   <meta name="twitter:card" content="summary">
@@ -45,8 +45,8 @@
     "mainEntityOfPage": {
       "@type": "WebPage",
       "@id": "https:\/\/blog.yyt6801.top\/posts\/oracle_operation\/"
-    },"genre": "posts","keywords": "Oracle","wordcount":  163 ,
-    "url": "https:\/\/blog.yyt6801.top\/posts\/oracle_operation\/","datePublished": "2024-11-28T09:10:23+08:00","dateModified": "2025-03-04T15:58:26+08:00","license": "YYT6801","publisher": {
+    },"genre": "posts","keywords": "Oracle","wordcount":  431 ,
+    "url": "https:\/\/blog.yyt6801.top\/posts\/oracle_operation\/","datePublished": "2024-11-28T09:10:23+08:00","dateModified": "2025-05-23T15:58:26+08:00","license": "YYT6801","publisher": {
       "@type": "Organization",
       "name": ""},"author": {
         "@type": "Person",
@@ -125,7 +125,7 @@
     <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>Oracle操作维护手册</span>
       </h1></div><div class="post-meta">
       <div class="post-meta-line"><span class="post-author"><a href="https://blog.yyt6801.top/" title="作者"target="_blank" rel="external nofollow noopener noreferrer author" class="author"><i class="fa-solid fa-user-circle" aria-hidden="true"></i>
-    YYT6801</a></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/%E7%BC%96%E7%A8%8B%E4%B8%8E%E5%BC%80%E5%8F%91/" class="post-category" title="分类 - 编程与开发"><i class="fa-regular fa-folder fa-fw" aria-hidden="true"></i> 编程与开发</a></span></div><div class="post-meta-line"><span title="发布于 2024-11-28 09:10:23"><i class="fa-solid fa-calendar-days fa-fw me-1" aria-hidden="true"></i><time datetime="2024-11-28">2024-11-28</time></span>&nbsp;<span title="更新于 2025-03-04 15:58:26"><i class="fa-regular fa-calendar-check fa-fw me-1" aria-hidden="true"></i><time datetime="2025-03-04">2025-03-04</time></span>&nbsp;<span title="163 字"><i class="fa-solid fa-pencil-alt fa-fw me-1" aria-hidden="true"></i>约 200 字</span>&nbsp;<span><i class="fa-regular fa-clock fa-fw me-1" aria-hidden="true"></i>预计阅读 1 分钟</span>&nbsp;</div>
+    YYT6801</a></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/%E7%BC%96%E7%A8%8B%E4%B8%8E%E5%BC%80%E5%8F%91/" class="post-category" title="分类 - 编程与开发"><i class="fa-regular fa-folder fa-fw" aria-hidden="true"></i> 编程与开发</a></span></div><div class="post-meta-line"><span title="发布于 2024-11-28 09:10:23"><i class="fa-solid fa-calendar-days fa-fw me-1" aria-hidden="true"></i><time datetime="2024-11-28">2024-11-28</time></span>&nbsp;<span title="更新于 2025-05-23 15:58:26"><i class="fa-regular fa-calendar-check fa-fw me-1" aria-hidden="true"></i><time datetime="2025-05-23">2025-05-23</time></span>&nbsp;<span title="431 字"><i class="fa-solid fa-pencil-alt fa-fw me-1" aria-hidden="true"></i>约 500 字</span>&nbsp;<span><i class="fa-regular fa-clock fa-fw me-1" aria-hidden="true"></i>预计阅读 3 分钟</span>&nbsp;</div>
     </div><div class="details toc" id="toc-static" data-kept="false">
         <div class="details-summary toc-title">
           <span>目录</span>
@@ -135,20 +135,32 @@
   <ul>
     <li>
       <ul>
-        <li><a href="#1-oracle-安装">1. Oracle 安装</a></li>
-        <li><a href="#2-oracle-基本操作">2. Oracle 基本操作</a></li>
+        <li><a href="#1-oracle-安装">1. Oracle 安装</a>
+          <ul>
+            <li><a href="#安装服务端">安装服务端</a></li>
+            <li><a href="#安装客户端">安装客户端</a></li>
+            <li><a href="#安装后配置">安装后配置</a></li>
+          </ul>
+        </li>
+        <li><a href="#2-oracle-基本操作">2. Oracle 基本操作</a>
+          <ul>
+            <li><a href="#高级操作">高级操作</a>
+              <ul>
+                <li><a href="#典型示例">典型示例</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
         <li><a href="#3-oracle-维护">3. Oracle 维护</a></li>
         <li><a href="#4-oracle-安全">4. Oracle 安全</a></li>
         <li><a href="#5-oracle-监控">5. Oracle 监控</a></li>
         <li><a href="#6-oracle-故障排除">6. Oracle 故障排除</a>
           <ul>
-            <li>
+            <li><a href="#常见报错及解决">常见报错及解决</a>
               <ul>
-                <li>
-                  <ul>
-                    <li><a href="#查询表中重复的数据">查询表中重复的数据</a></li>
-                  </ul>
-                </li>
+                <li><a href="#ora-01017-用户名口令无效-登录被拒绝">ORA-01017: 用户名/口令无效; 登录被拒绝</a></li>
+                <li><a href="#ora-01653-unable-to-extend-table">ORA-01653: unable to extend table</a></li>
+                <li><a href="#ora-12516tns监听程序无法找到匹配协议栈的可用句柄">ORA-12516:TNS:监听程序无法找到匹配协议栈的可用句柄</a></li>
               </ul>
             </li>
           </ul>
@@ -169,6 +181,129 @@
 <li>运行安装程序</li>
 <li>按照提示进行安装</li>
 <li>配置Oracle数据库</li>
+</ol>
+<h4 id="安装服务端" class="heading-element"><span>安装服务端</span>
+  <a href="#%e5%ae%89%e8%a3%85%e6%9c%8d%e5%8a%a1%e7%ab%af" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><ol>
+<li>安装选项选择“创建和配置数据库”；</li>
+<li>数据库系统选择”服务器类”；</li>
+<li>数据安装类型选择”单实例数据库安装”；</li>
+<li>选择”高级安装”；</li>
+<li>选择“企业版”；</li>
+<li>数据库类型选择“一般用途/事务处理”；</li>
+<li>全局数据库实例名为Orcl;</li>
+<li>对所有账户使用相同的管理口令；</li>
+<li>完成安装</li>
+</ol>
+<h4 id="安装客户端" class="heading-element"><span>安装客户端</span>
+  <a href="#%e5%ae%89%e8%a3%85%e5%ae%a2%e6%88%b7%e7%ab%af" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><ol>
+<li>安装类型中选择“定制”；</li>
+<li>选择需要安装的组件：
+<ul>
+<li>Oracle Database Utilities</li>
+<li>Oracle Programmer</li>
+<li>Oracle Net</li>
+<li>Oracle Connection Manager</li>
+<li>Oracle Net Listener</li>
+<li>Oracle ODBC Driver</li>
+<li>Oracle Objects for OLE</li>
+<li>Oracle Provider for OLE DB</li>
+</ul>
+</li>
+<li>通过界面配置监听（不执行典型配置）；</li>
+<li>配置命名方法（服务名-&gt;网络服务名）；</li>
+</ol>
+<h4 id="安装后配置" class="heading-element"><span>安装后配置</span>
+  <a href="#%e5%ae%89%e8%a3%85%e5%90%8e%e9%85%8d%e7%bd%ae" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><ol>
+<li>关闭监听日志listener.log<br>
+管理员模式下进入DOS或PowerShell,依次执行：
+<ol>
+<li><em><code>Lsnrctl</code></em></li>
+<li><em><code>set log_status off</code></em></li>
+<li>手动删除 <code>D:\app\Administrator\diag\tnslsnr\Your_PC_Name\listener\trace</code>文件夹路径下的<code>listener.log</code>；</li>
+<li><em><code>save_config</code></em>  保存配置</li>
+</ol>
+</li>
+<li>关闭账户默认180天到期
+<ol>
+<li>查看当前用户密码设置
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-SQL" data-lang="SQL"><span class="line"><span class="cl"><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">dba_profiles</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">profile</span><span class="o">=</span><span class="s1">&#39;DEFAULT&#39;</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">resource_name</span><span class="o">=</span><span class="s1">&#39;PASSWORD_LIFE_TIME&#39;</span><span class="p">;</span></span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>设置密码不过期，可用管理员登陆
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-SQL" data-lang="SQL"><span class="line"><span class="cl"><span class="k">ALTER</span><span class="w"> </span><span class="n">PROFILE</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="k">LIMIT</span><span class="w"> </span><span class="n">PASSWORD_LIFE_TIME</span><span class="w"> </span><span class="n">UNLIMITED</span><span class="p">;</span></span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ol>
+</li>
+<li>关闭审计功能
+<ol>
+<li>使用SQLPlus登录(sqlplus 用户名/密码@数据库实例名)
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Bash" data-lang="Bash"><span class="line"><span class="cl">sqlplus system/password@Orcl as sysdba<span class="p">;</span></span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>查看审计功能开启状态
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Bash" data-lang="Bash"><span class="line"><span class="cl">show parameter audit_trail<span class="p">;</span></span></span></code></pre></td></tr></table>
+</div>
+</div>输出结果DB为开启审计功能。NONE：未开启</li>
+<li>关闭审计
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Bash" data-lang="Bash"><span class="line"><span class="cl">alter system <span class="nb">set</span> <span class="nv">audit_trail</span><span class="o">=</span>none <span class="nv">scope</span><span class="o">=</span>spfile<span class="p">;</span></span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>关闭数据库实例使配置生效
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Bash" data-lang="Bash"><span class="line"><span class="cl">shutdown immediate<span class="p">;</span></span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>确认状态
+在服务中重新启动OracleServiceOrcl服务;再次查看是否为NONE已关闭状态:
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Bash" data-lang="Bash"><span class="line"><span class="cl">show parameter audit_trail<span class="p">;</span></span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ol>
+</li>
 </ol>
 <h3 id="2-oracle-基本操作" class="heading-element"><span>2. Oracle 基本操作</span>
   <a href="#2-oracle-%e5%9f%ba%e6%9c%ac%e6%93%8d%e4%bd%9c" class="heading-mark">
@@ -217,6 +352,102 @@
 </div>
 </div></li>
 </ol>
+<h4 id="高级操作" class="heading-element"><span>高级操作</span>
+  <a href="#%e9%ab%98%e7%ba%a7%e6%93%8d%e4%bd%9c" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><ol>
+<li>
+<p>创建索引</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">CREATE INDEX myindex ON mytable (id);</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>创建视图</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">CREATE VIEW myview AS SELECT id, name FROM mytable;</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>创建触发器</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">CREATE TRIGGER mytrigger BEFORE INSERT ON mytable FOR EACH ROW BEGIN :new.id := :new.id + 1; END;</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>创建存储过程</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">CREATE PROCEDURE myprocedure (id INT, name VARCHAR(50)) AS BEGIN INSERT INTO mytable (id, name) VALUES (id, name); END;</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>创建函数</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">CREATE FUNCTION myfunction (id INT) RETURN VARCHAR(50) AS BEGIN RETURN (SELECT name FROM mytable WHERE id = id); END;</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>创建包</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="nx">CREATE</span> <span class="nx">PACKAGE</span> <span class="nx">mypackage</span> <span class="nx">AS</span>
+</span></span><span class="line"><span class="cl"><span class="nx">PROCEDURE</span> <span class="nf">myprocedure</span> <span class="p">(</span><span class="nx">id</span> <span class="nx">INT</span><span class="p">,</span> <span class="nx">name</span> <span class="nf">VARCHAR</span><span class="p">(</span><span class="mi">50</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl"><span class="nx">FUNCTION</span> <span class="nf">myfunction</span> <span class="p">(</span><span class="nx">id</span> <span class="nx">INT</span><span class="p">)</span> <span class="nx">RETURN</span> <span class="nf">VARCHAR</span><span class="p">(</span><span class="mi">50</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">END</span> <span class="nx">mypackage</span><span class="p">;</span></span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ol>
+<h5 id="典型示例" class="heading-element"><span>典型示例</span>
+  <a href="#%e5%85%b8%e5%9e%8b%e7%a4%ba%e4%be%8b" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h5><ul>
+<li>查询表中重复的数据
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-SQL" data-lang="SQL"><span class="line"><span class="cl"><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">tb_product</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">coilno</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="p">(</span><span class="k">select</span><span class="w"> </span><span class="n">coilno</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">tb_product</span><span class="w"> </span><span class="k">group</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">coilno</span><span class="w"> </span><span class="k">having</span><span class="w"> </span><span class="k">count</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span></span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>查看服务端版本和位数：
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-SQL" data-lang="SQL"><span class="line"><span class="cl"><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">v$version</span></span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
 <h3 id="3-oracle-维护" class="heading-element"><span>3. Oracle 维护</span>
   <a href="#3-oracle-%e7%bb%b4%e6%8a%a4" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
@@ -367,16 +598,50 @@
 </div>
 </div></li>
 </ol>
-<h6 id="查询表中重复的数据" class="heading-element"><span>查询表中重复的数据</span>
-  <a href="#%e6%9f%a5%e8%af%a2%e8%a1%a8%e4%b8%ad%e9%87%8d%e5%a4%8d%e7%9a%84%e6%95%b0%e6%8d%ae" class="heading-mark">
+<h4 id="常见报错及解决" class="heading-element"><span>常见报错及解决</span>
+  <a href="#%e5%b8%b8%e8%a7%81%e6%8a%a5%e9%94%99%e5%8f%8a%e8%a7%a3%e5%86%b3" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
   </a>
-</h6><p>select * from tb_product where coilno in (select coilno from tb_product group by coilno having count(*)&gt;1)</p>
+</h4><h5 id="ora-01017-用户名口令无效-登录被拒绝" class="heading-element"><span>ORA-01017: 用户名/口令无效; 登录被拒绝</span>
+  <a href="#ora-01017-%e7%94%a8%e6%88%b7%e5%90%8d%e5%8f%a3%e4%bb%a4%e6%97%a0%e6%95%88-%e7%99%bb%e5%bd%95%e8%a2%ab%e6%8b%92%e7%bb%9d" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h5><ul>
+<li>检查用户名和密码是否正确</li>
+<li>检查是否使用了正确的数据库实例名</li>
+<li>检查是否使用了正确的SID</li>
+<li>检查是否使用了正确的服务名</li>
+</ul>
+<h5 id="ora-01653-unable-to-extend-table" class="heading-element"><span>ORA-01653: unable to extend table</span>
+  <a href="#ora-01653-unable-to-extend-table" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h5><ul>
+<li>检查表空间是否已满</li>
+<li>检查表空间是否已启用自动扩展</li>
+</ul>
+<h5 id="ora-12516tns监听程序无法找到匹配协议栈的可用句柄" class="heading-element"><span>ORA-12516:TNS:监听程序无法找到匹配协议栈的可用句柄</span>
+  <a href="#ora-12516tns%e7%9b%91%e5%90%ac%e7%a8%8b%e5%ba%8f%e6%97%a0%e6%b3%95%e6%89%be%e5%88%b0%e5%8c%b9%e9%85%8d%e5%8d%8f%e8%ae%ae%e6%a0%88%e7%9a%84%e5%8f%af%e7%94%a8%e5%8f%a5%e6%9f%84" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h5><p>查看连接数是否超过最大连接数，适当增加最大连接数可解决</p>
+<ul>
+<li>查看当前连接数<br>
+<code>select count(*) from v$session</code><br>
+<code>select count(*) from v$process</code></li>
+<li>查看最大连接数<br>
+<code>show parameter sessions;</code><br>
+<code>show parameter processes;</code></li>
+<li>查看各用户的连接数<br>
+<code>select username,count(*) from v$session where username is not null group by username</code></li>
+<li>查看各进程的连接数<br>
+<code>select program,count(*) from v$session group by program</code></li>
+</ul>
 </div><div class="post-footer" id="post-footer">
   <div class="post-info">
     <div class="post-info-line">
       <div class="post-info-mod">
-        <span title="更新于 2025-03-04 15:58:26">更新于 2025-03-04&nbsp;</span>
+        <span title="更新于 2025-05-23 15:58:26">更新于 2025-05-23&nbsp;</span>
       </div><div class="post-info-license">
             <span><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a></span>
           </div></div><div class="post-info-line">

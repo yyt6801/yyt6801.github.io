@@ -12,6 +12,73 @@ Oracle的安装过程比较复杂，需要按照官方文档进行操作。以�
 4. 按照提示进行安装
 5. 配置Oracle数据库
 
+#### 安装服务端
+1. 安装选项选择“创建和配置数据库”；
+2. 数据库系统选择”服务器类”；
+3. 数据安装类型选择”单实例数据库安装”；
+4. 选择”高级安装”；
+5. 选择“企业版”；
+6. 数据库类型选择“一般用途/事务处理”；
+7. 全局数据库实例名为Orcl;
+8. 对所有账户使用相同的管理口令；
+9. 完成安装
+
+#### 安装客户端
+1. 安装类型中选择“定制”；
+2. 选择需要安装的组件：
+   *  Oracle Database Utilities
+   *  Oracle Programmer
+   *  Oracle Net 
+   *  Oracle Connection Manager
+   *  Oracle Net Listener
+   *  Oracle ODBC Driver
+   *  Oracle Objects for OLE
+   *  Oracle Provider for OLE DB
+3. 通过界面配置监听（不执行典型配置）；
+4. 配置命名方法（服务名-&gt;网络服务名）；
+
+#### 安装后配置
+1. 关闭监听日志listener.log  
+   管理员模式下进入DOS或PowerShell,依次执行：
+   1. *`Lsnrctl`*
+   2. *`set log_status off`*
+   3. 手动删除 `D:\app\Administrator\diag\tnslsnr\Your_PC_Name\listener\trace`文件夹路径下的`listener.log`；
+   4. *`save_config`*  保存配置  
+2. 关闭账户默认180天到期
+   1. 查看当前用户密码设置
+      ```SQL
+      select * from dba_profiles where profile=&#39;DEFAULT&#39; and resource_name=&#39;PASSWORD_LIFE_TIME&#39;;
+      ```
+   2. 设置密码不过期，可用管理员登陆
+      ```SQL
+      ALTER PROFILE DEFAULT LIMIT PASSWORD_LIFE_TIME UNLIMITED;
+      ```
+3. 关闭审计功能
+   1. 使用SQLPlus登录(sqlplus 用户名/密码@数据库实例名)
+      ```Bash
+      sqlplus system/password@Orcl as sysdba;
+      ```
+   2. 查看审计功能开启状态
+      ```Bash
+      show parameter audit_trail;
+      ```
+      输出结果DB为开启审计功能。NONE：未开启
+   3. 关闭审计
+      ```Bash
+      alter system set audit_trail=none scope=spfile;
+      ```
+   4. 关闭数据库实例使配置生效
+      ```Bash
+      shutdown immediate;
+      ```
+   5. 确认状态
+      在服务中重新启动OracleServiceOrcl服务;再次查看是否为NONE已关闭状态:
+      ```Bash
+      show parameter audit_trail;
+      ```
+
+
+
 ### 2. Oracle 基本操作
 Oracle的基本操作包括创建数据库、创建表、插入数据、查询数据等。以下是一些基本的操作方法：
 
@@ -34,6 +101,50 @@ Oracle的基本操作包括创建数据库、创建表、插入数据、查询�
    ```
    SELECT * FROM mytable;
    ```
+#### 高级操作
+1. 创建索引
+   ```
+   CREATE INDEX myindex ON mytable (id);
+   ```
+
+2. 创建视图
+   ```
+   CREATE VIEW myview AS SELECT id, name FROM mytable;
+   ```
+
+3. 创建触发器
+   ```
+   CREATE TRIGGER mytrigger BEFORE INSERT ON mytable FOR EACH ROW BEGIN :new.id := :new.id &#43; 1; END;
+
+   ```
+
+4. 创建存储过程
+   ```
+   CREATE PROCEDURE myprocedure (id INT, name VARCHAR(50)) AS BEGIN INSERT INTO mytable (id, name) VALUES (id, name); END;
+   ```
+
+5. 创建函数
+   ```
+   CREATE FUNCTION myfunction (id INT) RETURN VARCHAR(50) AS BEGIN RETURN (SELECT name FROM mytable WHERE id = id); END;
+   ```
+
+6. 创建包
+   ```
+   CREATE PACKAGE mypackage AS
+   PROCEDURE myprocedure (id INT, name VARCHAR(50));
+   FUNCTION myfunction (id INT) RETURN VARCHAR(50);
+   END mypackage;
+   ```
+##### 典型示例
+* 查询表中重复的数据  
+   ```SQL
+   select * from tb_product where coilno in (select coilno from tb_product group by coilno having count(*) &gt; 1) 
+   ```
+* 查看服务端版本和位数：
+   ```SQL
+   select * from v$version
+   ```
+
 
 ### 3. Oracle 维护
 Oracle的维护包括备份、恢复、性能优化等。以下是一些基本的维护方法：
@@ -107,9 +218,27 @@ Oracle的故障排除包括错误日志分析、性能调优、故障恢复等�
    ```
    RMAN&gt; RESTORE DATABASE;
    ```
-   
-###### 查询表中重复的数据
-select * from tb_product where coilno in (select coilno from tb_product group by coilno having count(*)&gt;1) 
+#### 常见报错及解决
+##### ORA-01017: 用户名/口令无效; 登录被拒绝
+   * 检查用户名和密码是否正确
+   * 检查是否使用了正确的数据库实例名
+   * 检查是否使用了正确的SID
+   * 检查是否使用了正确的服务名
+##### ORA-01653: unable to extend table
+   * 检查表空间是否已满
+   * 检查表空间是否已启用自动扩展
+##### ORA-12516:TNS:监听程序无法找到匹配协议栈的可用句柄  
+查看连接数是否超过最大连接数，适当增加最大连接数可解决
+  * 查看当前连接数  
+  `select count(*) from v$session`  
+  `select count(*) from v$process`  
+  * 查看最大连接数  
+  `show parameter sessions;`  
+  `show parameter processes;`  
+  * 查看各用户的连接数  
+  `select username,count(*) from v$session where username is not null group by username`  
+  * 查看各进程的连接数  
+  `select program,count(*) from v$session group by program`
 
 ---
 
