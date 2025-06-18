@@ -82,25 +82,48 @@ Oracle的安装过程比较复杂，需要按照官方文档进行操作。以�
 ### 2. Oracle 基本操作
 Oracle的基本操作包括创建数据库、创建表、插入数据、查询数据等。以下是一些基本的操作方法：
 
-1. 创建数据库
+* 创建数据库
    ```
    CREATE DATABASE mydb;
    ```
 
-2. 创建表
+* 创建表
    ```
    CREATE TABLE mytable (id INT, name VARCHAR(50));
    ```
-
-3. 插入数据
-   ```
-   INSERT INTO mytable (id, name) VALUES (1, &#39;John&#39;);
-   ```
-
-4. 查询数据
+* 查询数据
    ```
    SELECT * FROM mytable;
    ```
+* 插入数据  
+   *`INSERT INTO 表名称 VALUES (值1, 值2,....)`*  
+   或  
+   *`INSERT INTO table_name (列1, 列2,...) VALUES (值1, 值2,....)`* 
+
+   * 示例：
+      ```
+      INSERT INTO mytable (id, name) VALUES (1, &#39;John&#39;);
+      ```
+     
+* 插入数据前先判断  
+      *`INSERT when (not exists () then into table_name (列1, 列2,...) VALUES (值1, 值2,....)`*
+   * 示例：
+      ```  
+      insert when ( not exists (select DEPT_ID from T_JY_WX_DEPT where DEPT_ID = ?) ) then into T_JY_WX_DEPT (DEPT_ID,DEPT_NAME,PROJECT_ALIAS,PARENT_ID) values(?,?,?,?) select ? from dual
+      ```
+* 条件查找字符串不为空的数据：使用 IS NOT NULL可以判断  
+   * 示例：
+      ```  
+      select * from tb_cpcavg_stdev t where t.analyze_report IS NOT NULL
+      ```
+* 时间格式  
+      *`time &lt;= to_date(&#39;2020-06-09&#39;, &#39;yyyy-mm-dd&#39;)`*  
+      *`time &lt;= to_date(&#39;2020-06-09 10:00:00&#39;, &#39;yyyy-mm-dd hh24:mi:ss&#39;)`*  
+      *`time BETWEEN to_date(&#39;2024-12-25&#39;, &#39;yyyy-mm-dd&#39;) AND to_date(&#39;2024-12-26&#39;, &#39;yyyy-mm-dd&#39;)`*
+* oracle字符串截取、拼接  substr &#43;  concat  
+   *`select t.en_weight from tb_defect_storage t where t.coil_id like CONCAT(substr(&#39;H1910173000000&#39;,0,8),&#39;%&#39;)`*
+
+
 #### 高级操作
 1. 创建索引
    ```
@@ -128,14 +151,12 @@ Oracle的基本操作包括创建数据库、创建表、插入数据、查询�
    CREATE FUNCTION myfunction (id INT) RETURN VARCHAR(50) AS BEGIN RETURN (SELECT name FROM mytable WHERE id = id); END;
    ```
 
-6. 创建包
+
+#### 典型示例
+* 查看数据库服务端版本和位数：
+   ```SQL
+   select * from v$version
    ```
-   CREATE PACKAGE mypackage AS
-   PROCEDURE myprocedure (id INT, name VARCHAR(50));
-   FUNCTION myfunction (id INT) RETURN VARCHAR(50);
-   END mypackage;
-   ```
-##### 典型示例
 * 查询表中重复的数据  
    ```SQL
    select * from tb_product where coilno in (select coilno from tb_product group by coilno having count(*) &gt; 1) 
@@ -144,7 +165,6 @@ Oracle的基本操作包括创建数据库、创建表、插入数据、查询�
    ```SQL
    select * from v$version
    ```
-
 
 ### 3. Oracle 维护
 Oracle的维护包括备份、恢复、性能优化等。以下是一些基本的维护方法：
@@ -219,6 +239,9 @@ Oracle的故障排除包括错误日志分析、性能调优、故障恢复等�
    RMAN&gt; RESTORE DATABASE;
    ```
 #### 常见报错及解决
+
+##### 查看数据库错误信息  
+`select * from err_logs t order by t.err_time desc`
 ##### ORA-01017: 用户名/口令无效; 登录被拒绝
    * 检查用户名和密码是否正确
    * 检查是否使用了正确的数据库实例名
@@ -238,10 +261,11 @@ Oracle的故障排除包括错误日志分析、性能调优、故障恢复等�
   * 查看各用户的连接数  
   `select username,count(*) from v$session where username is not null group by username`  
   * 查看各进程的连接数  
-  `select program,count(*) from v$session group by program`
+  `select program,count(*) from v$session group by program order by count(*) desc`
+
 
 ---
 
 > 作者: [YYT6801](https://blog.yyt6801.top/)  
-> URL: https://blog.yyt6801.top/posts/oracle_operation/  
+> URL: http://localhost:1313/posts/oracle_operation/  
 

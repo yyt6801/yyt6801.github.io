@@ -287,5 +287,5 @@ reset 是替换整个目录树，多余的文件将被删除。而 checkout 只�
 ---
 
 > 作者: [YYT6801](https://blog.yyt6801.top/)  
-> URL: https://blog.yyt6801.top/posts/git_operation/  
+> URL: http://localhost:1313/posts/git_operation/  
 

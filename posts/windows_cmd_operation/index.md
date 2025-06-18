@@ -71,5 +71,5 @@ exit
 ---
 
 > 作者: [YYT6801](https://blog.yyt6801.top/)  
-> URL: https://blog.yyt6801.top/posts/windows_cmd_operation/  
+> URL: http://localhost:1313/posts/windows_cmd_operation/  
 

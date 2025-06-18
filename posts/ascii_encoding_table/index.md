@@ -252,5 +252,5 @@ single quote	|222
 ---
 
 > 作者: [YYT6801](https://blog.yyt6801.top/)  
-> URL: https://blog.yyt6801.top/posts/ascii_encoding_table/  
+> URL: http://localhost:1313/posts/ascii_encoding_table/  
 

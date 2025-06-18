@@ -37,5 +37,5 @@ Navicat Lite也完美支持MongoDB，并且现在免费了，也强烈推荐
 ---
 
 > 作者: [YYT6801](https://blog.yyt6801.top/)  
-> URL: https://blog.yyt6801.top/posts/mongodb_operation/  
+> URL: http://localhost:1313/posts/mongodb_operation/  
 

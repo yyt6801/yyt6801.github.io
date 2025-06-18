@@ -133,5 +133,5 @@ conda env create -f environment.yml
 ---
 
 > 作者: [YYT6801](https://blog.yyt6801.top/)  
-> URL: https://blog.yyt6801.top/posts/miniconda_operation/  
+> URL: http://localhost:1313/posts/miniconda_operation/  
 
