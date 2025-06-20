@@ -174,5 +174,5 @@ Nginx配置文件为conf文件夹下的nginx.conf配置文件，主要分为三�
 ---
 
 > 作者: [YYT6801](https://blog.yyt6801.top/)  
-> URL: http://localhost:1313/posts/nginx_operation/  
+> URL: https://blog.yyt6801.top/posts/nginx_operation/  
 

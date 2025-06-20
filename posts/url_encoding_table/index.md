@@ -195,5 +195,5 @@ URL 不能包含空格。URL 编码通常使用加号（&#43;）或 %20 替代�
 ---
 
 > 作者: [YYT6801](https://blog.yyt6801.top/)  
-> URL: http://localhost:1313/posts/url_encoding_table/  
+> URL: https://blog.yyt6801.top/posts/url_encoding_table/  
 

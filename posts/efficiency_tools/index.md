@@ -281,5 +281,5 @@ The App Store 是一个针对苹果手机、iPad、Mac 设备的应用搜索工�
 ---
 
 > 作者: [YYT6801](https://blog.yyt6801.top/)  
-> URL: http://localhost:1313/posts/efficiency_tools/  
+> URL: https://blog.yyt6801.top/posts/efficiency_tools/  
 

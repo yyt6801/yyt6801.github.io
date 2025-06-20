@@ -22,5 +22,5 @@
 ---
 
 > 作者: [YYT6801](https://blog.yyt6801.top/)  
-> URL: http://localhost:1313/posts/about/  
+> URL: https://blog.yyt6801.top/posts/about/  
 

@@ -7,5 +7,5 @@
 ---
 
 > 作者: [YYT6801](https://blog.yyt6801.top/)  
-> URL: http://localhost:1313/posts/visual_studio_configuration/  
+> URL: https://blog.yyt6801.top/posts/visual_studio_configuration/  
 

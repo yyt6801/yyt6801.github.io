@@ -338,5 +338,5 @@ TCP协议发送数据，MSS字节，拥塞窗口和接收窗口字节，定时�
 ---
 
 > 作者: [YYT6801](https://blog.yyt6801.top/)  
-> URL: http://localhost:1313/posts/408_learning_notes/  
+> URL: https://blog.yyt6801.top/posts/408_learning_notes/  
 
