@@ -6,17 +6,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
     <meta name="robots" content="noodp" />
     <title>Windows命令提示符 CMD 常用操作 - YYT6801&#39;s Blog</title><meta name="author" content="YYT6801">
-<meta name="description" content="autoIP.bat @echo off cd /d %~dp0 %1 start &quot;&quot; mshta vbscript:createobject(&ldquo;shell.application&rdquo;).shellexecute(&quot;&quot;&quot;%~0&quot;&quot;&quot;,&quot;::&quot;,,&ldquo;runas&rdquo;,1)(window.close)&amp;exit netsh interface ip set address name=&ldquo;以太网&rdquo; source=dhcp netsh interface ip set address name=&ldquo;WLAN&rdquo; source=dhcp
-"><meta name="keywords" content='CMD, 命令, 新技能get'>
+<meta name="description" content="常用命令 切换盘符 cd 盘符: 也可直接输入盘符切换盘符，如：E: 切换到当前路径的上一级目录
+cd .. 切换到当前路径的下一级目录
+cd 目录名 切换到当前路径的上一级目录的上一级目录
+cd ../.. 切换到当前路径
+cd /d %~dp0 清空剪切板
+cmd /c &quot;echo off | clip
+或
+dir|clip autoIP.bat 1 2 3 4 5 @echo off cd /d %~dp0 %1 start &#34;&#34; mshta vbscript:createobject(&#34;shell.application&#34;).shellexecute(&#34;&#34;&#34;%~0&#34;&#34;&#34;,&#34;::&#34;,,&#34;runas&#34;,1)(window.close)&amp;exit netsh interface ip set address name=&#34;以太网&#34; source=dhcp netsh interface ip set address name=&#34;WLAN&#34; source=dhcp renewIP.bat 1 2 3 4 ipconfig/flushdns ipconfig/release ipconfig/renew pause 设置以太网Ip为10.20.32.247.bat 1 2 netsh interface ip set address name=以太网 source=static addr=10.20.32.247 mask=255.255.255.0 pause 设置无线网wlan的Ip为_10.20.32.252.bat 1 2 netsh interface ip set address name=WLAN source=static addr=10.20.32.252 mask=255.255.255.0 pause 修改路由表到192.168.1.1.bat 1 2 3 4 5 6 cd /d %~dp0 %1 start &#34;&#34; mshta vbscript:createobject(&#34;shell.application&#34;).shellexecute(&#34;&#34;&#34;%~0&#34;&#34;&#34;,&#34;::&#34;,,&#34;runas&#34;,1)(window.close)&amp;exit route add 10.151.18.86 192.168.1.1 route add 10.151.18.218 192.168.1.1 route add 10.151.18.165 192.168.1.1 pause oracle开启服务 1 2 3 4 5 cd /d %~dp0 %1 start &#34;&#34; mshta vbscript:createobject(&#34;shell.application&#34;).shellexecute(&#34;&#34;&#34;%~0&#34;&#34;&#34;,&#34;::&#34;,,&#34;runas&#34;,1)(window.close)&amp;exit net start OracleServiceNERCAR net start OracleOraDb11g_home1TNSListener pause oracle关闭服务 1 2 3 4 5 6 cd /d %~dp0 %1 start &#34;&#34; mshta vbscript:createobject(&#34;shell.application&#34;).shellexecute(&#34;&#34;&#34;%~0&#34;&#34;&#34;,&#34;::&#34;,,&#34;runas&#34;,1)(window.close)&amp;exit NET STOP OracleServiceNERCAR NET STOP OracleOraDb11g_home1TNSListener NET STOP OracleDBConsolenercar NER STOP Oracl NERCAR VSS Writer Service 打开虚拟机Vmware服务及应用.bat 1 2 3 4 5 6 7 8 9 10 @echo off cd /d %~dp0 %1 start &#34;&#34; mshta vbscript:createobject(&#34;shell.application&#34;).shellexecute(&#34;&#34;&#34;%~0&#34;&#34;&#34;,&#34;::&#34;,,&#34;runas&#34;,1)(window.close)&amp;exit net start &#34;VMware Authorization Service&#34; net start &#34;VMware DHCP Service&#34; net start &#34;VMware NAT Service&#34; net start &#34;VMware USB Arbitration Service&#34; net start &#34;VMware Workstation Server&#34; start &#34;&#34; &#34;F:\vmware\vmware.exe&#34; exit "><meta name="keywords" content='CMD, 命令, 新技能get'>
   <meta itemprop="name" content="Windows命令提示符 CMD 常用操作">
-  <meta itemprop="description" content="autoIP.bat @echo off cd /d %~dp0 %1 start &#34;&#34; mshta vbscript:createobject(“shell.application”).shellexecute(&#34;&#34;&#34;%~0&#34;&#34;&#34;,&#34;::&#34;,,“runas”,1)(window.close)&amp;exit netsh interface ip set address name=“以太网” source=dhcp netsh interface ip set address name=“WLAN” source=dhcp">
+  <meta itemprop="description" content="常用命令 切换盘符 cd 盘符: 也可直接输入盘符切换盘符，如：E: 切换到当前路径的上一级目录
+cd .. 切换到当前路径的下一级目录
+cd 目录名 切换到当前路径的上一级目录的上一级目录
+cd ../.. 切换到当前路径
+cd /d %~dp0 清空剪切板
+cmd /c &#34;echo off | clip
+或
+dir|clip autoIP.bat 1 2 3 4 5 @echo off cd /d %~dp0 %1 start &#34;&#34; mshta vbscript:createobject(&#34;shell.application&#34;).shellexecute(&#34;&#34;&#34;%~0&#34;&#34;&#34;,&#34;::&#34;,,&#34;runas&#34;,1)(window.close)&amp;exit netsh interface ip set address name=&#34;以太网&#34; source=dhcp netsh interface ip set address name=&#34;WLAN&#34; source=dhcp renewIP.bat 1 2 3 4 ipconfig/flushdns ipconfig/release ipconfig/renew pause 设置以太网Ip为10.20.32.247.bat 1 2 netsh interface ip set address name=以太网 source=static addr=10.20.32.247 mask=255.255.255.0 pause 设置无线网wlan的Ip为_10.20.32.252.bat 1 2 netsh interface ip set address name=WLAN source=static addr=10.20.32.252 mask=255.255.255.0 pause 修改路由表到192.168.1.1.bat 1 2 3 4 5 6 cd /d %~dp0 %1 start &#34;&#34; mshta vbscript:createobject(&#34;shell.application&#34;).shellexecute(&#34;&#34;&#34;%~0&#34;&#34;&#34;,&#34;::&#34;,,&#34;runas&#34;,1)(window.close)&amp;exit route add 10.151.18.86 192.168.1.1 route add 10.151.18.218 192.168.1.1 route add 10.151.18.165 192.168.1.1 pause oracle开启服务 1 2 3 4 5 cd /d %~dp0 %1 start &#34;&#34; mshta vbscript:createobject(&#34;shell.application&#34;).shellexecute(&#34;&#34;&#34;%~0&#34;&#34;&#34;,&#34;::&#34;,,&#34;runas&#34;,1)(window.close)&amp;exit net start OracleServiceNERCAR net start OracleOraDb11g_home1TNSListener pause oracle关闭服务 1 2 3 4 5 6 cd /d %~dp0 %1 start &#34;&#34; mshta vbscript:createobject(&#34;shell.application&#34;).shellexecute(&#34;&#34;&#34;%~0&#34;&#34;&#34;,&#34;::&#34;,,&#34;runas&#34;,1)(window.close)&amp;exit NET STOP OracleServiceNERCAR NET STOP OracleOraDb11g_home1TNSListener NET STOP OracleDBConsolenercar NER STOP Oracl NERCAR VSS Writer Service 打开虚拟机Vmware服务及应用.bat 1 2 3 4 5 6 7 8 9 10 @echo off cd /d %~dp0 %1 start &#34;&#34; mshta vbscript:createobject(&#34;shell.application&#34;).shellexecute(&#34;&#34;&#34;%~0&#34;&#34;&#34;,&#34;::&#34;,,&#34;runas&#34;,1)(window.close)&amp;exit net start &#34;VMware Authorization Service&#34; net start &#34;VMware DHCP Service&#34; net start &#34;VMware NAT Service&#34; net start &#34;VMware USB Arbitration Service&#34; net start &#34;VMware Workstation Server&#34; start &#34;&#34; &#34;F:\vmware\vmware.exe&#34; exit">
   <meta itemprop="datePublished" content="2022-12-08T17:49:05+08:00">
   <meta itemprop="dateModified" content="2022-12-08T17:49:05+08:00">
-  <meta itemprop="wordCount" content="156">
+  <meta itemprop="wordCount" content="223">
   <meta itemprop="keywords" content="CMD,命令,新技能get"><meta property="og:url" content="https://blog.yyt6801.top/posts/windows_cmd_operation/">
   <meta property="og:site_name" content="YYT6801&#39;s Blog">
   <meta property="og:title" content="Windows命令提示符 CMD 常用操作">
-  <meta property="og:description" content="autoIP.bat @echo off cd /d %~dp0 %1 start &#34;&#34; mshta vbscript:createobject(“shell.application”).shellexecute(&#34;&#34;&#34;%~0&#34;&#34;&#34;,&#34;::&#34;,,“runas”,1)(window.close)&amp;exit netsh interface ip set address name=“以太网” source=dhcp netsh interface ip set address name=“WLAN” source=dhcp">
+  <meta property="og:description" content="常用命令 切换盘符 cd 盘符: 也可直接输入盘符切换盘符，如：E: 切换到当前路径的上一级目录
+cd .. 切换到当前路径的下一级目录
+cd 目录名 切换到当前路径的上一级目录的上一级目录
+cd ../.. 切换到当前路径
+cd /d %~dp0 清空剪切板
+cmd /c &#34;echo off | clip
+或
+dir|clip autoIP.bat 1 2 3 4 5 @echo off cd /d %~dp0 %1 start &#34;&#34; mshta vbscript:createobject(&#34;shell.application&#34;).shellexecute(&#34;&#34;&#34;%~0&#34;&#34;&#34;,&#34;::&#34;,,&#34;runas&#34;,1)(window.close)&amp;exit netsh interface ip set address name=&#34;以太网&#34; source=dhcp netsh interface ip set address name=&#34;WLAN&#34; source=dhcp renewIP.bat 1 2 3 4 ipconfig/flushdns ipconfig/release ipconfig/renew pause 设置以太网Ip为10.20.32.247.bat 1 2 netsh interface ip set address name=以太网 source=static addr=10.20.32.247 mask=255.255.255.0 pause 设置无线网wlan的Ip为_10.20.32.252.bat 1 2 netsh interface ip set address name=WLAN source=static addr=10.20.32.252 mask=255.255.255.0 pause 修改路由表到192.168.1.1.bat 1 2 3 4 5 6 cd /d %~dp0 %1 start &#34;&#34; mshta vbscript:createobject(&#34;shell.application&#34;).shellexecute(&#34;&#34;&#34;%~0&#34;&#34;&#34;,&#34;::&#34;,,&#34;runas&#34;,1)(window.close)&amp;exit route add 10.151.18.86 192.168.1.1 route add 10.151.18.218 192.168.1.1 route add 10.151.18.165 192.168.1.1 pause oracle开启服务 1 2 3 4 5 cd /d %~dp0 %1 start &#34;&#34; mshta vbscript:createobject(&#34;shell.application&#34;).shellexecute(&#34;&#34;&#34;%~0&#34;&#34;&#34;,&#34;::&#34;,,&#34;runas&#34;,1)(window.close)&amp;exit net start OracleServiceNERCAR net start OracleOraDb11g_home1TNSListener pause oracle关闭服务 1 2 3 4 5 6 cd /d %~dp0 %1 start &#34;&#34; mshta vbscript:createobject(&#34;shell.application&#34;).shellexecute(&#34;&#34;&#34;%~0&#34;&#34;&#34;,&#34;::&#34;,,&#34;runas&#34;,1)(window.close)&amp;exit NET STOP OracleServiceNERCAR NET STOP OracleOraDb11g_home1TNSListener NET STOP OracleDBConsolenercar NER STOP Oracl NERCAR VSS Writer Service 打开虚拟机Vmware服务及应用.bat 1 2 3 4 5 6 7 8 9 10 @echo off cd /d %~dp0 %1 start &#34;&#34; mshta vbscript:createobject(&#34;shell.application&#34;).shellexecute(&#34;&#34;&#34;%~0&#34;&#34;&#34;,&#34;::&#34;,,&#34;runas&#34;,1)(window.close)&amp;exit net start &#34;VMware Authorization Service&#34; net start &#34;VMware DHCP Service&#34; net start &#34;VMware NAT Service&#34; net start &#34;VMware USB Arbitration Service&#34; net start &#34;VMware Workstation Server&#34; start &#34;&#34; &#34;F:\vmware\vmware.exe&#34; exit">
   <meta property="og:locale" content="zh_CN">
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
@@ -28,7 +48,14 @@
 
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Windows命令提示符 CMD 常用操作">
-  <meta name="twitter:description" content="autoIP.bat @echo off cd /d %~dp0 %1 start &#34;&#34; mshta vbscript:createobject(“shell.application”).shellexecute(&#34;&#34;&#34;%~0&#34;&#34;&#34;,&#34;::&#34;,,“runas”,1)(window.close)&amp;exit netsh interface ip set address name=“以太网” source=dhcp netsh interface ip set address name=“WLAN” source=dhcp">
+  <meta name="twitter:description" content="常用命令 切换盘符 cd 盘符: 也可直接输入盘符切换盘符，如：E: 切换到当前路径的上一级目录
+cd .. 切换到当前路径的下一级目录
+cd 目录名 切换到当前路径的上一级目录的上一级目录
+cd ../.. 切换到当前路径
+cd /d %~dp0 清空剪切板
+cmd /c &#34;echo off | clip
+或
+dir|clip autoIP.bat 1 2 3 4 5 @echo off cd /d %~dp0 %1 start &#34;&#34; mshta vbscript:createobject(&#34;shell.application&#34;).shellexecute(&#34;&#34;&#34;%~0&#34;&#34;&#34;,&#34;::&#34;,,&#34;runas&#34;,1)(window.close)&amp;exit netsh interface ip set address name=&#34;以太网&#34; source=dhcp netsh interface ip set address name=&#34;WLAN&#34; source=dhcp renewIP.bat 1 2 3 4 ipconfig/flushdns ipconfig/release ipconfig/renew pause 设置以太网Ip为10.20.32.247.bat 1 2 netsh interface ip set address name=以太网 source=static addr=10.20.32.247 mask=255.255.255.0 pause 设置无线网wlan的Ip为_10.20.32.252.bat 1 2 netsh interface ip set address name=WLAN source=static addr=10.20.32.252 mask=255.255.255.0 pause 修改路由表到192.168.1.1.bat 1 2 3 4 5 6 cd /d %~dp0 %1 start &#34;&#34; mshta vbscript:createobject(&#34;shell.application&#34;).shellexecute(&#34;&#34;&#34;%~0&#34;&#34;&#34;,&#34;::&#34;,,&#34;runas&#34;,1)(window.close)&amp;exit route add 10.151.18.86 192.168.1.1 route add 10.151.18.218 192.168.1.1 route add 10.151.18.165 192.168.1.1 pause oracle开启服务 1 2 3 4 5 cd /d %~dp0 %1 start &#34;&#34; mshta vbscript:createobject(&#34;shell.application&#34;).shellexecute(&#34;&#34;&#34;%~0&#34;&#34;&#34;,&#34;::&#34;,,&#34;runas&#34;,1)(window.close)&amp;exit net start OracleServiceNERCAR net start OracleOraDb11g_home1TNSListener pause oracle关闭服务 1 2 3 4 5 6 cd /d %~dp0 %1 start &#34;&#34; mshta vbscript:createobject(&#34;shell.application&#34;).shellexecute(&#34;&#34;&#34;%~0&#34;&#34;&#34;,&#34;::&#34;,,&#34;runas&#34;,1)(window.close)&amp;exit NET STOP OracleServiceNERCAR NET STOP OracleOraDb11g_home1TNSListener NET STOP OracleDBConsolenercar NER STOP Oracl NERCAR VSS Writer Service 打开虚拟机Vmware服务及应用.bat 1 2 3 4 5 6 7 8 9 10 @echo off cd /d %~dp0 %1 start &#34;&#34; mshta vbscript:createobject(&#34;shell.application&#34;).shellexecute(&#34;&#34;&#34;%~0&#34;&#34;&#34;,&#34;::&#34;,,&#34;runas&#34;,1)(window.close)&amp;exit net start &#34;VMware Authorization Service&#34; net start &#34;VMware DHCP Service&#34; net start &#34;VMware NAT Service&#34; net start &#34;VMware USB Arbitration Service&#34; net start &#34;VMware Workstation Server&#34; start &#34;&#34; &#34;F:\vmware\vmware.exe&#34; exit">
 <meta name="application-name" content="YYT">
 <meta name="apple-mobile-web-app-title" content="YYT"><meta name="theme-color" data-light="#f8f8f8" data-dark="#252627" content="#f8f8f8"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -43,7 +70,7 @@
     "mainEntityOfPage": {
       "@type": "WebPage",
       "@id": "https:\/\/blog.yyt6801.top\/posts\/windows_cmd_operation\/"
-    },"genre": "posts","keywords": "CMD, 命令, 新技能get","wordcount":  156 ,
+    },"genre": "posts","keywords": "CMD, 命令, 新技能get","wordcount":  223 ,
     "url": "https:\/\/blog.yyt6801.top\/posts\/windows_cmd_operation\/","datePublished": "2022-12-08T17:49:05+08:00","dateModified": "2022-12-08T17:49:05+08:00","license": "YYT6801","publisher": {
       "@type": "Organization",
       "name": ""},"author": {
@@ -123,80 +150,181 @@
     <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>Windows命令提示符 CMD 常用操作</span>
       </h1></div><div class="post-meta">
       <div class="post-meta-line"><span class="post-author"><a href="https://blog.yyt6801.top/" title="作者"target="_blank" rel="external nofollow noopener noreferrer author" class="author"><i class="fa-solid fa-user-circle" aria-hidden="true"></i>
-    YYT6801</a></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/%E7%BC%96%E7%A8%8B%E4%B8%8E%E5%BC%80%E5%8F%91/" class="post-category" title="分类 - 编程与开发"><i class="fa-regular fa-folder fa-fw" aria-hidden="true"></i> 编程与开发</a></span></div><div class="post-meta-line"><span title="发布于 2022-12-08 17:49:05"><i class="fa-solid fa-calendar-days fa-fw me-1" aria-hidden="true"></i><time datetime="2022-12-08">2022-12-08</time></span>&nbsp;<span title="156 字"><i class="fa-solid fa-pencil-alt fa-fw me-1" aria-hidden="true"></i>约 200 字</span>&nbsp;<span><i class="fa-regular fa-clock fa-fw me-1" aria-hidden="true"></i>预计阅读 1 分钟</span>&nbsp;</div>
-    </div><div class="content" id="content"><h2 id="autoipbat" class="heading-element"><span>autoIP.bat</span>
+    YYT6801</a></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/%E7%BC%96%E7%A8%8B%E4%B8%8E%E5%BC%80%E5%8F%91/" class="post-category" title="分类 - 编程与开发"><i class="fa-regular fa-folder fa-fw" aria-hidden="true"></i> 编程与开发</a></span></div><div class="post-meta-line"><span title="发布于 2022-12-08 17:49:05"><i class="fa-solid fa-calendar-days fa-fw me-1" aria-hidden="true"></i><time datetime="2022-12-08">2022-12-08</time></span>&nbsp;<span title="223 字"><i class="fa-solid fa-pencil-alt fa-fw me-1" aria-hidden="true"></i>约 300 字</span>&nbsp;<span><i class="fa-regular fa-clock fa-fw me-1" aria-hidden="true"></i>预计阅读 2 分钟</span>&nbsp;</div>
+    </div><div class="content" id="content"><h2 id="常用命令" class="heading-element"><span>常用命令</span>
+  <a href="#%e5%b8%b8%e7%94%a8%e5%91%bd%e4%bb%a4" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><ul>
+<li>切换盘符
+<em><code>cd 盘符:</code></em>
+也可直接输入盘符切换盘符，如：<code>E:</code></li>
+<li>切换到当前路径的上一级目录<br>
+<em><code>cd ..</code></em></li>
+<li>切换到当前路径的下一级目录<br>
+<em><code>cd 目录名</code></em></li>
+<li>切换到当前路径的上一级目录的上一级目录<br>
+<em><code>cd ../..</code></em></li>
+<li>切换到当前路径<br>
+<em><code>cd /d %~dp0</code></em></li>
+<li>清空剪切板<br>
+<em><code>cmd /c &quot;echo off | clip</code></em><br>
+或<br>
+<em><code>dir|clip</code></em></li>
+</ul>
+<h2 id="autoipbat" class="heading-element"><span>autoIP.bat</span>
   <a href="#autoipbat" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
   </a>
-</h2><p>@echo off
-cd /d %~dp0
-%1 start &quot;&quot; mshta vbscript:createobject(&ldquo;shell.application&rdquo;).shellexecute(&quot;&quot;&quot;%~0&quot;&quot;&quot;,&quot;::&quot;,,&ldquo;runas&rdquo;,1)(window.close)&amp;exit
-netsh interface ip set address name=&ldquo;以太网&rdquo; source=dhcp
-netsh interface ip set address name=&ldquo;WLAN&rdquo; source=dhcp</p>
-<h2 id="renewipbat" class="heading-element"><span>renewIP.bat</span>
+</h2><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bat" data-lang="bat"><span class="line"><span class="cl"><span class="p">@</span><span class="k">echo</span> off
+</span></span><span class="line"><span class="cl"><span class="k">cd</span> /d <span class="nv">%~dp0</span>
+</span></span><span class="line"><span class="cl"><span class="nv">%1</span> start <span class="s2">&#34;&#34;</span> mshta vbscript:createobject(<span class="s2">&#34;shell.application&#34;</span>).shellexecute(<span class="s2">&#34;&#34;&#34;</span><span class="nv">%~0</span><span class="s2">&#34;&#34;&#34;</span>,<span class="s2">&#34;::&#34;</span>,,<span class="s2">&#34;runas&#34;</span>,1)(window.close)<span class="p">&amp;</span><span class="k">exit</span>
+</span></span><span class="line"><span class="cl">netsh interface ip set address name=<span class="s2">&#34;以太网&#34;</span> source=dhcp
+</span></span><span class="line"><span class="cl">netsh interface ip set address name=<span class="s2">&#34;WLAN&#34;</span> source=dhcp</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="renewipbat" class="heading-element"><span>renewIP.bat</span>
   <a href="#renewipbat" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
   </a>
-</h2><p>ipconfig/flushdns
-ipconfig/release
-ipconfig/renew
-pause</p>
-<h2 id="设置以太网ip为102032247bat" class="heading-element"><span>设置以太网Ip为10.20.32.247.bat</span>
+</h2><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bat" data-lang="bat"><span class="line"><span class="cl">ipconfig/flushdns
+</span></span><span class="line"><span class="cl">ipconfig/release
+</span></span><span class="line"><span class="cl">ipconfig/renew
+</span></span><span class="line"><span class="cl">pause</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="设置以太网ip为102032247bat" class="heading-element"><span>设置以太网Ip为10.20.32.247.bat</span>
   <a href="#%e8%ae%be%e7%bd%ae%e4%bb%a5%e5%a4%aa%e7%bd%91ip%e4%b8%ba102032247bat" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
   </a>
-</h2><p>netsh interface ip set address name=以太网 source=static addr=10.20.32.247 mask=255.255.255.0
-pause</p>
-<h2 id="设置无线网wlan的ip为_102032252bat" class="heading-element"><span>设置无线网wlan的Ip为_10.20.32.252.bat</span>
+</h2><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bat" data-lang="bat"><span class="line"><span class="cl">netsh interface ip set address name=以太网 source=static addr=10.20.32.247 mask=255.255.255.0
+</span></span><span class="line"><span class="cl">pause</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="设置无线网wlan的ip为_102032252bat" class="heading-element"><span>设置无线网wlan的Ip为_10.20.32.252.bat</span>
   <a href="#%e8%ae%be%e7%bd%ae%e6%97%a0%e7%ba%bf%e7%bd%91wlan%e7%9a%84ip%e4%b8%ba_102032252bat" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
   </a>
-</h2><p>netsh interface ip set address name=WLAN source=static addr=10.20.32.252 mask=255.255.255.0
-pause</p>
-<h2 id="修改路由表到19216811bat" class="heading-element"><span>修改路由表到192.168.1.1.bat</span>
+</h2><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bat" data-lang="bat"><span class="line"><span class="cl">netsh interface ip set address name=WLAN source=static addr=10.20.32.252 mask=255.255.255.0
+</span></span><span class="line"><span class="cl">pause</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="修改路由表到19216811bat" class="heading-element"><span>修改路由表到192.168.1.1.bat</span>
   <a href="#%e4%bf%ae%e6%94%b9%e8%b7%af%e7%94%b1%e8%a1%a8%e5%88%b019216811bat" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
   </a>
-</h2><p>cd /d %~dp0
-%1 start &quot;&quot; mshta vbscript:createobject(&ldquo;shell.application&rdquo;).shellexecute(&quot;&quot;&quot;%~0&quot;&quot;&quot;,&quot;::&quot;,,&ldquo;runas&rdquo;,1)(window.close)&amp;exit
-route add 10.151.18.86 192.168.1.1
-route add 10.151.18.218 192.168.1.1
-route add 10.151.18.165 192.168.1.1
-pause</p>
-<h2 id="oracle开启服务" class="heading-element"><span>oracle开启服务</span>
+</h2><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bat" data-lang="bat"><span class="line"><span class="cl"><span class="k">cd</span> /d <span class="nv">%~dp0</span>
+</span></span><span class="line"><span class="cl"><span class="nv">%1</span> start <span class="s2">&#34;&#34;</span> mshta vbscript:createobject(<span class="s2">&#34;shell.application&#34;</span>).shellexecute(<span class="s2">&#34;&#34;&#34;</span><span class="nv">%~0</span><span class="s2">&#34;&#34;&#34;</span>,<span class="s2">&#34;::&#34;</span>,,<span class="s2">&#34;runas&#34;</span>,1)(window.close)<span class="p">&amp;</span><span class="k">exit</span>
+</span></span><span class="line"><span class="cl">route add 10.151.18.86 192.168.1.1
+</span></span><span class="line"><span class="cl">route add 10.151.18.218 192.168.1.1
+</span></span><span class="line"><span class="cl">route add 10.151.18.165 192.168.1.1
+</span></span><span class="line"><span class="cl">pause</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="oracle开启服务" class="heading-element"><span>oracle开启服务</span>
   <a href="#oracle%e5%bc%80%e5%90%af%e6%9c%8d%e5%8a%a1" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
   </a>
-</h2><p>cd /d %~dp0
-%1 start &quot;&quot; mshta vbscript:createobject(&ldquo;shell.application&rdquo;).shellexecute(&quot;&quot;&quot;%~0&quot;&quot;&quot;,&quot;::&quot;,,&ldquo;runas&rdquo;,1)(window.close)&amp;exit
-net start OracleServiceNERCAR
-net start OracleOraDb11g_home1TNSListener
-pause</p>
-<h2 id="oracle关闭服务" class="heading-element"><span>oracle关闭服务</span>
+</h2><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bat" data-lang="bat"><span class="line"><span class="cl"><span class="k">cd</span> /d <span class="nv">%~dp0</span>
+</span></span><span class="line"><span class="cl"><span class="nv">%1</span> start <span class="s2">&#34;&#34;</span> mshta vbscript:createobject(<span class="s2">&#34;shell.application&#34;</span>).shellexecute(<span class="s2">&#34;&#34;&#34;</span><span class="nv">%~0</span><span class="s2">&#34;&#34;&#34;</span>,<span class="s2">&#34;::&#34;</span>,,<span class="s2">&#34;runas&#34;</span>,1)(window.close)<span class="p">&amp;</span><span class="k">exit</span>
+</span></span><span class="line"><span class="cl">net start OracleServiceNERCAR
+</span></span><span class="line"><span class="cl">net start OracleOraDb11g_home1TNSListener
+</span></span><span class="line"><span class="cl">pause</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="oracle关闭服务" class="heading-element"><span>oracle关闭服务</span>
   <a href="#oracle%e5%85%b3%e9%97%ad%e6%9c%8d%e5%8a%a1" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
   </a>
-</h2><p>cd /d %~dp0
-%1 start &quot;&quot; mshta vbscript:createobject(&ldquo;shell.application&rdquo;).shellexecute(&quot;&quot;&quot;%~0&quot;&quot;&quot;,&quot;::&quot;,,&ldquo;runas&rdquo;,1)(window.close)&amp;exit
-NET STOP OracleServiceNERCAR
-NET STOP OracleOraDb11g_home1TNSListener
-NET STOP OracleDBConsolenercar
-NER STOP Oracl NERCAR VSS Writer Service</p>
-<h2 id="打开虚拟机vmware服务及应用bat" class="heading-element"><span>打开虚拟机Vmware服务及应用.bat</span>
+</h2><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bat" data-lang="bat"><span class="line"><span class="cl"><span class="k">cd</span> /d <span class="nv">%~dp0</span>
+</span></span><span class="line"><span class="cl"><span class="nv">%1</span> start <span class="s2">&#34;&#34;</span> mshta vbscript:createobject(<span class="s2">&#34;shell.application&#34;</span>).shellexecute(<span class="s2">&#34;&#34;&#34;</span><span class="nv">%~0</span><span class="s2">&#34;&#34;&#34;</span>,<span class="s2">&#34;::&#34;</span>,,<span class="s2">&#34;runas&#34;</span>,1)(window.close)<span class="p">&amp;</span><span class="k">exit</span>
+</span></span><span class="line"><span class="cl">NET STOP OracleServiceNERCAR
+</span></span><span class="line"><span class="cl">NET STOP OracleOraDb11g_home1TNSListener
+</span></span><span class="line"><span class="cl">NET STOP OracleDBConsolenercar
+</span></span><span class="line"><span class="cl">NER STOP Oracl NERCAR VSS Writer Service</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="打开虚拟机vmware服务及应用bat" class="heading-element"><span>打开虚拟机Vmware服务及应用.bat</span>
   <a href="#%e6%89%93%e5%bc%80%e8%99%9a%e6%8b%9f%e6%9c%bavmware%e6%9c%8d%e5%8a%a1%e5%8f%8a%e5%ba%94%e7%94%a8bat" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
   </a>
-</h2><p>@echo off
-cd /d %~dp0
-%1 start &quot;&quot; mshta vbscript:createobject(&ldquo;shell.application&rdquo;).shellexecute(&quot;&quot;&quot;%~0&quot;&quot;&quot;,&quot;::&quot;,,&ldquo;runas&rdquo;,1)(window.close)&amp;exit
-net start &ldquo;VMware Authorization Service&rdquo;
-net start &ldquo;VMware DHCP Service&rdquo;
-net start &ldquo;VMware NAT Service&rdquo;
-net start &ldquo;VMware USB Arbitration Service&rdquo;
-net start &ldquo;VMware Workstation Server&rdquo;
-start &quot;&quot; &ldquo;F:\vmware\vmware.exe&rdquo;
-exit</p>
-</div><div class="post-footer" id="post-footer">
+</h2><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bat" data-lang="bat"><span class="line"><span class="cl"><span class="p">@</span><span class="k">echo</span> off
+</span></span><span class="line"><span class="cl"><span class="k">cd</span> /d <span class="nv">%~dp0</span>
+</span></span><span class="line"><span class="cl"><span class="nv">%1</span> start <span class="s2">&#34;&#34;</span> mshta vbscript:createobject(<span class="s2">&#34;shell.application&#34;</span>).shellexecute(<span class="s2">&#34;&#34;&#34;</span><span class="nv">%~0</span><span class="s2">&#34;&#34;&#34;</span>,<span class="s2">&#34;::&#34;</span>,,<span class="s2">&#34;runas&#34;</span>,1)(window.close)<span class="p">&amp;</span><span class="k">exit</span>
+</span></span><span class="line"><span class="cl">net start <span class="s2">&#34;VMware Authorization Service&#34;</span>
+</span></span><span class="line"><span class="cl">net start <span class="s2">&#34;VMware DHCP Service&#34;</span>
+</span></span><span class="line"><span class="cl">net start <span class="s2">&#34;VMware NAT Service&#34;</span>
+</span></span><span class="line"><span class="cl">net start <span class="s2">&#34;VMware USB Arbitration Service&#34;</span>
+</span></span><span class="line"><span class="cl">net start <span class="s2">&#34;VMware Workstation Server&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="k">start</span> <span class="s2">&#34;&#34;</span> <span class="s2">&#34;F:\vmware\vmware.exe&#34;</span>
+</span></span><span class="line"><span class="cl">exit</span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="post-footer" id="post-footer">
   <div class="post-info">
     <div class="post-info-line">
       <div class="post-info-mod">

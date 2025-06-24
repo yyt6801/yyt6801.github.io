@@ -252,15 +252,23 @@ Oracle的故障排除包括错误日志分析、性能调优、故障恢复等�
    * 检查表空间是否已启用自动扩展
 ##### ORA-12516:TNS:监听程序无法找到匹配协议栈的可用句柄  
 查看连接数是否超过最大连接数，适当增加最大连接数可解决
+  * 查看会话数和连接限制
+  ```SQL
+  SELECT * FROM v$resource_limit;
+  ```
   * 查看当前连接数  
-  `select count(*) from v$session`  
   `select count(*) from v$process`  
   * 查看最大连接数  
-  `show parameter sessions;`  
-  `show parameter processes;`  
-  * 查看各用户的连接数  
+  `show parameter processes`  
+  或  
+  `select value from v$parameter where name = &#39;processes&#39;`
+  * 查看当前会话数  
+  `select count(*) from v$session`  
+  * 查看最大会话数  
+  `show parameter sessions`  
+  * 查看各用户的会话数  
   `select username,count(*) from v$session where username is not null group by username`  
-  * 查看各进程的连接数  
+  * 查看各进程的会话数  
   `select program,count(*) from v$session group by program order by count(*) desc`
 
 
