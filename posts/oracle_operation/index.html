@@ -13,7 +13,7 @@
   <meta itemprop="description" content="Oracle是一款关系型数据库管理系统，广泛应用于企业级应用中。本文档将介绍Oracle的基本操作和维护方法，帮助用户更好地管理和维护Oracle数据库。
 1. Oracle 安装 Oracle的安装过程比较复杂，需要按照官方文档进行操作。以下是一些基本的安装步骤：">
   <meta itemprop="datePublished" content="2024-11-28T09:10:23+08:00">
-  <meta itemprop="dateModified" content="2025-05-23T15:58:26+08:00">
+  <meta itemprop="dateModified" content="2025-06-28T13:20:05+08:00">
   <meta itemprop="wordCount" content="547">
   <meta itemprop="keywords" content="Oracle"><meta property="og:url" content="https://blog.yyt6801.top/posts/oracle_operation/">
   <meta property="og:site_name" content="YYT6801&#39;s Blog">
@@ -24,7 +24,7 @@
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
     <meta property="article:published_time" content="2024-11-28T09:10:23+08:00">
-    <meta property="article:modified_time" content="2025-05-23T15:58:26+08:00">
+    <meta property="article:modified_time" content="2025-06-28T13:20:05+08:00">
     <meta property="article:tag" content="Oracle">
 
   <meta name="twitter:card" content="summary">
@@ -46,7 +46,7 @@
       "@type": "WebPage",
       "@id": "https:\/\/blog.yyt6801.top\/posts\/oracle_operation\/"
     },"genre": "posts","keywords": "Oracle","wordcount":  547 ,
-    "url": "https:\/\/blog.yyt6801.top\/posts\/oracle_operation\/","datePublished": "2024-11-28T09:10:23+08:00","dateModified": "2025-05-23T15:58:26+08:00","license": "YYT6801","publisher": {
+    "url": "https:\/\/blog.yyt6801.top\/posts\/oracle_operation\/","datePublished": "2024-11-28T09:10:23+08:00","dateModified": "2025-06-28T13:20:05+08:00","license": "YYT6801","publisher": {
       "@type": "Organization",
       "name": ""},"author": {
         "@type": "Person",
@@ -125,7 +125,7 @@
     <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>Oracle操作维护手册</span>
       </h1></div><div class="post-meta">
       <div class="post-meta-line"><span class="post-author"><a href="https://blog.yyt6801.top/" title="作者"target="_blank" rel="external nofollow noopener noreferrer author" class="author"><i class="fa-solid fa-user-circle" aria-hidden="true"></i>
-    YYT6801</a></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/%E7%BC%96%E7%A8%8B%E4%B8%8E%E5%BC%80%E5%8F%91/" class="post-category" title="分类 - 编程与开发"><i class="fa-regular fa-folder fa-fw" aria-hidden="true"></i> 编程与开发</a></span></div><div class="post-meta-line"><span title="发布于 2024-11-28 09:10:23"><i class="fa-solid fa-calendar-days fa-fw me-1" aria-hidden="true"></i><time datetime="2024-11-28">2024-11-28</time></span>&nbsp;<span title="更新于 2025-05-23 15:58:26"><i class="fa-regular fa-calendar-check fa-fw me-1" aria-hidden="true"></i><time datetime="2025-05-23">2025-05-23</time></span>&nbsp;<span title="547 字"><i class="fa-solid fa-pencil-alt fa-fw me-1" aria-hidden="true"></i>约 600 字</span>&nbsp;<span><i class="fa-regular fa-clock fa-fw me-1" aria-hidden="true"></i>预计阅读 3 分钟</span>&nbsp;</div>
+    YYT6801</a></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/%E7%BC%96%E7%A8%8B%E4%B8%8E%E5%BC%80%E5%8F%91/" class="post-category" title="分类 - 编程与开发"><i class="fa-regular fa-folder fa-fw" aria-hidden="true"></i> 编程与开发</a></span></div><div class="post-meta-line"><span title="发布于 2024-11-28 09:10:23"><i class="fa-solid fa-calendar-days fa-fw me-1" aria-hidden="true"></i><time datetime="2024-11-28">2024-11-28</time></span>&nbsp;<span title="更新于 2025-06-28 13:20:05"><i class="fa-regular fa-calendar-check fa-fw me-1" aria-hidden="true"></i><time datetime="2025-06-28">2025-06-28</time></span>&nbsp;<span title="547 字"><i class="fa-solid fa-pencil-alt fa-fw me-1" aria-hidden="true"></i>约 600 字</span>&nbsp;<span><i class="fa-regular fa-clock fa-fw me-1" aria-hidden="true"></i>预计阅读 3 分钟</span>&nbsp;</div>
     </div><div class="details toc" id="toc-static" data-kept="false">
         <div class="details-summary toc-title">
           <span>目录</span>
@@ -668,8 +668,7 @@
   </a>
 </h5><p>查看连接数是否超过最大连接数，适当增加最大连接数可解决</p>
 <ul>
-<li>查看会话数和连接限制</li>
-</ul>
+<li>查看会话数和连接限制
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -677,7 +676,7 @@
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-SQL" data-lang="SQL"><span class="line"><span class="cl"><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">v$resource_limit</span><span class="p">;</span></span></span></code></pre></td></tr></table>
 </div>
-</div><ul>
+</div></li>
 <li>查看当前连接数<br>
 <code>select count(*) from v$process</code></li>
 <li>查看最大连接数<br>
@@ -697,7 +696,7 @@
   <div class="post-info">
     <div class="post-info-line">
       <div class="post-info-mod">
-        <span title="更新于 2025-05-23 15:58:26">更新于 2025-05-23&nbsp;</span>
+        <span title="更新于 2025-06-28 13:20:05">更新于 2025-06-28&nbsp;</span>
       </div><div class="post-info-license">
             <span><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a></span>
           </div></div><div class="post-info-line">
