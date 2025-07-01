@@ -151,6 +151,36 @@ Oracle的基本操作包括创建数据库、创建表、插入数据、查询�
    CREATE FUNCTION myfunction (id INT) RETURN VARCHAR(50) AS BEGIN RETURN (SELECT name FROM mytable WHERE id = id); END;
    ```
 
+6. 创建包
+   ```
+   CREATE PACKAGE mypackage AS
+   PROCEDURE myprocedure (id INT, name VARCHAR(50));
+   FUNCTION myfunction (id INT) RETURN VARCHAR(50);
+   END mypackage;
+   ```
+
+7. 创建序列
+   ```
+   CREATE SEQUENCE mysequence START WITH 1 INCREMENT BY 1;
+   ```
+
+8. 创建同义词
+   ```
+   CREATE SYNONYM mysynonym FOR mytable;
+   ```
+
+9. 创建数据库链接
+   ```
+   CREATE DATABASE LINK mylink CONNECT TO myuser IDENTIFIED BY mypassword USING &#39;192.168.1.1:1521/mydb&#39;;
+   ```
+   查看数据库链接：
+   ```SQL
+   select * from dba_db_links
+   ```
+   删除数据库链接：
+   ```SQL
+   drop database link mylink
+   ```
 
 #### 典型示例
 * 查看数据库服务端版本和位数：
