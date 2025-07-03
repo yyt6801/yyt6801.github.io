@@ -215,12 +215,17 @@ Oracle的维护包括备份、恢复、性能优化等。以下是一些基本�
    ```
 
 ### 4. Oracle 安全
-Oracle的安全包括用户管理、权限控制、加密等。以下是一些基本的安全方法：
+Oracle的安全包括用户管理、权限控制、加密等。以下是一些基本的安全方法：  
+   
 
 1. 用户管理
    ```
    CREATE USER myuser IDENTIFIED BY mypassword;
    GRANT CONNECT, RESOURCE TO myuser;
+   ```
+   查看所有用户
+   ```SQL
+   select * from dba_users
    ```
 
 2. 权限控制
@@ -242,10 +247,12 @@ Oracle的监控包括性能监控、错误日志、性能调优等。以下是�
    ```
 
 2. 错误日志
-   ```
+   ```SQL
    SQL&gt; SELECT * FROM v$logfile;
    ```
-
+   ```SQL
+   SELECT * FROM err_logs order by err_time desc;
+   ```
 3. 性能调优
    ```
    SQL&gt; EXEC DBMS_STATS.SET_TABLE_PREFS(&#39;mytable&#39;, &#39;STALE_PERCENT&#39;, &#39;10&#39;);
@@ -287,7 +294,13 @@ Oracle的故障排除包括错误日志分析、性能调优、故障恢复等�
       SELECT * FROM v$resource_limit;
       ```
    * 查看当前连接数  
-  `select count(*) from v$process`  
+      ```SQL
+      select count(*) from v$process
+      ```
+  * 查看各进程的会话数
+      ```SQL
+      select program, count(*) from v$process group by program order by count(*) desc;
+      ```
   * 查看最大连接数  
   `show parameter processes`  
   或  

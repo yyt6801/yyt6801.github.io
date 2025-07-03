@@ -14,7 +14,7 @@
 1. Oracle 安装 Oracle的安装过程比较复杂，需要按照官方文档进行操作。以下是一些基本的安装步骤：">
   <meta itemprop="datePublished" content="2024-11-28T09:10:23+08:00">
   <meta itemprop="dateModified" content="2025-06-28T13:20:05+08:00">
-  <meta itemprop="wordCount" content="614">
+  <meta itemprop="wordCount" content="644">
   <meta itemprop="keywords" content="Oracle"><meta property="og:url" content="https://blog.yyt6801.top/posts/oracle_operation/">
   <meta property="og:site_name" content="YYT6801&#39;s Blog">
   <meta property="og:title" content="Oracle操作维护手册">
@@ -45,7 +45,7 @@
     "mainEntityOfPage": {
       "@type": "WebPage",
       "@id": "https:\/\/blog.yyt6801.top\/posts\/oracle_operation\/"
-    },"genre": "posts","keywords": "Oracle","wordcount":  614 ,
+    },"genre": "posts","keywords": "Oracle","wordcount":  644 ,
     "url": "https:\/\/blog.yyt6801.top\/posts\/oracle_operation\/","datePublished": "2024-11-28T09:10:23+08:00","dateModified": "2025-06-28T13:20:05+08:00","license": "YYT6801","publisher": {
       "@type": "Organization",
       "name": ""},"author": {
@@ -125,7 +125,7 @@
     <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>Oracle操作维护手册</span>
       </h1></div><div class="post-meta">
       <div class="post-meta-line"><span class="post-author"><a href="https://blog.yyt6801.top/" title="作者"target="_blank" rel="external nofollow noopener noreferrer author" class="author"><i class="fa-solid fa-user-circle" aria-hidden="true"></i>
-    YYT6801</a></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/%E7%BC%96%E7%A8%8B%E4%B8%8E%E5%BC%80%E5%8F%91/" class="post-category" title="分类 - 编程与开发"><i class="fa-regular fa-folder fa-fw" aria-hidden="true"></i> 编程与开发</a></span></div><div class="post-meta-line"><span title="发布于 2024-11-28 09:10:23"><i class="fa-solid fa-calendar-days fa-fw me-1" aria-hidden="true"></i><time datetime="2024-11-28">2024-11-28</time></span>&nbsp;<span title="更新于 2025-06-28 13:20:05"><i class="fa-regular fa-calendar-check fa-fw me-1" aria-hidden="true"></i><time datetime="2025-06-28">2025-06-28</time></span>&nbsp;<span title="614 字"><i class="fa-solid fa-pencil-alt fa-fw me-1" aria-hidden="true"></i>约 700 字</span>&nbsp;<span><i class="fa-regular fa-clock fa-fw me-1" aria-hidden="true"></i>预计阅读 3 分钟</span>&nbsp;</div>
+    YYT6801</a></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/%E7%BC%96%E7%A8%8B%E4%B8%8E%E5%BC%80%E5%8F%91/" class="post-category" title="分类 - 编程与开发"><i class="fa-regular fa-folder fa-fw" aria-hidden="true"></i> 编程与开发</a></span></div><div class="post-meta-line"><span title="发布于 2024-11-28 09:10:23"><i class="fa-solid fa-calendar-days fa-fw me-1" aria-hidden="true"></i><time datetime="2024-11-28">2024-11-28</time></span>&nbsp;<span title="更新于 2025-06-28 13:20:05"><i class="fa-regular fa-calendar-check fa-fw me-1" aria-hidden="true"></i><time datetime="2025-06-28">2025-06-28</time></span>&nbsp;<span title="644 字"><i class="fa-solid fa-pencil-alt fa-fw me-1" aria-hidden="true"></i>约 700 字</span>&nbsp;<span><i class="fa-regular fa-clock fa-fw me-1" aria-hidden="true"></i>预计阅读 4 分钟</span>&nbsp;</div>
     </div><div class="details toc" id="toc-static" data-kept="false">
         <div class="details-summary toc-title">
           <span>目录</span>
@@ -601,6 +601,14 @@
 <pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">CREATE USER myuser IDENTIFIED BY mypassword;
 </span></span><span class="line"><span class="cl">GRANT CONNECT, RESOURCE TO myuser;</span></span></code></pre></td></tr></table>
 </div>
+</div><p>查看所有用户</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-SQL" data-lang="SQL"><span class="line"><span class="cl"><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">dba_users</span></span></span></code></pre></td></tr></table>
+</div>
 </div></li>
 <li>
 <p>权限控制</p>
@@ -646,7 +654,14 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">SQL&gt; SELECT * FROM v$logfile;</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-SQL" data-lang="SQL"><span class="line"><span class="cl"><span class="k">SQL</span><span class="o">&gt;</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">v$logfile</span><span class="p">;</span></span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-SQL" data-lang="SQL"><span class="line"><span class="cl"><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">err_logs</span><span class="w"> </span><span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">err_time</span><span class="w"> </span><span class="k">desc</span><span class="p">;</span></span></span></code></pre></td></tr></table>
 </div>
 </div></li>
 <li>
@@ -739,8 +754,24 @@
 <pre tabindex="0" class="chroma"><code class="language-SQL" data-lang="SQL"><span class="line"><span class="cl"><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">v$resource_limit</span><span class="p">;</span></span></span></code></pre></td></tr></table>
 </div>
 </div></li>
-<li>查看当前连接数<br>
-<code>select count(*) from v$process</code></li>
+<li>查看当前连接数
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-SQL" data-lang="SQL"><span class="line"><span class="cl"><span class="k">select</span><span class="w"> </span><span class="k">count</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">v$process</span></span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>查看各进程的会话数
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-SQL" data-lang="SQL"><span class="line"><span class="cl"><span class="k">select</span><span class="w"> </span><span class="n">program</span><span class="p">,</span><span class="w"> </span><span class="k">count</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">v$process</span><span class="w"> </span><span class="k">group</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">program</span><span class="w"> </span><span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="k">count</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">desc</span><span class="p">;</span></span></span></code></pre></td></tr></table>
+</div>
+</div></li>
 <li>查看最大连接数<br>
 <code>show parameter processes</code><br>
 或<br>
