@@ -14,7 +14,7 @@
 1. Oracle 安装 Oracle的安装过程比较复杂，需要按照官方文档进行操作。以下是一些基本的安装步骤：">
   <meta itemprop="datePublished" content="2024-11-28T09:10:23+08:00">
   <meta itemprop="dateModified" content="2025-06-28T13:20:05+08:00">
-  <meta itemprop="wordCount" content="644">
+  <meta itemprop="wordCount" content="679">
   <meta itemprop="keywords" content="Oracle"><meta property="og:url" content="https://blog.yyt6801.top/posts/oracle_operation/">
   <meta property="og:site_name" content="YYT6801&#39;s Blog">
   <meta property="og:title" content="Oracle操作维护手册">
@@ -45,7 +45,7 @@
     "mainEntityOfPage": {
       "@type": "WebPage",
       "@id": "https:\/\/blog.yyt6801.top\/posts\/oracle_operation\/"
-    },"genre": "posts","keywords": "Oracle","wordcount":  644 ,
+    },"genre": "posts","keywords": "Oracle","wordcount":  679 ,
     "url": "https:\/\/blog.yyt6801.top\/posts\/oracle_operation\/","datePublished": "2024-11-28T09:10:23+08:00","dateModified": "2025-06-28T13:20:05+08:00","license": "YYT6801","publisher": {
       "@type": "Organization",
       "name": ""},"author": {
@@ -125,7 +125,7 @@
     <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>Oracle操作维护手册</span>
       </h1></div><div class="post-meta">
       <div class="post-meta-line"><span class="post-author"><a href="https://blog.yyt6801.top/" title="作者"target="_blank" rel="external nofollow noopener noreferrer author" class="author"><i class="fa-solid fa-user-circle" aria-hidden="true"></i>
-    YYT6801</a></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/%E7%BC%96%E7%A8%8B%E4%B8%8E%E5%BC%80%E5%8F%91/" class="post-category" title="分类 - 编程与开发"><i class="fa-regular fa-folder fa-fw" aria-hidden="true"></i> 编程与开发</a></span></div><div class="post-meta-line"><span title="发布于 2024-11-28 09:10:23"><i class="fa-solid fa-calendar-days fa-fw me-1" aria-hidden="true"></i><time datetime="2024-11-28">2024-11-28</time></span>&nbsp;<span title="更新于 2025-06-28 13:20:05"><i class="fa-regular fa-calendar-check fa-fw me-1" aria-hidden="true"></i><time datetime="2025-06-28">2025-06-28</time></span>&nbsp;<span title="644 字"><i class="fa-solid fa-pencil-alt fa-fw me-1" aria-hidden="true"></i>约 700 字</span>&nbsp;<span><i class="fa-regular fa-clock fa-fw me-1" aria-hidden="true"></i>预计阅读 4 分钟</span>&nbsp;</div>
+    YYT6801</a></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/%E7%BC%96%E7%A8%8B%E4%B8%8E%E5%BC%80%E5%8F%91/" class="post-category" title="分类 - 编程与开发"><i class="fa-regular fa-folder fa-fw" aria-hidden="true"></i> 编程与开发</a></span></div><div class="post-meta-line"><span title="发布于 2024-11-28 09:10:23"><i class="fa-solid fa-calendar-days fa-fw me-1" aria-hidden="true"></i><time datetime="2024-11-28">2024-11-28</time></span>&nbsp;<span title="更新于 2025-06-28 13:20:05"><i class="fa-regular fa-calendar-check fa-fw me-1" aria-hidden="true"></i><time datetime="2025-06-28">2025-06-28</time></span>&nbsp;<span title="679 字"><i class="fa-solid fa-pencil-alt fa-fw me-1" aria-hidden="true"></i>约 700 字</span>&nbsp;<span><i class="fa-regular fa-clock fa-fw me-1" aria-hidden="true"></i>预计阅读 4 分钟</span>&nbsp;</div>
     </div><div class="details toc" id="toc-static" data-kept="false">
         <div class="details-summary toc-title">
           <span>目录</span>
@@ -736,8 +736,52 @@
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
   </a>
 </h5><ul>
-<li>检查表空间是否已满</li>
-<li>检查表空间是否已启用自动扩展</li>
+<li>
+<p>检查表空间是否已满 (是否已启用自动扩展)</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-SQL" data-lang="SQL"><span class="line"><span class="cl"><span class="k">SELECT</span><span class="w"> </span><span class="n">tablespace_name</span><span class="p">,</span><span class="w"> </span><span class="n">file_name</span><span class="p">,</span><span class="w"> </span><span class="n">bytes</span><span class="o">/</span><span class="mi">1024</span><span class="o">/</span><span class="mi">1024</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">size_mb</span><span class="p">,</span><span class="n">autoextensible</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">FROM</span><span class="w"> </span><span class="n">dba_data_files</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">WHERE</span><span class="w"> </span><span class="n">tablespace_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;UNDOTBS2&#39;</span><span class="p">;</span></span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>创建新的表空间</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-SQL" data-lang="SQL"><span class="line"><span class="cl"><span class="k">CREATE</span><span class="w"> </span><span class="n">UNDO</span><span class="w"> </span><span class="n">TABLESPACE</span><span class="w"> </span><span class="n">UNDOTBS2</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">DATAFILE</span><span class="w"> </span><span class="s1">&#39;D:\APP\ADMINISTRATOR\ORADATA\NERCAR\UNDOTBS02.DBF&#39;</span><span class="w"> </span><span class="k">SIZE</span><span class="w"> </span><span class="mi">10</span><span class="n">M</span><span class="w"> </span><span class="n">AUTOEXTEND</span><span class="w"> </span><span class="k">ON</span><span class="p">;</span></span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>切换表空间</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-SQL" data-lang="SQL"><span class="line"><span class="cl"><span class="k">ALTER</span><span class="w"> </span><span class="k">SYSTEM</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">UNDO_TABLESPACE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">UNDOTBS2</span><span class="w"> </span><span class="k">SCOPE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">BOTH</span><span class="p">;</span></span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>删除旧的表空间</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-SQL" data-lang="SQL"><span class="line"><span class="cl"><span class="k">DROP</span><span class="w"> </span><span class="n">TABLESPACE</span><span class="w"> </span><span class="n">UNDOTBS1</span><span class="w"> </span><span class="k">INCLUDING</span><span class="w"> </span><span class="n">CONTENTS</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">DATAFILES</span><span class="p">;</span></span></span></code></pre></td></tr></table>
+</div>
+</div></li>
 </ul>
 <h5 id="ora-12516tns监听程序无法找到匹配协议栈的可用句柄" class="heading-element"><span>ORA-12516:TNS:监听程序无法找到匹配协议栈的可用句柄</span>
   <a href="#ora-12516tns%e7%9b%91%e5%90%ac%e7%a8%8b%e5%ba%8f%e6%97%a0%e6%b3%95%e6%89%be%e5%88%b0%e5%8c%b9%e9%85%8d%e5%8d%8f%e8%ae%ae%e6%a0%88%e7%9a%84%e5%8f%af%e7%94%a8%e5%8f%a5%e6%9f%84" class="heading-mark">
@@ -745,7 +789,7 @@
   </a>
 </h5><p>查看连接数是否超过最大连接数，适当增加最大连接数可解决</p>
 <ul>
-<li>查看会话数和连接限制
+<li>查看会话数和连接限制(最大连接数、最大会话数等)
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -772,18 +816,33 @@
 <pre tabindex="0" class="chroma"><code class="language-SQL" data-lang="SQL"><span class="line"><span class="cl"><span class="k">select</span><span class="w"> </span><span class="n">program</span><span class="p">,</span><span class="w"> </span><span class="k">count</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">v$process</span><span class="w"> </span><span class="k">group</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">program</span><span class="w"> </span><span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="k">count</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">desc</span><span class="p">;</span></span></span></code></pre></td></tr></table>
 </div>
 </div></li>
-<li>查看最大连接数<br>
-<code>show parameter processes</code><br>
-或<br>
-<code>select value from v$parameter where name = 'processes'</code></li>
-<li>查看当前会话数<br>
-<code>select count(*) from v$session</code></li>
-<li>查看最大会话数<br>
-<code>show parameter sessions</code></li>
-<li>查看各用户的会话数<br>
-<code>select username,count(*) from v$session where username is not null group by username</code></li>
-<li>查看各进程的会话数<br>
-<code>select program,count(*) from v$session group by program order by count(*) desc</code></li>
+<li>查看阻塞的会话
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-SQL" data-lang="SQL"><span class="line"><span class="cl"><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">v$session</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">blocking_session</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="w"> </span><span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">SECONDS_IN_WAIT</span><span class="w"> </span><span class="k">desc</span><span class="p">;</span></span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>查看锁定的对象
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-SQL" data-lang="SQL"><span class="line"><span class="cl"><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">v$locked_object</span><span class="p">;</span></span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>查看锁定的会话
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-SQL" data-lang="SQL"><span class="line"><span class="cl"><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">v$session</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">sid</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="p">(</span><span class="k">select</span><span class="w"> </span><span class="n">sid</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">v$locked_object</span><span class="p">);</span></span></span></code></pre></td></tr></table>
+</div>
+</div></li>
 </ul>
 </div><div class="post-footer" id="post-footer">
   <div class="post-info">

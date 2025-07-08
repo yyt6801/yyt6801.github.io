@@ -285,11 +285,30 @@ Oracle的故障排除包括错误日志分析、性能调优、故障恢复等�
    * 检查是否使用了正确的SID
    * 检查是否使用了正确的服务名
 ##### ORA-01653: unable to extend table
-   * 检查表空间是否已满
-   * 检查表空间是否已启用自动扩展
+   * 检查表空间是否已满 (是否已启用自动扩展)
+      ```SQL
+      SELECT tablespace_name, file_name, bytes/1024/1024 AS size_mb,autoextensible
+      FROM dba_data_files
+      WHERE tablespace_name = &#39;UNDOTBS2&#39;;
+      ```
+   
+   * 创建新的表空间
+      ```SQL
+      CREATE UNDO TABLESPACE UNDOTBS2 
+      DATAFILE &#39;D:\APP\ADMINISTRATOR\ORADATA\NERCAR\UNDOTBS02.DBF&#39; SIZE 10M AUTOEXTEND ON;
+      ```
+   * 切换表空间
+      ```SQL
+      ALTER SYSTEM SET UNDO_TABLESPACE = UNDOTBS2 SCOPE = BOTH;
+      ```
+   * 删除旧的表空间
+      ```SQL
+      DROP TABLESPACE UNDOTBS1 INCLUDING CONTENTS AND DATAFILES;
+      ```
+   
 ##### ORA-12516:TNS:监听程序无法找到匹配协议栈的可用句柄  
 查看连接数是否超过最大连接数，适当增加最大连接数可解决  
-   * 查看会话数和连接限制
+   * 查看会话数和连接限制(最大连接数、最大会话数等)
       ```SQL
       SELECT * FROM v$resource_limit;
       ```
@@ -301,18 +320,19 @@ Oracle的故障排除包括错误日志分析、性能调优、故障恢复等�
       ```SQL
       select program, count(*) from v$process group by program order by count(*) desc;
       ```
-  * 查看最大连接数  
-  `show parameter processes`  
-  或  
-  `select value from v$parameter where name = &#39;processes&#39;`
-  * 查看当前会话数  
-  `select count(*) from v$session`  
-  * 查看最大会话数  
-  `show parameter sessions`  
-  * 查看各用户的会话数  
-  `select username,count(*) from v$session where username is not null group by username`  
-  * 查看各进程的会话数  
-  `select program,count(*) from v$session group by program order by count(*) desc`
+   * 查看阻塞的会话
+      ```SQL
+      select * from v$session where blocking_session is not null order by SECONDS_IN_WAIT desc;
+      ```
+   * 查看锁定的对象
+      ```SQL
+      select * from v$locked_object;
+      ```
+   * 查看锁定的会话
+      ```SQL
+      select * from v$session where sid in (select sid from v$locked_object);
+      ```
+  
 
 
 ---
