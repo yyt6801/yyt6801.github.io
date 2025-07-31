@@ -8,7 +8,7 @@
 
 
 关于我:  
-是一名伪全栈工程师，学的东西多而不精，主要涉及C/C&#43;&#43;控制模型开发、Python机器学习  
+是一名开发工程师，主要涉及C/C&#43;&#43;控制模型开发、Python机器学习  
   
   
 &lt;div style=&#34;display: flex; justify-content: center;&#34;&gt;
