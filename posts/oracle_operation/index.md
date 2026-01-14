@@ -338,5 +338,5 @@ Oracle的故障排除包括错误日志分析、性能调优、故障恢复等�
 ---
 
 > 作者: [YYT6801](https://blog.yyt6801.top/)  
-> URL: https://blog.yyt6801.top/posts/oracle_operation/  
+> URL: http://localhost:1313/posts/oracle_operation/  
 

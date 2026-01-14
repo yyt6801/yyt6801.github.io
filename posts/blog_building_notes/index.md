@@ -21,5 +21,5 @@
 ---
 
 > 作者: [YYT6801](https://blog.yyt6801.top/)  
-> URL: https://blog.yyt6801.top/posts/blog_building_notes/  
+> URL: http://localhost:1313/posts/blog_building_notes/  
 
