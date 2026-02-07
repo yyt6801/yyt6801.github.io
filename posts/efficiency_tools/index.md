@@ -9,6 +9,8 @@
 
 * [Geek Uninstaller](https://www.geekuninstaller.com/) (单文件免安装卸载软件工具，可以卸载干净，可以查看软件安装目录，可以查看软件占用资源)  
   * v1.4.8 [下载地址](https://yyt6801.lanzouo.com/iRIPtyf28pe)
+* [Microsoft Edge](https://www.microsoft.com/zh-cn/edge)
+* [UninstallTool_v3.5.1](https://yyt6801.lanzouv.com/i4AiI3i0mgsd) (免安装卸载软件工具)
 
 ## 浏览器
 * [Chrome](https://www.google.cn/chrome/)
@@ -16,6 +18,7 @@
   * v74.0 稳定版 [下载地址](https://yyt6801.lanzouo.com/iEzRd8hgf2d)  
 
 * [Microsoft Edge](https://www.microsoft.com/zh-cn/edge)
+* [百分浏览器](https://www.centbrowser.cn/) 基于Chromium开源内核开发，追求速度、简约和安全。便携版本很方便。
 
 ## 图片查看器 
 * [360Ablum](https://yyt6801.lanzouo.com/i135zyf2cfi)  360全家桶中提取出来的单独版本，速度快占用低，图片质量高
@@ -281,5 +284,5 @@ The App Store 是一个针对苹果手机、iPad、Mac 设备的应用搜索工�
 ---
 
 > 作者: [YYT6801](https://blog.yyt6801.top/)  
-> URL: http://localhost:1313/posts/efficiency_tools/  
+> URL: https://blog.yyt6801.top/posts/efficiency_tools/  
 
