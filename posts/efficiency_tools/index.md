@@ -8,8 +8,7 @@
   * [下载地址](https://yyt6801.lanzouo.com/i2j2Qyf2e2h)
 
 * [Geek Uninstaller](https://www.geekuninstaller.com/) (单文件免安装卸载软件工具，可以卸载干净，可以查看软件安装目录，可以查看软件占用资源)  
-  * v1.4.8 [下载地址](https://yyt6801.lanzouo.com/iRIPtyf28pe)
-* [Microsoft Edge](https://www.microsoft.com/zh-cn/edge)
+  * v1.4.8 [下载地址](https://yyt6801.lanzouo.com/iRIPtyf28pe)  
 * [UninstallTool_v3.5.1](https://yyt6801.lanzouv.com/i4AiI3i0mgsd) (免安装卸载软件工具)
 
 ## 浏览器
