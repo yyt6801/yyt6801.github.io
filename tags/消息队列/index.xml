@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>消息队列 - 标签 - YYT6801's Blog</title><link>https://blog.yyt6801.top/tags/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/</link><description>YYT6801's Blog</description><generator>Hugo 0.139.2 &amp; FixIt v0.3.15</generator><language>zh-CN</language><managingEditor>yyt6801@gmail.com (YYT6801)</managingEditor><webMaster>yyt6801@gmail.com (YYT6801)</webMaster><copyright>YYT6801</copyright><lastBuildDate>Fri, 29 May 2026 00:00:00 +0800</lastBuildDate><atom:link href="https://blog.yyt6801.top/tags/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/index.xml" rel="self" type="application/rss+xml"/><item><title>MQTT在工业物联网中的应用</title><link>https://blog.yyt6801.top/posts/mqtt-iiot/</link><pubDate>Mon, 25 May 2026 00:00:00 +0800</pubDate><author>yyt6801@gmail.com (YYT6801)</author><guid>https://blog.yyt6801.top/posts/mqtt-iiot/</guid><category domain="https://blog.yyt6801.top/categories/%E5%B7%A5%E4%B8%9A%E4%BA%92%E8%81%94%E7%BD%91/">工业互联网</category><description>&lt;h2 id="mqtt协议基础" class="heading-element">&lt;span>MQTT协议基础&lt;/span>
+ &lt;a href="#mqtt%e5%8d%8f%e8%ae%ae%e5%9f%ba%e7%a1%80" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h2>&lt;ul>
+&lt;li>发布/订阅模型&lt;/li>
+&lt;li>Broker角色与选型（Mosquitto、EMQX、VerneMQ）&lt;/li>
+&lt;/ul>
+&lt;h2 id="qos等级详解" class="heading-element">&lt;span>QoS等级详解&lt;/span>
+ &lt;a href="#qos%e7%ad%89%e7%ba%a7%e8%af%a6%e8%a7%a3" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h2>&lt;ul>
+&lt;li>QoS 0：至多一次&lt;/li>
+&lt;li>QoS 1：至少一次&lt;/li>
+&lt;li>QoS 2：正好一次&lt;/li>
+&lt;li>场景选择建议&lt;/li>
+&lt;/ul>
+&lt;h2 id="主题topic设计" class="heading-element">&lt;span>主题（Topic）设计&lt;/span>
+ &lt;a href="#%e4%b8%bb%e9%a2%98topic%e8%ae%be%e8%ae%a1" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h2>&lt;ul>
+&lt;li>层级结构与通配符（+、#）&lt;/li>
+&lt;li>工业场景主题命名规范&lt;/li>
+&lt;/ul>
+&lt;h2 id="保留消息与遗嘱" class="heading-element">&lt;span>保留消息与遗嘱&lt;/span>
+ &lt;a href="#%e4%bf%9d%e7%95%99%e6%b6%88%e6%81%af%e4%b8%8e%e9%81%97%e5%98%b1" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h2>&lt;ul>
+&lt;li>保留消息的应用&lt;/li>
+&lt;li>Last Will and Testament（LWT）&lt;/li>
+&lt;/ul>
+&lt;h2 id="实践工业数据采集" class="heading-element">&lt;span>实践：工业数据采集&lt;/span>
+ &lt;a href="#%e5%ae%9e%e8%b7%b5%e5%b7%a5%e4%b8%9a%e6%95%b0%e6%8d%ae%e9%87%87%e9%9b%86" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h2>&lt;ul>
+&lt;li>传感器数据上报&lt;/li>
+&lt;li>Python（paho-mqtt）客户端示例&lt;/li>
+&lt;li>数据持久化到数据库&lt;/li>
+&lt;/ul>
+&lt;h2 id="emqx部署" class="heading-element">&lt;span>EMQX部署&lt;/span>
+ &lt;a href="#emqx%e9%83%a8%e7%bd%b2" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h2>&lt;ul>
+&lt;li>Docker部署EMQX&lt;/li>
+&lt;li>Web管理界面&lt;/li>
+&lt;li>规则引擎与数据桥接&lt;/li>
+&lt;/ul></description></item></channel></rss>

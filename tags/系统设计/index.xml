@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>系统设计 - 标签 - YYT6801's Blog</title><link>https://blog.yyt6801.top/tags/%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/</link><description>YYT6801's Blog</description><generator>Hugo 0.139.2 &amp; FixIt v0.3.15</generator><language>zh-CN</language><managingEditor>yyt6801@gmail.com (YYT6801)</managingEditor><webMaster>yyt6801@gmail.com (YYT6801)</webMaster><copyright>YYT6801</copyright><lastBuildDate>Fri, 14 Nov 2025 00:00:00 +0800</lastBuildDate><atom:link href="https://blog.yyt6801.top/tags/%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/index.xml" rel="self" type="application/rss+xml"/><item><title>软件架构设计模式</title><link>https://blog.yyt6801.top/posts/architecture-patterns/</link><pubDate>Sun, 28 Sep 2025 00:00:00 +0800</pubDate><author>yyt6801@gmail.com (YYT6801)</author><guid>https://blog.yyt6801.top/posts/architecture-patterns/</guid><category domain="https://blog.yyt6801.top/categories/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AE%9E%E8%B7%B5/">软件工程实践</category><description>&lt;h2 id="分层架构" class="heading-element">&lt;span>分层架构&lt;/span>
+ &lt;a href="#%e5%88%86%e5%b1%82%e6%9e%b6%e6%9e%84" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h2>&lt;ul>
+&lt;li>经典三层架构：表现层、业务层、数据层&lt;/li>
+&lt;li>优缺点与适用场景&lt;/li>
+&lt;/ul>
+&lt;h2 id="微服务架构" class="heading-element">&lt;span>微服务架构&lt;/span>
+ &lt;a href="#%e5%be%ae%e6%9c%8d%e5%8a%a1%e6%9e%b6%e6%9e%84" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h2>&lt;ul>
+&lt;li>服务拆分原则&lt;/li>
+&lt;li>服务间通信（REST、gRPC、消息队列）&lt;/li>
+&lt;li>服务发现与网关&lt;/li>
+&lt;/ul>
+&lt;h2 id="事件驱动架构" class="heading-element">&lt;span>事件驱动架构&lt;/span>
+ &lt;a href="#%e4%ba%8b%e4%bb%b6%e9%a9%b1%e5%8a%a8%e6%9e%b6%e6%9e%84" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h2>&lt;ul>
+&lt;li>事件总线 vs 消息队列&lt;/li>
+&lt;li>CQRS与Event Sourcing&lt;/li>
+&lt;li>工业实时系统中的应用&lt;/li>
+&lt;/ul>
+&lt;h2 id="工业控制系统常见架构" class="heading-element">&lt;span>工业控制系统常见架构&lt;/span>
+ &lt;a href="#%e5%b7%a5%e4%b8%9a%e6%8e%a7%e5%88%b6%e7%b3%bb%e7%bb%9f%e5%b8%b8%e8%a7%81%e6%9e%b6%e6%9e%84" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h2>&lt;ul>
+&lt;li>集中式 vs 分布式&lt;/li>
+&lt;li>SCADA系统层级架构&lt;/li>
+&lt;li>OPC UA通信架构&lt;/li>
+&lt;/ul>
+&lt;h2 id="架构选型决策树" class="heading-element">&lt;span>架构选型决策树&lt;/span>
+ &lt;a href="#%e6%9e%b6%e6%9e%84%e9%80%89%e5%9e%8b%e5%86%b3%e7%ad%96%e6%a0%91" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h2>&lt;ul>
+&lt;li>项目规模、团队能力、运维成本&lt;/li>
+&lt;li>演进式架构理念&lt;/li>
+&lt;/ul></description></item></channel></rss>
