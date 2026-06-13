@@ -3,49 +3,66 @@
  &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
  &lt;/a>
 &lt;/h2>&lt;ul>
-&lt;li>.github/workflows 目录结构&lt;/li>
-&lt;li>核心组件：name、on、jobs、steps、runs-on&lt;/li>
+&lt;li>&lt;code>.github/workflows&lt;/code> 目录，存放 &lt;code>.yml&lt;/code> 格式的 workflow 文件&lt;/li>
+&lt;li>核心组件：
+&lt;ul>
+&lt;li>&lt;strong>name&lt;/strong>：workflow 名称&lt;/li>
+&lt;li>&lt;strong>on&lt;/strong>：触发事件&lt;/li>
+&lt;li>&lt;strong>jobs&lt;/strong>：要执行的任务&lt;/li>
+&lt;li>&lt;strong>steps&lt;/strong>：每个 job 的执行步骤&lt;/li>
+&lt;li>&lt;strong>runs-on&lt;/strong>：运行环境（ubuntu-latest、windows-latest 等）&lt;/li>
+&lt;/ul>
+&lt;/li>
 &lt;/ul>
 &lt;h2 id="trigger事件详解" class="heading-element">&lt;span>Trigger事件详解&lt;/span>
  &lt;a href="#trigger%e4%ba%8b%e4%bb%b6%e8%af%a6%e8%a7%a3" class="heading-mark">
  &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
  &lt;/a>
 &lt;/h2>&lt;ul>
-&lt;li>push、pull_request、schedule、workflow_dispatch&lt;/li>
-&lt;li>路径过滤（paths、paths-ignore）&lt;/li>
+&lt;li>&lt;code>push&lt;/code> / &lt;code>pull_request&lt;/code>：代码推送或 PR 时触发&lt;/li>
+&lt;li>&lt;code>schedule&lt;/code>：定时触发（cron 表达式）&lt;/li>
+&lt;li>&lt;code>workflow_dispatch&lt;/code>：手动触发&lt;/li>
+&lt;li>&lt;code>release&lt;/code>：发布 Release 时触发&lt;/li>
+&lt;li>路径过滤：&lt;code>paths&lt;/code> / &lt;code>paths-ignore&lt;/code> 控制特定文件变更才触发&lt;/li>
 &lt;/ul>
 &lt;h2 id="常用action推荐" class="heading-element">&lt;span>常用Action推荐&lt;/span>
  &lt;a href="#%e5%b8%b8%e7%94%a8action%e6%8e%a8%e8%8d%90" class="heading-mark">
  &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
  &lt;/a>
 &lt;/h2>&lt;ul>
-&lt;li>actions/checkout、actions/setup-python、actions/cache&lt;/li>
-&lt;li>第三方Action：docker/login-action、docker/build-push-action&lt;/li>
+&lt;li>&lt;code>actions/checkout&lt;/code>：拉取代码&lt;/li>
+&lt;li>&lt;code>actions/setup-python&lt;/code> / &lt;code>actions/setup-node&lt;/code>：配置语言环境&lt;/li>
+&lt;li>&lt;code>actions/cache&lt;/code>：缓存依赖加速构建&lt;/li>
+&lt;li>&lt;code>docker/login-action&lt;/code> / &lt;code>docker/build-push-action&lt;/code>：Docker 镜像构建推送&lt;/li>
 &lt;/ul>
 &lt;h2 id="环境变量与secrets" class="heading-element">&lt;span>环境变量与Secrets&lt;/span>
  &lt;a href="#%e7%8e%af%e5%a2%83%e5%8f%98%e9%87%8f%e4%b8%8esecrets" class="heading-mark">
  &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
  &lt;/a>
 &lt;/h2>&lt;ul>
-&lt;li>内置环境变量速查&lt;/li>
-&lt;li>敏感信息管理（Settings &amp;gt; Secrets and variables）&lt;/li>
+&lt;li>内置环境变量：&lt;code>GITHUB_SHA&lt;/code>、&lt;code>GITHUB_REF&lt;/code>、&lt;code>GITHUB_REPOSITORY&lt;/code> 等&lt;/li>
+&lt;li>Secrets 管理：Settings &amp;gt; Secrets and variables &amp;gt; Actions&lt;/li>
+&lt;li>引用方式：&lt;code>${{ secrets.MY_SECRET }}&lt;/code>&lt;/li>
+&lt;li>推荐使用 Personal Access Token (PAT) 进行跨仓库操作&lt;/li>
 &lt;/ul>
 &lt;h2 id="多job编排" class="heading-element">&lt;span>多Job编排&lt;/span>
  &lt;a href="#%e5%a4%9ajob%e7%bc%96%e6%8e%92" class="heading-mark">
  &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
  &lt;/a>
 &lt;/h2>&lt;ul>
-&lt;li>job依赖（needs）&lt;/li>
-&lt;li>矩阵构建（matrix strategy）&lt;/li>
-&lt;li>制品传递（upload-artifact / download-artifact）&lt;/li>
+&lt;li>&lt;code>needs&lt;/code>：定义 job 依赖关系&lt;/li>
+&lt;li>&lt;code>matrix&lt;/code> 策略：多版本并行测试&lt;/li>
+&lt;li>&lt;code>upload-artifact&lt;/code> / &lt;code>download-artifact&lt;/code>：制品跨 job 传递&lt;/li>
 &lt;/ul>
-&lt;h2 id="博客部署实战" class="heading-element">&lt;span>博客部署实战&lt;/span>
- &lt;a href="#%e5%8d%9a%e5%ae%a2%e9%83%a8%e7%bd%b2%e5%ae%9e%e6%88%98" class="heading-mark">
+&lt;h2 id="github-pages-部署实战" class="heading-element">&lt;span>GitHub Pages 部署实战&lt;/span>
+ &lt;a href="#github-pages-%e9%83%a8%e7%bd%b2%e5%ae%9e%e6%88%98" class="heading-mark">
  &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
  &lt;/a>
-&lt;/h2>&lt;ul>
-&lt;li>Hugo构建 + GitHub Pages部署（参考现有deploy.yml）&lt;/li>
-&lt;/ul></description></item><item><title>时序数据库入门：InfluxDB与TDengine</title><link>https://blog.yyt6801.top/posts/influxdb-tdengine/</link><pubDate>Mon, 17 Nov 2025 00:00:00 +0800</pubDate><author>yyt6801@gmail.com (YYT6801)</author><guid>https://blog.yyt6801.top/posts/influxdb-tdengine/</guid><category domain="https://blog.yyt6801.top/categories/%E7%BC%96%E7%A8%8B%E5%BC%80%E5%8F%91/">编程开发</category><description>&lt;h2 id="时序数据特点" class="heading-element">&lt;span>时序数据特点&lt;/span>
+&lt;/h2>&lt;h3 id="方案一部署到同一仓库-pages-分支" class="heading-element">&lt;span>方案一：部署到同一仓库 Pages 分支&lt;/span>
+ &lt;a href="#%e6%96%b9%e6%a1%88%e4%b8%80%e9%83%a8%e7%bd%b2%e5%88%b0%e5%90%8c%e4%b8%80%e4%bb%93%e5%ba%93-pages-%e5%88%86%e6%94%af" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h3>&lt;p>适用于项目站点（Project Pages），直接部署到 &lt;code>gh-pages&lt;/code> 分支。&lt;/p></description></item><item><title>时序数据库入门：InfluxDB与TDengine</title><link>https://blog.yyt6801.top/posts/influxdb-tdengine/</link><pubDate>Mon, 17 Nov 2025 00:00:00 +0800</pubDate><author>yyt6801@gmail.com (YYT6801)</author><guid>https://blog.yyt6801.top/posts/influxdb-tdengine/</guid><category domain="https://blog.yyt6801.top/categories/%E7%BC%96%E7%A8%8B%E5%BC%80%E5%8F%91/">编程开发</category><description>&lt;h2 id="时序数据特点" class="heading-element">&lt;span>时序数据特点&lt;/span>
  &lt;a href="#%e6%97%b6%e5%ba%8f%e6%95%b0%e6%8d%ae%e7%89%b9%e7%82%b9" class="heading-mark">
  &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
  &lt;/a>
