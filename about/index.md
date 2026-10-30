@@ -8,24 +8,41 @@
 
 ## About Me / 关于我
 
-&gt; 嗨！我是 YYT6801，欢迎来到我的个人Blog。这里记录我的感触、想法、踩坑经验和知识备忘，分享给自己也分享给你。好记性不如烂笔头嘛，这里断断续续写了一些东西，希望以后能坚持下来，也希望能对你有些帮助。
+&gt; 嗨！我是 YYT6801，一名深耕工业智能领域的工程师，欢迎来到我的个人 Blog。这里记录我在工业互联网、智能制造和机器学习路上踩过的坑、沉淀的经验和思考。好记性不如烂笔头，希望这些笔记对你也有帮助。
 &gt;
-&gt; Hi! I&#39;m YYT6801, welcome to my personal blog. This is where I document my thoughts, ideas, lessons learned from pitfalls, and knowledge notes — sharing them with myself and with you. A bad pen is better than a good memory. I&#39;ve written bits and pieces here over time; I hope to keep it up, and I hope it might be helpful to you too.
+&gt; Hi! I&#39;m YYT6801, an engineer deeply engaged in industrial intelligence. Welcome to my personal blog. This is where I document lessons learned, insights, and experience in Industrial Internet, Smart Manufacturing, and Machine Learning — I hope these notes are helpful to you too.
 
 - **互联网 ID / Internet ID**: YYT6801
 - **出生 / Born**: 1997
-- **职业 / Career**: 工程师 / 架构师 / 项目经理 — Engineer / Architect / Project Manager
-- **学历 / Education**: 电子信息（控制工程）硕士 — Master in Electronic Information (Control Engineering)
-- **工作 / Work**: 在研究院从事工业互联网、智能制造、工业控制系统、工业大数据和 Python 机器学习 — Working at a research institute on Industrial Internet, Smart Manufacturing, Industrial Control Systems, Industrial Big Data, and Python Machine Learning
+- **所在城市 / Location**: 北京 — Beijing
+- **职业定位 / Focus**: 工业 AI / 智能工艺模型架构师 · 工业互联网解决方案架构师
+- **学历 / Education**: 材料工程本科 → 电子信息（控制工程）硕士 — B.Eng in Materials Engineering → M.S. in Electronic Information (Control Engineering)
+- **经历 / Career**: 8 年&#43; 钢铁冶金工业智能经验，身兼系统架构师、AI 工艺模型研发与项目经理三重职责，某研究院 2018 年至今
+- **方向 / Domains**: 工业互联网、智能制造、工业控制系统、工业大数据、Python 机器学习
 
+## Skills / 技能亮点
+
+- **全链路**：贯通「工艺机理建模 → 数据驱动算法 → 平台架构 → 项目交付」，具备从现场设备层（OPC/PLC）到数据中台层的端到端架构设计能力
+- **算法与建模**：冶金机理 &#43; 数据驱动融合建模、机器学习 / 神经网络预测（跑偏预测、板形预测、焊接工艺参数自学习）、工艺仿真与参数寻优
+- **数据与平台**：ClickHouse 高频时序数仓落地、多源生产数据整合、采集与存储架构选型、数据可视化与质量溯源
+- **工程开发**：C/C&#43;&#43;（工业自动化控制、后端服务）、Python 数据分析、前后端模块开发
+- **项目管理**：PMP 项目管理专业人士认证，主导 10&#43; 个大型智能工厂 / 工业大数据 / 工业 AI 项目全生命周期
+
+## Highlights / 一些成果
+
+- 🏭 主导 10&#43; 个大型智能工厂与工业大数据项目，覆盖加热炉、冷轧、连退、镀锌等核心冶金工序
+- 📉 冷轧连退跑偏预测模型落地：非计划停机时间减少 60%，板形合格率提升 20%
+- ⚡ ClickHouse 时序数据架构支撑全厂 7×24 稳定运行，数据写入延迟 ≤ 50ms
+- 📚 发明专利 5 项（智能预测 / 参数自学习方向）、软件著作权 2 项、第一作者论文 1 篇
+- ☁️ 与头部云厂商工业大脑平台联合开发，贯通「云平台能力 &#43; 现场产线」的集成模式
 
 ---
 
 ## Contact / 联系方式
 
 - **邮箱 / Email**: yyt6801@gmail.com
-- 欢迎大家联系，我很乐意分享经验与交流想法。
-- Feel free to reach out — I&#39;m happy to share experiences and exchange ideas.
+- 欢迎交流工业 AI、智能制造、机器学习与项目管理话题，我很乐意分享经验与想法。
+- Feel free to reach out — happy to share and exchange ideas about Industrial AI, Smart Manufacturing, Machine Learning, and Project Management.
 
 ---
 
