@@ -1,4 +1,270 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>YYT6801's Blog</title><link>https://blog.yyt6801.top/</link><description>YYT6801's Blog</description><generator>Hugo 0.139.2 &amp; FixIt v0.3.15</generator><language>zh-CN</language><managingEditor>yyt6801@gmail.com (YYT6801)</managingEditor><webMaster>yyt6801@gmail.com (YYT6801)</webMaster><copyright>YYT6801</copyright><lastBuildDate>Wed, 01 Jul 2026 00:00:00 +0800</lastBuildDate><atom:link href="https://blog.yyt6801.top/index.xml" rel="self" type="application/rss+xml"/><item><title>OpenCode —— 开源 AI Coding Agent 介绍与操作指南</title><link>https://blog.yyt6801.top/posts/opencode-intro-guide/</link><pubDate>Wed, 01 Jul 2026 00:00:00 +0800</pubDate><author>yyt6801@gmail.com (YYT6801)</author><guid>https://blog.yyt6801.top/posts/opencode-intro-guide/</guid><category domain="https://blog.yyt6801.top/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7%E4%B8%8E%E6%95%88%E7%8E%87/">开发工具与效率</category><description>&lt;h2 id="opencode-简介" class="heading-element">&lt;span>OpenCode 简介&lt;/span>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>YYT6801's Blog</title><link>https://blog.yyt6801.top/</link><description>YYT6801's Blog</description><generator>Hugo 0.139.2 &amp; FixIt v0.3.15</generator><language>zh-CN</language><managingEditor>yyt6801@gmail.com (YYT6801)</managingEditor><webMaster>yyt6801@gmail.com (YYT6801)</webMaster><copyright>YYT6801</copyright><lastBuildDate>Fri, 30 Oct 2026 00:00:00 +0800</lastBuildDate><atom:link href="https://blog.yyt6801.top/index.xml" rel="self" type="application/rss+xml"/><item><title>MCP 协议入门 —— AI 与工具生态的新连接标准</title><link>https://blog.yyt6801.top/posts/mcp-protocol-guide/</link><pubDate>Fri, 30 Oct 2026 00:00:00 +0800</pubDate><author>yyt6801@gmail.com (YYT6801)</author><guid>https://blog.yyt6801.top/posts/mcp-protocol-guide/</guid><category domain="https://blog.yyt6801.top/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7%E4%B8%8E%E6%95%88%E7%8E%87/">开发工具与效率</category><description>&lt;h2 id="mcp-是什么" class="heading-element">&lt;span>MCP 是什么&lt;/span>
+ &lt;a href="#mcp-%e6%98%af%e4%bb%80%e4%b9%88" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h2>&lt;p>MCP(Model Context Protocol,模型上下文协议)是 Anthropic 于 2024 年底开源的一项协议，现已成为 AI 应用连接外部工具与数据的事实标准。简单来说,它定义了一套&lt;strong>统一的接口规范&lt;/strong>,让 LLM 应用能够以标准化的方式访问文件系统、数据库、API、Web 服务等外部资源。&lt;/p>
+&lt;p>在没有 MCP 之前,每个 AI 应用接入每种工具都需要单独编写适配代码,存在典型的&amp;quot;M×N 集成问题&amp;quot;:&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>M 个 AI 应用&lt;/strong> × &lt;strong>N 种工具&lt;/strong> = M×N 份集成代码&lt;/li>
+&lt;li>每新增一个应用或工具,集成本就翻倍增长&lt;/li>
+&lt;/ul>
+&lt;p>引入 MCP 后,架构从&amp;quot;多对多&amp;quot;退化为&amp;quot;多对一&amp;quot;:&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>M 个 AI 应用&lt;/strong> + &lt;strong>N 种工具&lt;/strong> = 开发 M+N 个符合 MCP 的实现即可&lt;/li>
+&lt;/ul>
+&lt;p>这和 USB-C 接口的理念非常相似:过去每种设备各有各的充电口,统一之后,一个接口连接所有设备。&lt;/p>
+&lt;h2 id="核心概念" class="heading-element">&lt;span>核心概念&lt;/span>
+ &lt;a href="#%e6%a0%b8%e5%bf%83%e6%a6%82%e5%bf%b5" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h2>&lt;h3 id="架构角色" class="heading-element">&lt;span>架构角色&lt;/span>
+ &lt;a href="#%e6%9e%b6%e6%9e%84%e8%a7%92%e8%89%b2" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h3>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">┌────────────────┐ ┌──────────────────┐ ┌───────────────┐
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">│ Host(宿主) │ │ MCP Client │ │ MCP Server │
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">│ 如 OpenCode、 │ ───▶ │ 连接管理,一个 │ ───▶ │ 封装具体能力, │
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">│ Claude Desktop│ │ Client 对应一个 │ │ 如 GitHub、 │
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">│ │ │ Server │ │ 数据库 │
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">└────────────────┘ └──────────────────┘ └───────────────┘&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>&lt;strong>Host&lt;/strong>:运行 AI 应用的一方(如 OpenCode、Claude Desktop、各类 IDE 插件)&lt;/li>
+&lt;li>&lt;strong>Client&lt;/strong>:Host 内部的连接器,每个 Client 与一个 Server 保持 1:1 会话&lt;/li>
+&lt;li>&lt;strong>Server&lt;/strong>:轻量级服务进程,向 AI 暴露某种具体能力,例如操作 Git、查询 PostgreSQL、抓取网页&lt;/li>
+&lt;/ul>
+&lt;h3 id="三大原语" class="heading-element">&lt;span>三大原语&lt;/span>
+ &lt;a href="#%e4%b8%89%e5%a4%a7%e5%8e%9f%e8%af%ad" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h3>&lt;p>MCP Server 可以向 Host 暴露三类能力,称为&amp;quot;原语&amp;quot;(primitives):&lt;/p>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th>原语&lt;/th>
+ &lt;th>方向&lt;/th>
+ &lt;th>说明&lt;/th>
+ &lt;th>典型例子&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td>&lt;strong>Tools&lt;/strong>&lt;/td>
+ &lt;td>模型可控&lt;/td>
+ &lt;td>由 LLM 决定何时调用,类似函数调用&lt;/td>
+ &lt;td>执行 SQL、创建 Issue&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;strong>Resources&lt;/strong>&lt;/td>
+ &lt;td>应用可控&lt;/td>
+ &lt;td>由 Host/用户决定何时读取的上下文数据&lt;/td>
+ &lt;td>代码文件、数据库模式&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;strong>Prompts&lt;/strong>&lt;/td>
+ &lt;td>用户可控&lt;/td>
+ &lt;td>由用户主动触发的预制提示词模板&lt;/td>
+ &lt;td>&amp;ldquo;/review&amp;rdquo; 发起代码评审&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;p>把 Tools 理解为&amp;quot;AI 能做什么&amp;quot;,Resources 理解为&amp;quot;AI 能看到什么&amp;quot;,Prompts 理解为&amp;quot;AI 能被指示怎么做&amp;quot;,这个协议一下子就好记了。&lt;/p>
+&lt;blockquote>
+&lt;p>💡 另外还有 Sampling(服务端反向请求 LLM 补全)和 Roots(限定可访问目录)等高级能力,初学阶段可以暂不关注。&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="传输方式" class="heading-element">&lt;span>传输方式&lt;/span>
+ &lt;a href="#%e4%bc%a0%e8%be%93%e6%96%b9%e5%bc%8f" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h2>&lt;p>Client 与 Server 之间的通信支持两种标准传输:&lt;/p>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th>传输&lt;/th>
+ &lt;th>适用场景&lt;/th>
+ &lt;th>说明&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td>&lt;strong>stdio&lt;/strong>&lt;/td>
+ &lt;td>本地部署&lt;/td>
+ &lt;td>Server 作为子进程启动,通过标准输入/输出通信,实现最简单,适合本地工具&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;strong>Streamable HTTP&lt;/strong>&lt;/td>
+ &lt;td>远程/共享服务&lt;/td>
+ &lt;td>基于 HTTP + SSE 的双向流式通信,适合团队共享的远程 MCP 服务&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;p>本地个人使用选 stdio 即可;想让团队所有人共用同一个 MCP 服务(比如内部知识库),就走 Streamable HTTP。&lt;/p>
+&lt;h2 id="快速上手写一个最小的-mcp-server" class="heading-element">&lt;span>快速上手:写一个最小的 MCP Server&lt;/span>
+ &lt;a href="#%e5%bf%ab%e9%80%9f%e4%b8%8a%e6%89%8b%e5%86%99%e4%b8%80%e4%b8%aa%e6%9c%80%e5%b0%8f%e7%9a%84-mcp-server" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h2>&lt;p>以官方 Python SDK 为例,10 行核心代码就能对外暴露一个工具:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-Bash" data-lang="Bash">&lt;span class="line">&lt;span class="cl">pip install &lt;span class="s2">&amp;#34;mcp[cli]&amp;#34;&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>创建 &lt;code>server.py&lt;/code>:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-Python" data-lang="Python">&lt;span class="line">&lt;span class="cl">&lt;span class="kn">from&lt;/span> &lt;span class="nn">mcp.server.fastmcp&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">FastMCP&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">mcp&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">FastMCP&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;my-first-server&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nd">@mcp.tool&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">add&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">a&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nb">int&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">b&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nb">int&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">-&amp;gt;&lt;/span> &lt;span class="nb">int&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;&amp;#34;&amp;#34;两数相加&amp;#34;&amp;#34;&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="n">a&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">b&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">if&lt;/span> &lt;span class="vm">__name__&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="s2">&amp;#34;__main__&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">mcp&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">run&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="c1"># 默认以 stdio 传输运行&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>运行验证:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-Bash" data-lang="Bash">&lt;span class="line">&lt;span class="cl">mcp dev server.py &lt;span class="c1"># 启动官方 Inspector 调试界面&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>浏览器会打开 Inspector,可以看到刚才注册的 &lt;code>add&lt;/code> 工具,并直接调用测试。所有带类型签名的函数、docstring 都会自动转换成符合规范的 Tool 定义——&lt;strong>Type hints 就是文档&lt;/strong>,这是 Python SDK 最大的优点。&lt;/p>
+&lt;p>TypeScript 生态同样成熟:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-Bash" data-lang="Bash">&lt;span class="line">&lt;span class="cl">npm install @modelcontextprotocol/sdk&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="在-opencode-中使用-mcp" class="heading-element">&lt;span>在 OpenCode 中使用 MCP&lt;/span>
+ &lt;a href="#%e5%9c%a8-opencode-%e4%b8%ad%e4%bd%bf%e7%94%a8-mcp" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h2>&lt;p>关于 OpenCode 本身,可以参考我之前的文章&lt;a href="https://blog.yyt6801.top/posts/opencode-intro-guide/">《OpenCode —— 开源 AI Coding Agent 介绍与操作指南》&lt;/a>。&lt;/p>
+&lt;p>OpenCode 原生支持 MCP,一条命令即可接入.stdio 方式:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-Bash" data-lang="Bash">&lt;span class="line">&lt;span class="cl">opencode mcp add github -- claude mcp run @modelcontextprotocol/server-github&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>远程 HTTP 方式:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-Bash" data-lang="Bash">&lt;span class="line">&lt;span class="cl">opencode mcp add --transport http docs https://docs.example.com/mcp&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>配置保存在项目的 &lt;code>opencode.json&lt;/code> 中,可以随项目提交,团队成员拉取后即获得相同的工具集。&lt;/p>
+&lt;h2 id="常见-mcp-服务器生态" class="heading-element">&lt;span>常见 MCP 服务器生态&lt;/span>
+ &lt;a href="#%e5%b8%b8%e8%a7%81-mcp-%e6%9c%8d%e5%8a%a1%e5%99%a8%e7%94%9f%e6%80%81" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h2>&lt;p>经过两年多的发展,MCP 已经积累了相当成熟的生态,官方维护的就有一批高可用 Server:&lt;/p>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th>Server&lt;/th>
+ &lt;th>能力&lt;/th>
+ &lt;th>适合谁&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td>&lt;strong>Filesystem&lt;/strong>&lt;/td>
+ &lt;td>受控的本地文件读写&lt;/td>
+ &lt;td>所有人&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;strong>GitHub&lt;/strong>&lt;/td>
+ &lt;td>Issue/PR/仓库管理&lt;/td>
+ &lt;td>团队与开源维护者&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;strong>Playwright&lt;/strong>&lt;/td>
+ &lt;td>浏览器自动化与 E2E 测试&lt;/td>
+ &lt;td>测试工程师&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;strong>PostgreSQL / SQLite&lt;/strong>&lt;/td>
+ &lt;td>只读 SQL 查询&lt;/td>
+ &lt;td>数据分析&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;strong>Fetch&lt;/strong>&lt;/td>
+ &lt;td>网抓内容转 Markdown&lt;/td>
+ &lt;td>所有需要联网资料的场景&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;strong>Slack&lt;/strong>&lt;/td>
+ &lt;td>消息检索与发送&lt;/td>
+ &lt;td>办公协作&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;p>在 &lt;a href="https://github.com/modelcontextprotocol/servers"target="_blank" rel="external nofollow noopener noreferrer">MCP Servers 目录&lt;/a> 和 &lt;a href="https://mcp.so"target="_blank" rel="external nofollow noopener noreferrer">mcp.so&lt;/a> 可以找到更多社区实现的 Server。&lt;/p>
+&lt;h2 id="安全与实践建议" class="heading-element">&lt;span>安全与实践建议&lt;/span>
+ &lt;a href="#%e5%ae%89%e5%85%a8%e4%b8%8e%e5%ae%9e%e8%b7%b5%e5%bb%ba%e8%ae%ae" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h2>&lt;p>把工具交到 AI 手上,安全性必须放在首位:&lt;/p>
+&lt;ol>
+&lt;li>&lt;strong>最小权限原则&lt;/strong> — 如 Filesystem Server 支持指定允许访问的目录白名单,不要把整个磁盘交给 AI&lt;/li>
+&lt;li>&lt;strong>慎用凭证&lt;/strong> — GitHub 等需要 Token 的 Server,用最小 scope 的 PAT,并按需设置只读&lt;/li>
+&lt;li>&lt;strong>警惕提示注入&lt;/strong> — AI 可能读取到恶意网页内容后调用你的本地工具,敏感操作(删除、付款等)工具设计上要加确认门槛&lt;/li>
+&lt;li>&lt;strong>供应链审查&lt;/strong> — 第三方 MCP Server 部署前审查其源码或发布来源,优先选择官方与高星数实现&lt;/li>
+&lt;li>&lt;strong>企业内部用只读(Server)起步&lt;/strong> — 团队落地 MCP 的稳妥路径:先做到&amp;quot;AI 只能读&amp;quot;,验证价值后再逐步开放写能力&lt;/li>
+&lt;/ol>
+&lt;h2 id="小结" class="heading-element">&lt;span>小结&lt;/span>
+ &lt;a href="#%e5%b0%8f%e7%bb%93" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h2>&lt;ul>
+&lt;li>MCP 用统一的协议标准把 &lt;strong>AI 应用 ↔ 工具&lt;/strong> 的集成从 M×N 降到 M+N&lt;/li>
+&lt;li>三大原语:&lt;strong>Tools&lt;/strong>(AI 能做)、&lt;strong>Resources&lt;/strong>(AI 能看)、&lt;strong>Prompts&lt;/strong>(AI 能被指点)&lt;/li>
+&lt;li>本地 stdio、远程 Streamable HTTP 两种传输,按场景选型&lt;/li>
+&lt;li>OpenCode 等主流 AI 编程工具已原生支持,一条命令接入即可&lt;/li>
+&lt;/ul>
+&lt;p>工具生态的标准化,正在让&amp;quot;AI 会用工具&amp;quot;从演示变成生产力。如果你也用 AI 辅助开发,值得花半小时动手把 MCP 跑起来。&lt;/p>
+&lt;hr>
+&lt;p>&lt;strong>参考链接&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://modelcontextprotocol.io"target="_blank" rel="external nofollow noopener noreferrer">MCP 官方文档&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://github.com/modelcontextprotocol/python-sdk"target="_blank" rel="external nofollow noopener noreferrer">MCP Python SDK&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://github.com/modelcontextprotocol/servers"target="_blank" rel="external nofollow noopener noreferrer">Server 目录&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>OpenCode —— 开源 AI Coding Agent 介绍与操作指南</title><link>https://blog.yyt6801.top/posts/opencode-intro-guide/</link><pubDate>Wed, 01 Jul 2026 00:00:00 +0800</pubDate><author>yyt6801@gmail.com (YYT6801)</author><guid>https://blog.yyt6801.top/posts/opencode-intro-guide/</guid><category domain="https://blog.yyt6801.top/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7%E4%B8%8E%E6%95%88%E7%8E%87/">开发工具与效率</category><description>&lt;h2 id="opencode-简介" class="heading-element">&lt;span>OpenCode 简介&lt;/span>
  &lt;a href="#opencode-%e7%ae%80%e4%bb%8b" class="heading-mark">
  &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
  &lt;/a>
@@ -1917,61 +2183,4 @@
  &lt;td>%FF&lt;/td>
  &lt;/tr>
  &lt;/tbody>
-&lt;/table></description></item><item><title>时序数据库入门：InfluxDB与TDengine</title><link>https://blog.yyt6801.top/posts/influxdb-tdengine/</link><pubDate>Mon, 17 Nov 2025 00:00:00 +0800</pubDate><author>yyt6801@gmail.com (YYT6801)</author><guid>https://blog.yyt6801.top/posts/influxdb-tdengine/</guid><category domain="https://blog.yyt6801.top/categories/%E7%BC%96%E7%A8%8B%E5%BC%80%E5%8F%91/">编程开发</category><description>&lt;h2 id="时序数据特点" class="heading-element">&lt;span>时序数据特点&lt;/span>
- &lt;a href="#%e6%97%b6%e5%ba%8f%e6%95%b0%e6%8d%ae%e7%89%b9%e7%82%b9" class="heading-mark">
- &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
- &lt;/a>
-&lt;/h2>&lt;ul>
-&lt;li>写入量大、按时间排序、很少更新&lt;/li>
-&lt;li>与关系型数据库设计差异&lt;/li>
-&lt;/ul>
-&lt;h2 id="influxdb" class="heading-element">&lt;span>InfluxDB&lt;/span>
- &lt;a href="#influxdb" class="heading-mark">
- &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
- &lt;/a>
-&lt;/h2>&lt;h3 id="核心概念" class="heading-element">&lt;span>核心概念&lt;/span>
- &lt;a href="#%e6%a0%b8%e5%bf%83%e6%a6%82%e5%bf%b5" class="heading-mark">
- &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
- &lt;/a>
-&lt;/h3>&lt;ul>
-&lt;li>Measurement、Tag、Field、Timestamp&lt;/li>
-&lt;li>Retention Policy（保留策略）&lt;/li>
-&lt;/ul>
-&lt;h3 id="常用操作" class="heading-element">&lt;span>常用操作&lt;/span>
- &lt;a href="#%e5%b8%b8%e7%94%a8%e6%93%8d%e4%bd%9c" class="heading-mark">
- &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
- &lt;/a>
-&lt;/h3>&lt;ul>
-&lt;li>数据库创建与管理&lt;/li>
-&lt;li>数据写入与查询（InfluxQL/Flux）&lt;/li>
-&lt;li>连续查询与降采样&lt;/li>
-&lt;/ul>
-&lt;h2 id="tdengine" class="heading-element">&lt;span>TDengine&lt;/span>
- &lt;a href="#tdengine" class="heading-mark">
- &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
- &lt;/a>
-&lt;/h2>&lt;h3 id="核心概念-1" class="heading-element">&lt;span>核心概念&lt;/span>
- &lt;a href="#%e6%a0%b8%e5%bf%83%e6%a6%82%e5%bf%b5-1" class="heading-mark">
- &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
- &lt;/a>
-&lt;/h3>&lt;ul>
-&lt;li>超级表（STable）、子表&lt;/li>
-&lt;li>标签 vs 列&lt;/li>
-&lt;/ul>
-&lt;h3 id="常用操作-1" class="heading-element">&lt;span>常用操作&lt;/span>
- &lt;a href="#%e5%b8%b8%e7%94%a8%e6%93%8d%e4%bd%9c-1" class="heading-mark">
- &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
- &lt;/a>
-&lt;/h3>&lt;ul>
-&lt;li>建库建表&lt;/li>
-&lt;li>数据写入与SQL查询&lt;/li>
-&lt;li>窗口聚合与降采样&lt;/li>
-&lt;/ul>
-&lt;h2 id="选型对比" class="heading-element">&lt;span>选型对比&lt;/span>
- &lt;a href="#%e9%80%89%e5%9e%8b%e5%af%b9%e6%af%94" class="heading-mark">
- &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
- &lt;/a>
-&lt;/h2>&lt;ul>
-&lt;li>性能、功能、社区、部署复杂度&lt;/li>
-&lt;li>工业场景推荐方案&lt;/li>
-&lt;/ul></description></item></channel></rss>
+&lt;/table></description></item></channel></rss>
