@@ -1,4 +1,200 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>YYT6801's Blog</title><link>https://blog.yyt6801.top/</link><description>YYT6801's Blog</description><generator>Hugo 0.139.2 &amp; FixIt v0.3.15</generator><language>zh-CN</language><managingEditor>yyt6801@gmail.com (YYT6801)</managingEditor><webMaster>yyt6801@gmail.com (YYT6801)</webMaster><copyright>YYT6801</copyright><lastBuildDate>Fri, 30 Oct 2026 00:00:00 +0800</lastBuildDate><atom:link href="https://blog.yyt6801.top/index.xml" rel="self" type="application/rss+xml"/><item><title>MCP 协议入门 —— AI 与工具生态的新连接标准</title><link>https://blog.yyt6801.top/posts/mcp-protocol-guide/</link><pubDate>Fri, 30 Oct 2026 00:00:00 +0800</pubDate><author>yyt6801@gmail.com (YYT6801)</author><guid>https://blog.yyt6801.top/posts/mcp-protocol-guide/</guid><category domain="https://blog.yyt6801.top/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7%E4%B8%8E%E6%95%88%E7%8E%87/">开发工具与效率</category><description>&lt;h2 id="mcp-是什么" class="heading-element">&lt;span>MCP 是什么&lt;/span>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>YYT6801's Blog</title><link>https://blog.yyt6801.top/</link><description>YYT6801's Blog</description><generator>Hugo 0.139.2 &amp; FixIt v0.3.15</generator><language>zh-CN</language><managingEditor>yyt6801@gmail.com (YYT6801)</managingEditor><webMaster>yyt6801@gmail.com (YYT6801)</webMaster><copyright>YYT6801</copyright><lastBuildDate>Sat, 31 Oct 2026 00:00:00 +0800</lastBuildDate><atom:link href="https://blog.yyt6801.top/index.xml" rel="self" type="application/rss+xml"/><item><title>ClickHouse 在工业高频时序数据中的选型与落地实践</title><link>https://blog.yyt6801.top/posts/clickhouse-industrial-timeseries/</link><pubDate>Sat, 31 Oct 2026 00:00:00 +0800</pubDate><author>yyt6801@gmail.com (YYT6801)</author><guid>https://blog.yyt6801.top/posts/clickhouse-industrial-timeseries/</guid><category domain="https://blog.yyt6801.top/categories/%E7%BC%96%E7%A8%8B%E4%B8%8E%E5%BC%80%E5%8F%91%E5%AE%9E%E6%88%98/">编程与开发实战</category><description>&lt;h2 id="背景" class="heading-element">&lt;span>背景&lt;/span>
+ &lt;a href="#%e8%83%8c%e6%99%af" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h2>&lt;p>工业场景对数据的挑战与互联网场景很不一样。一条大型产线上,千级到万级的测点(CPU 压力、辊缝、速度、温度……)以毫秒级采样周期持续写入,一天产生的数据行数在 &lt;strong>10 亿级&lt;/strong>。如果再加上「质量溯源要回查任意时间窗的原始波形」这类需求,传统关系型数据库很快就撑不住了。&lt;/p>
+&lt;p>在之前的项目里,我就遇到了典型情况:全厂工艺参数毫秒级高频写入,查询侧既要支持数月跨度的趋势分析,又要支持秒级精度的细节回溯。用 MySQL 单表分片方案在测试阶段就已明显瓶颈:写入吞吐不足、历史表膨胀严重、大时间窗查询直接把库打满。&lt;/p>
+&lt;p>这篇文章记录当时做&lt;strong>采集与存储架构选型&lt;/strong>的思路,以及落地 ClickHouse 后的经验和踩坑。&lt;/p>
+&lt;hr>
+&lt;h2 id="选型为什么不是-mysqlinfluxdb而是-clickhouse" class="heading-element">&lt;span>选型:为什么不是 MySQL、InfluxDB,而是 ClickHouse&lt;/span>
+ &lt;a href="#%e9%80%89%e5%9e%8b%e4%b8%ba%e4%bb%80%e4%b9%88%e4%b8%8d%e6%98%af-mysqlinfluxdb%e8%80%8c%e6%98%af-clickhouse" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h2>&lt;p>选型主要对比三类方案,关注四个硬指标:写入吞吐、压缩比、查询延迟、运维成本。&lt;/p>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th>方案&lt;/th>
+ &lt;th>写入吞吐&lt;/th>
+ &lt;th>压缩比&lt;/th>
+ &lt;th>大时间窗聚合&lt;/th>
+ &lt;th>主要顾虑&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td>MySQL / 分表分库&lt;/td>
+ &lt;td>❌ 低&lt;/td>
+ &lt;td>差&lt;/td>
+ &lt;td>慢,索引退化&lt;/td>
+ &lt;td>亿级表迁移、DDL 困难&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>InfluxDB 等专用时序库&lt;/td>
+ &lt;td>✅ 高&lt;/td>
+ &lt;td>好&lt;/td>
+ &lt;td>✅ 快&lt;/td>
+ &lt;td>多维度标签模型限制,SQL 生态弱&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;strong>ClickHouse&lt;/strong>&lt;/td>
+ &lt;td>✅ 极高(百万行/s 级)&lt;/td>
+ &lt;td>✅ 10~40x&lt;/td>
+ &lt;td>✅ 优秀&lt;/td>
+ &lt;td>弱事务、不适合单点更新&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;p>&lt;strong>决定性因素&lt;/strong>是工业数据的访问模式:&lt;/p>
+&lt;ol>
+&lt;li>&lt;strong>写多改少&lt;/strong> — 采集数据只追加、几乎不更新,天然契合 LSM/列存追加式引擎&lt;/li>
+&lt;li>&lt;strong>宽表稀疏&lt;/strong> — 一行数据带几百个测点列,列式存储下未查询列几乎零开销&lt;/li>
+&lt;li>&lt;strong>聚合为主,点查为辅&lt;/strong> — 分析场景是「某工序一个月内的均值/极值」,列存向量化执行优势巨大&lt;/li>
+&lt;li>&lt;strong>SQL 求生欲&lt;/strong> — 工程团队和上层 BI 工具都会写 SQL,ClickHouse 的 SQL 兼容度和学习成本明显优于多数专用时序库&lt;/li>
+&lt;/ol>
+&lt;p>ClickHouse 的短板也必须正视:不支持高频单行 UPDATE/DELETE、&lt;strong>不保证强事务&lt;/strong>、对高并发小查询(几毫秒级的仪表盘点查)并不擅长。这些缺口要靠架构设计来补,而不是寄望于数据库本身。&lt;/p>
+&lt;hr>
+&lt;h2 id="表结构设计" class="heading-element">&lt;span>表结构设计&lt;/span>
+ &lt;a href="#%e8%a1%a8%e7%bb%93%e6%9e%84%e8%ae%be%e8%ae%a1" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h2>&lt;h3 id="主表按天分区--排序键按测点聚类" class="heading-element">&lt;span>主表:按天分区 + 排序键按测点聚类&lt;/span>
+ &lt;a href="#%e4%b8%bb%e8%a1%a8%e6%8c%89%e5%a4%a9%e5%88%86%e5%8c%ba--%e6%8e%92%e5%ba%8f%e9%94%ae%e6%8c%89%e6%b5%8b%e7%82%b9%e8%81%9a%e7%b1%bb" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h3>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-SQL" data-lang="SQL">&lt;span class="line">&lt;span class="cl">&lt;span class="k">CREATE&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">TABLE&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">plant_process_data&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="o">`&lt;/span>&lt;span class="n">ts&lt;/span>&lt;span class="o">`&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">DateTime64&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">3&lt;/span>&lt;span class="p">),&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c1">-- 毫秒时间戳
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">`&lt;/span>&lt;span class="n">line_id&lt;/span>&lt;span class="o">`&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">LowCardinality&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">String&lt;/span>&lt;span class="p">),&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c1">-- 产线,低基数
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">`&lt;/span>&lt;span class="n">device_id&lt;/span>&lt;span class="o">`&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">LowCardinality&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">String&lt;/span>&lt;span class="p">),&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c1">-- 设备/单元
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">`&lt;/span>&lt;span class="n">tag_code&lt;/span>&lt;span class="o">`&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">LowCardinality&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">String&lt;/span>&lt;span class="p">),&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c1">-- 测点编码
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">`&lt;/span>&lt;span class="n">value&lt;/span>&lt;span class="o">`&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">Float64&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="o">`&lt;/span>&lt;span class="n">quality&lt;/span>&lt;span class="o">`&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">UInt8&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c1">-- 质量戳:1 正常 / 2 替代 / 0 无效
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="n">ENGINE&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">MergeTree&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="n">PARTITION&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">BY&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">toDate&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">ts&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="k">ORDER&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">BY&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">line_id&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">device_id&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">tag_code&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">ts&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="n">TTL&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">toDateTime&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">ts&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nb">INTERVAL&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="mi">12&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">MONTH&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="n">SETTINGS&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">index_granularity&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="mi">8192&lt;/span>&lt;span class="p">;&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>几个关键设计:&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>LowCardinality 收窄&lt;/strong> — 字符串列是列存的天然敌人,产线/测点这类枚举字段用 &lt;code>LowCardinality&lt;/code> 后,压缩比和查询性能都有数量级改善&lt;/li>
+&lt;li>&lt;strong>排序键把同类测点放在一起&lt;/strong> — 业务查询几乎总是「某设备某测点的时间序列」,&lt;code>ORDER BY (line, device, tag, ts)&lt;/code> 让一个设备的数据物理连续,磁盘顺序读&lt;/li>
+&lt;li>&lt;strong>按天分区 + TTL&lt;/strong> — 查询天然带时间窗,分区裁剪直接跳过无关日期;冷热分层用 TTL 自动清理或滚动降精度&lt;/li>
+&lt;li>&lt;strong>quality 质量戳&lt;/strong> — 工业数据不是&amp;quot;有就是好的&amp;quot;,断裂、跳变、默认值都要带质量标记入库,这是后续数据清洗的根基&lt;/li>
+&lt;/ul>
+&lt;h3 id="轻量物化视图做分钟级降采样" class="heading-element">&lt;span>轻量物化视图做分钟级降采样&lt;/span>
+ &lt;a href="#%e8%bd%bb%e9%87%8f%e7%89%a9%e5%8c%96%e8%a7%86%e5%9b%be%e5%81%9a%e5%88%86%e9%92%9f%e7%ba%a7%e9%99%8d%e9%87%87%e6%a0%b7" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h3>&lt;p>原始数据保留原始精度,聚合需求交给物化视图:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;span class="lnt">9
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-SQL" data-lang="SQL">&lt;span class="line">&lt;span class="cl">&lt;span class="k">CREATE&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">MATERIALIZED&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">VIEW&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">plant_1min_mv&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">TO&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">plant_1min&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">AS&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="k">SELECT&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">ts&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">toSecond&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">ts&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">%&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="mi">60&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">SECOND&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">AS&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">ts&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c1">-- 对齐整分
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">line_id&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">device_id&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">tag_code&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="k">min&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">value&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">AS&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">min_v&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">max&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">value&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">AS&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">max_v&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="k">avg&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">value&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">AS&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">avg_v&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="k">count&lt;/span>&lt;span class="p">()&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">AS&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">cnt&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="k">FROM&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">plant_process_data&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="k">GROUP&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">BY&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">ts&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">line_id&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">device_id&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">tag_code&lt;/span>&lt;span class="p">;&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>趋势/看板类查询全部走分钟表,原始表只服务「波形回溯」这类高精度需求。&lt;strong>数据密度差两个数量级,查询耗时也差两个数量级&lt;/strong>。&lt;/p>
+&lt;hr>
+&lt;h2 id="写入链路优化" class="heading-element">&lt;span>写入链路优化&lt;/span>
+ &lt;a href="#%e5%86%99%e5%85%a5%e9%93%be%e8%b7%af%e4%bc%98%e5%8c%96" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h2>&lt;p>ClickHouse 的写入模式是「攒大批量」,这一点必须刻在写入侧的设计里:&lt;/p>
+&lt;ol>
+&lt;li>&lt;strong>采集服务本地缓冲&lt;/strong> — 采集程序(Python/C++)先把数据写入 Kafka 或内存队列,按 &lt;code>≥ 1 万行 / 2 秒&lt;/code> 的批量提交,严禁逐条 INSERT&lt;/li>
+&lt;li>&lt;strong>控制分区&lt;/strong> — 只保留计算节点数 × 1~2 的写入分区数,每个分区内的并发写入过多会撑爆后台 Merge&lt;/li>
+&lt;li>&lt;strong>幂等与去重&lt;/strong> — 采集断线重连导致的重复数据,用 &lt;code>ReplacingMergeTree&lt;/code> + 唯一排序键(设备+测点+纳秒级时间戳)在 Merge 阶段自动收敛,查询侧配 &lt;code>FINAL&lt;/code> 或聚合近似&lt;/li>
+&lt;li>&lt;strong>回落策略&lt;/strong> — ClickHouse 不可用时段数据不能丢,队列重放;&lt;strong>宁可延迟入库,不可丢测点&lt;/strong>&lt;/li>
+&lt;/ol>
+&lt;p>落地后的实测结果:单节点常态写入延迟稳定在 &lt;strong>50ms 以内&lt;/strong>,持续支撑全厂 7×24 高频写入,压力峰值时段也没有出现过 backlog 雪崩。&lt;/p>
+&lt;hr>
+&lt;h2 id="踩坑记录" class="heading-element">&lt;span>踩坑记录&lt;/span>
+ &lt;a href="#%e8%b8%a9%e5%9d%91%e8%ae%b0%e5%bd%95" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h2>&lt;ul>
+&lt;li>&lt;strong>&lt;code>FINAL&lt;/code> 不能滥用&lt;/strong> — 它会强制读时合并,拖垮查询性能。业务上能容忍短暂重复就先不加,靠后台 Merge 收敛&lt;/li>
+&lt;li>&lt;strong>测试环境像真的一样测&lt;/strong> — 一定要用真实密度和分布的数据压测,自造的均匀数据会把磁盘 IO 的真实表现掩盖掉&lt;/li>
+&lt;li>&lt;strong>物化视图是同步计算&lt;/strong> — 主表写入有多少行,MV 就实时聚合多少行,不要把重度计算塞进 MV,要做就「入库 → MV 轻聚合 → 异步重算」分层&lt;/li>
+&lt;li>&lt;strong>备份策略单独做&lt;/strong> — MergeTree 不像 MySQL 有成熟的主从备份体系,&lt;code>clickhouse-backup&lt;/code> 工具 + 对象存储要一开始就规划好&lt;/li>
+&lt;li>&lt;strong>跳数索引精用&lt;/strong> — &lt;code>minmax&lt;/code>、&lt;code>set&lt;/code> 这类二级索引只对真正高频的点查场景加,盲目全加反而拖慢写入&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h2 id="小结" class="heading-element">&lt;span>小结&lt;/span>
+ &lt;a href="#%e5%b0%8f%e7%bb%93" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h2>&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th>关注点&lt;/th>
+ &lt;th>实践做法&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td>存储&lt;/td>
+ &lt;td>MergeTree + 按天分区 + 排序键按设备聚类&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>性能&lt;/td>
+ &lt;td>LowCardinality、批量写入、分钟级物化视图分流&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>可靠&lt;/td>
+ &lt;td>质量戳、幂等去重、队列回落、独立备份&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>生态&lt;/td>
+ &lt;td>纯 SQL 接 Layer BI/自研可视化,学习成本低&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;p>工业数据和互联网数据是两种形态:前者「写多改少、聚合为主、数据严格带语义」,后者更看重租户隔离和灵活访问。把数据库选型建立在&lt;strong>访问模式&lt;/strong>而非流行度上,ClickHouse 在工业高频时序场景里几乎是现阶段的最佳答案。&lt;/p>
+&lt;p>如果你的场景中写入是实打实的百万行秒级、查询以时间窗聚合为主,不妨从 ClickHouse 开始。&lt;/p>
+&lt;hr>
+&lt;p>&lt;strong>参考链接&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://clickhouse.com/docs"target="_blank" rel="external nofollow noopener noreferrer">ClickHouse 官方文档&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://github.com/Altinity/clickhouse-backup"target="_blank" rel="external nofollow noopener noreferrer">Altinity.ClickHouse-Backup(成熟备份方案)&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>MCP 协议入门 —— AI 与工具生态的新连接标准</title><link>https://blog.yyt6801.top/posts/mcp-protocol-guide/</link><pubDate>Fri, 30 Oct 2026 00:00:00 +0800</pubDate><author>yyt6801@gmail.com (YYT6801)</author><guid>https://blog.yyt6801.top/posts/mcp-protocol-guide/</guid><category domain="https://blog.yyt6801.top/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7%E4%B8%8E%E6%95%88%E7%8E%87/">开发工具与效率</category><description>&lt;h2 id="mcp-是什么" class="heading-element">&lt;span>MCP 是什么&lt;/span>
  &lt;a href="#mcp-%e6%98%af%e4%bb%80%e4%b9%88" class="heading-mark">
  &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
  &lt;/a>
@@ -1457,730 +1653,4 @@
 &lt;li>设备数据采集与监控&lt;/li>
 &lt;li>MES/SCADA系统集成&lt;/li>
 &lt;li>IT与OT融合&lt;/li>
-&lt;/ul></description></item><item><title>URL编码表</title><link>https://blog.yyt6801.top/posts/url-encoding-table/</link><pubDate>Mon, 17 Nov 2025 00:00:00 +0800</pubDate><author>yyt6801@gmail.com (YYT6801)</author><guid>https://blog.yyt6801.top/posts/url-encoding-table/</guid><category domain="https://blog.yyt6801.top/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/">计算机基础</category><description>&lt;h2 id="url编码表" class="heading-element">&lt;span>URL编码表&lt;/span>
- &lt;a href="#url%e7%bc%96%e7%a0%81%e8%a1%a8" class="heading-mark">
- &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
- &lt;/a>
-&lt;/h2>&lt;p>URL 编码将字符转换为可通过因特网传输的格式。&lt;/p>
-&lt;p>URL 只能使用 ASCII 字符集 通过因特网进行发送。&lt;/p>
-&lt;p>由于 URL 通常包含 ASCII 集之外的字符，因此必须将 URL 转换为有效的 ASCII 格式。&lt;/p>
-&lt;p>URL 编码使用后跟十六进制数字的 &amp;ldquo;%&amp;rdquo; 替代不安全的 ASCII 字符。&lt;/p>
-&lt;p>URL 不能包含空格。URL 编码通常使用加号（+）或 %20 替代空格。&lt;/p>
-&lt;table>
- &lt;thead>
- &lt;tr>
- &lt;th>字符&lt;/th>
- &lt;th>编码&lt;/th>
- &lt;/tr>
- &lt;/thead>
- &lt;tbody>
- &lt;tr>
- &lt;td>backspace&lt;/td>
- &lt;td>%08&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>tab&lt;/td>
- &lt;td>%09&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>linefeed&lt;/td>
- &lt;td>%0A&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>creturn&lt;/td>
- &lt;td>%0D&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>space&lt;/td>
- &lt;td>%20&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>!&lt;/td>
- &lt;td>%21&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>&amp;quot;&lt;/td>
- &lt;td>%22&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>#&lt;/td>
- &lt;td>%23&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>$&lt;/td>
- &lt;td>%24&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>%&lt;/td>
- &lt;td>%25&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>&amp;amp;&lt;/td>
- &lt;td>%26&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>'&lt;/td>
- &lt;td>%27&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>(&lt;/td>
- &lt;td>%28&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>)&lt;/td>
- &lt;td>%29&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>*&lt;/td>
- &lt;td>%2A&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>+&lt;/td>
- &lt;td>%2B&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>,&lt;/td>
- &lt;td>%2C&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>-&lt;/td>
- &lt;td>%2D&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>.&lt;/td>
- &lt;td>%2E&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>/&lt;/td>
- &lt;td>%2F&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>0&lt;/td>
- &lt;td>%30&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>1&lt;/td>
- &lt;td>%31&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>2&lt;/td>
- &lt;td>%32&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>3&lt;/td>
- &lt;td>%33&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>4&lt;/td>
- &lt;td>%34&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>5&lt;/td>
- &lt;td>%35&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>6&lt;/td>
- &lt;td>%36&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>7&lt;/td>
- &lt;td>%37&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>8&lt;/td>
- &lt;td>%38&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>9&lt;/td>
- &lt;td>%39&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>:&lt;/td>
- &lt;td>%3A&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>;&lt;/td>
- &lt;td>%3B&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>&amp;lt;&lt;/td>
- &lt;td>%3C&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>=&lt;/td>
- &lt;td>%3D&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>&amp;gt;&lt;/td>
- &lt;td>%3E&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>@&lt;/td>
- &lt;td>%40&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>A&lt;/td>
- &lt;td>%41&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>B&lt;/td>
- &lt;td>%42&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>C&lt;/td>
- &lt;td>%43&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>D&lt;/td>
- &lt;td>%44&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>E&lt;/td>
- &lt;td>%45&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>F&lt;/td>
- &lt;td>%46&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>G&lt;/td>
- &lt;td>%47&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>H&lt;/td>
- &lt;td>%48&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>I&lt;/td>
- &lt;td>%49&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>J&lt;/td>
- &lt;td>%4A&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>K&lt;/td>
- &lt;td>%4B&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>L&lt;/td>
- &lt;td>%4C&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>M&lt;/td>
- &lt;td>%4D&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>N&lt;/td>
- &lt;td>%4E&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>O&lt;/td>
- &lt;td>%4F&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>P&lt;/td>
- &lt;td>%50&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>Q&lt;/td>
- &lt;td>%51&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>R&lt;/td>
- &lt;td>%52&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>S&lt;/td>
- &lt;td>%53&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>T&lt;/td>
- &lt;td>%54&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>U&lt;/td>
- &lt;td>%55&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>V&lt;/td>
- &lt;td>%56&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>W&lt;/td>
- &lt;td>%57&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>X&lt;/td>
- &lt;td>%58&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>Y&lt;/td>
- &lt;td>%59&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>Z&lt;/td>
- &lt;td>%5A&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>[&lt;/td>
- &lt;td>%5B&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>\&lt;/td>
- &lt;td>%5C&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>]&lt;/td>
- &lt;td>%5D&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>^&lt;/td>
- &lt;td>%5E&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>_&lt;/td>
- &lt;td>%5F&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>`&lt;/td>
- &lt;td>%60&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>a&lt;/td>
- &lt;td>%61&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>b&lt;/td>
- &lt;td>%62&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>c&lt;/td>
- &lt;td>%63&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>d&lt;/td>
- &lt;td>%64&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>e&lt;/td>
- &lt;td>%65&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>f&lt;/td>
- &lt;td>%66&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>g&lt;/td>
- &lt;td>%67&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>h&lt;/td>
- &lt;td>%68&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>i&lt;/td>
- &lt;td>%69&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>j&lt;/td>
- &lt;td>%6A&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>k&lt;/td>
- &lt;td>%6B&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>l&lt;/td>
- &lt;td>%6C&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>m&lt;/td>
- &lt;td>%6D&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>n&lt;/td>
- &lt;td>%6E&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>o&lt;/td>
- &lt;td>%6F&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>p&lt;/td>
- &lt;td>%70&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>q&lt;/td>
- &lt;td>%71&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>r&lt;/td>
- &lt;td>%72&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>s&lt;/td>
- &lt;td>%73&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>t&lt;/td>
- &lt;td>%74&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>u&lt;/td>
- &lt;td>%75&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>v&lt;/td>
- &lt;td>%76&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>w&lt;/td>
- &lt;td>%77&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>x&lt;/td>
- &lt;td>%78&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>y&lt;/td>
- &lt;td>%79&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>z&lt;/td>
- &lt;td>%7A&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>{&lt;/td>
- &lt;td>%7B&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>&lt;/td>
- &lt;td>&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>}&lt;/td>
- &lt;td>%7D&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>~&lt;/td>
- &lt;td>%7E&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>￠ %&lt;/td>
- &lt;td>A2&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>￡ %&lt;/td>
- &lt;td>A3&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>￥ %&lt;/td>
- &lt;td>A5&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>&lt;/td>
- &lt;td>&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>§&lt;/td>
- &lt;td>%A7&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>«&lt;/td>
- &lt;td>%AB&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>¬&lt;/td>
- &lt;td>%AC&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>ˉ&lt;/td>
- &lt;td>%AD&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>o&lt;/td>
- &lt;td>%B0&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>±&lt;/td>
- &lt;td>%B1&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>a&lt;/td>
- &lt;td>%B2&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>,&lt;/td>
- &lt;td>%B4&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>μ&lt;/td>
- &lt;td>%B5&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>»&lt;/td>
- &lt;td>%BB&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>¼&lt;/td>
- &lt;td>%BC&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>½&lt;/td>
- &lt;td>%BD&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>¿&lt;/td>
- &lt;td>%BF&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>à&lt;/td>
- &lt;td>%C0&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>á&lt;/td>
- &lt;td>%C1&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>Ã&lt;/td>
- &lt;td>%C3&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>Ä&lt;/td>
- &lt;td>%C4&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>Å&lt;/td>
- &lt;td>%C5&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>Æ&lt;/td>
- &lt;td>%C6&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>Ç&lt;/td>
- &lt;td>%C7&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>è&lt;/td>
- &lt;td>%C8&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>é　&lt;/td>
- &lt;td>%C9&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>ê&lt;/td>
- &lt;td>%CA&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>Ë&lt;/td>
- &lt;td>%CB&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>ì　&lt;/td>
- &lt;td>%CC&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>í&lt;/td>
- &lt;td>%CD&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>Î&lt;/td>
- &lt;td>%CE&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>Ï&lt;/td>
- &lt;td>%CF&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>D&lt;/td>
- &lt;td>%D0&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>Ñ&lt;/td>
- &lt;td>%D1&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>ò&lt;/td>
- &lt;td>%D2&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>ó&lt;/td>
- &lt;td>%D3&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>Ô&lt;/td>
- &lt;td>%D4&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>Õ&lt;/td>
- &lt;td>%D5&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>Ö&lt;/td>
- &lt;td>%D6&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>Ø&lt;/td>
- &lt;td>%D8&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>ù&lt;/td>
- &lt;td>%D9&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>ú　&lt;/td>
- &lt;td>%DA&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>Û&lt;/td>
- &lt;td>%DB&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>ü&lt;/td>
- &lt;td>%DC&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>Y&lt;/td>
- &lt;td>%DD&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>T&lt;/td>
- &lt;td>%DE&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>ß&lt;/td>
- &lt;td>%DF&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>à&lt;/td>
- &lt;td>%E0&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>á&lt;/td>
- &lt;td>%E1&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>a&lt;/td>
- &lt;td>%E2&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>ã&lt;/td>
- &lt;td>%E3&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>ä&lt;/td>
- &lt;td>%E4&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>å&lt;/td>
- &lt;td>%E5&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>æ&lt;/td>
- &lt;td>%E6&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>ç&lt;/td>
- &lt;td>%E7&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>è&lt;/td>
- &lt;td>%E8&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>é&lt;/td>
- &lt;td>%E9&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>ê&lt;/td>
- &lt;td>%EA&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>ë&lt;/td>
- &lt;td>%EB&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>ì&lt;/td>
- &lt;td>%EC&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>í&lt;/td>
- &lt;td>%ED&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>î&lt;/td>
- &lt;td>%EE&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>ï&lt;/td>
- &lt;td>%EF&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>e&lt;/td>
- &lt;td>%F0&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>ñ&lt;/td>
- &lt;td>%F1&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>ò&lt;/td>
- &lt;td>%F2&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>ó&lt;/td>
- &lt;td>%F3&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>ô&lt;/td>
- &lt;td>%F4&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>õ&lt;/td>
- &lt;td>%F5&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>ö&lt;/td>
- &lt;td>%F6&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>÷　&lt;/td>
- &lt;td>%F7&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>ø&lt;/td>
- &lt;td>%F8&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>ù&lt;/td>
- &lt;td>%F9&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>ú　&lt;/td>
- &lt;td>%FA&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>û&lt;/td>
- &lt;td>%FB&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>ü&lt;/td>
- &lt;td>%FC&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>y&lt;/td>
- &lt;td>%FD&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>t&lt;/td>
- &lt;td>%FE&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>ÿ&lt;/td>
- &lt;td>%FF&lt;/td>
- &lt;/tr>
- &lt;/tbody>
-&lt;/table></description></item></channel></rss>
+&lt;/ul></description></item></channel></rss>
