@@ -931,16 +931,16 @@
 &lt;/h2>&lt;ul>
 &lt;li>发布/订阅模型&lt;/li>
 &lt;li>Broker角色与选型（Mosquitto、EMQX、VerneMQ）&lt;/li>
+&lt;li>MQTT 3.1.1 与 MQTT 5.0 的主要差异：会话附件、主题别名、共享订阅、增强认证等，工业场景中 3.1.1 已足够覆盖大多数场景，5.0 适合对功能需求更复杂的新建系统&lt;/li>
 &lt;/ul>
 &lt;h2 id="qos等级详解" class="heading-element">&lt;span>QoS等级详解&lt;/span>
  &lt;a href="#qos%e7%ad%89%e7%ba%a7%e8%af%a6%e8%a7%a3" class="heading-mark">
  &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
  &lt;/a>
 &lt;/h2>&lt;ul>
-&lt;li>QoS 0：至多一次&lt;/li>
-&lt;li>QoS 1：至少一次&lt;/li>
-&lt;li>QoS 2：正好一次&lt;/li>
-&lt;li>场景选择建议&lt;/li>
+&lt;li>QoS 0：至多一次（发送即忘，适合高频低可靠场景，如传感器数据上报）&lt;/li>
+&lt;li>QoS 1：至少一次（适合一般工业场景，保证至少送达一次，可能重复）&lt;/li>
+&lt;li>QoS 2：正好一次（适合关键任务数据，如安全监控，吞吐最低但可靠性最高）&lt;/li>
 &lt;/ul>
 &lt;h2 id="主题topic设计" class="heading-element">&lt;span>主题（Topic）设计&lt;/span>
  &lt;a href="#%e4%b8%bb%e9%a2%98topic%e8%ae%be%e8%ae%a1" class="heading-mark">
@@ -948,33 +948,265 @@
  &lt;/a>
 &lt;/h2>&lt;ul>
 &lt;li>层级结构与通配符（+、#）&lt;/li>
-&lt;li>工业场景主题命名规范&lt;/li>
+&lt;li>工业场景主题命名规范
+&lt;ul>
+&lt;li>设备级：&lt;code>factory/line1/device1&lt;/code>&lt;/li>
+&lt;li>工序级：&lt;code>factory/line1/process/step1&lt;/code>&lt;/li>
+&lt;li>数据级：&lt;code>factory/line1/temperature/tag1&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>避免特殊字符，保持简洁明了&lt;/li>
 &lt;/ul>
 &lt;h2 id="保留消息与遗嘱" class="heading-element">&lt;span>保留消息与遗嘱&lt;/span>
  &lt;a href="#%e4%bf%9d%e7%95%99%e6%b6%88%e6%81%af%e4%b8%8e%e9%81%97%e5%98%b1" class="heading-mark">
  &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
  &lt;/a>
 &lt;/h2>&lt;ul>
-&lt;li>保留消息的应用&lt;/li>
-&lt;li>Last Will and Testament（LWT）&lt;/li>
+&lt;li>保留消息的应用
+&lt;ul>
+&lt;li>断网恢复后重新获取最新状态&lt;/li>
+&lt;li>临时断开连接后快速恢复&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>Last Will and Testament（LWT）
+&lt;ul>
+&lt;li>设备异常断开时自动发送预定义消息&lt;/li>
+&lt;li>设备状态监控的关键机制&lt;/li>
+&lt;/ul>
+&lt;/li>
 &lt;/ul>
 &lt;h2 id="实践工业数据采集" class="heading-element">&lt;span>实践：工业数据采集&lt;/span>
  &lt;a href="#%e5%ae%9e%e8%b7%b5%e5%b7%a5%e4%b8%9a%e6%95%b0%e6%8d%ae%e9%87%87%e9%9b%86" class="heading-mark">
  &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
  &lt;/a>
 &lt;/h2>&lt;ul>
-&lt;li>传感器数据上报&lt;/li>
-&lt;li>Python（paho-mqtt）客户端示例&lt;/li>
-&lt;li>数据持久化到数据库&lt;/li>
+&lt;li>传感器数据上报：设备以定时或事件驱动的方式发布传感器数据&lt;/li>
+&lt;li>Python（paho-mqtt）客户端示例（增强版，含错误处理与自动重连）：&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;span class="lnt">32
+&lt;/span>&lt;span class="lnt">33
+&lt;/span>&lt;span class="lnt">34
+&lt;/span>&lt;span class="lnt">35
+&lt;/span>&lt;span class="lnt">36
+&lt;/span>&lt;span class="lnt">37
+&lt;/span>&lt;span class="lnt">38
+&lt;/span>&lt;span class="lnt">39
+&lt;/span>&lt;span class="lnt">40
+&lt;/span>&lt;span class="lnt">41
+&lt;/span>&lt;span class="lnt">42
+&lt;/span>&lt;span class="lnt">43
+&lt;/span>&lt;span class="lnt">44
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="nn">time&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="nn">paho.mqtt.client&lt;/span> &lt;span class="k">as&lt;/span> &lt;span class="nn">mqtt&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">BROKER&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;127.0.0.1&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">PORT&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">1883&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">KEEPALIVE&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">60&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">TOPIC&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;factory/line1/temperature&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">on_connect&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">client&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">userdata&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">flags&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">rc&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">properties&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="kc">None&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="n">rc&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;Connected to broker&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">client&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">subscribe&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">TOPIC&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">else&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sa">f&lt;/span>&lt;span class="s2">&amp;#34;Connection failed with code &lt;/span>&lt;span class="si">{&lt;/span>&lt;span class="n">rc&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">on_message&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">client&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">userdata&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">msg&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">try&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">data&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">msg&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">payload&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">decode&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sa">f&lt;/span>&lt;span class="s2">&amp;#34;Received on &lt;/span>&lt;span class="si">{&lt;/span>&lt;span class="n">msg&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">topic&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2">: &lt;/span>&lt;span class="si">{&lt;/span>&lt;span class="n">data&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># 此处可将 data 写入数据库&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">except&lt;/span> &lt;span class="ne">Exception&lt;/span> &lt;span class="k">as&lt;/span> &lt;span class="n">exc&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sa">f&lt;/span>&lt;span class="s2">&amp;#34;Error processing message: &lt;/span>&lt;span class="si">{&lt;/span>&lt;span class="n">exc&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">on_disconnect&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">client&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">userdata&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">rc&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">properties&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="kc">None&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="n">rc&lt;/span> &lt;span class="o">!=&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;Unexpected disconnection, will reconnect...&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">client&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">mqtt&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">Client&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">client_id&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;industrial-client-01&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">client&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">on_connect&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">on_connect&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">client&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">on_message&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">on_message&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">client&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">on_disconnect&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">on_disconnect&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 设置自动重连（paho-mqtt 默认已支持，loop_forever 内会重试）&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">client&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">connect&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">BROKER&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">PORT&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">KEEPALIVE&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">try&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">client&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">loop_forever&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">except&lt;/span> &lt;span class="ne">KeyboardInterrupt&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;Stopping client...&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">client&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">disconnect&lt;/span>&lt;span class="p">()&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>数据持久化到数据库：将 MQTT 消息转发到 InfluxDB、ClickHouse 或其他时序数据库&lt;/li>
+&lt;li>处理断线重连：实现自动重连机制，确保数据不丢失&lt;/li>
 &lt;/ul>
 &lt;h2 id="emqx部署" class="heading-element">&lt;span>EMQX部署&lt;/span>
  &lt;a href="#emqx%e9%83%a8%e7%bd%b2" class="heading-mark">
  &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
  &lt;/a>
 &lt;/h2>&lt;ul>
-&lt;li>Docker部署EMQX&lt;/li>
-&lt;li>Web管理界面&lt;/li>
-&lt;li>规则引擎与数据桥接&lt;/li>
+&lt;li>
+&lt;p>Docker部署EMQX&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-dockerfile" data-lang="dockerfile">&lt;span class="line">&lt;span class="cl">version: &lt;span class="s1">&amp;#39;3&amp;#39;&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span>services:&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span> emqx:&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span> image: emqx/emqx:latest&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span> ports:&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span> - &lt;span class="s2">&amp;#34;1883:1883&amp;#34;&lt;/span> &lt;span class="c1"># MQTT 端口&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span> - &lt;span class="s2">&amp;#34;8883:8883&amp;#34;&lt;/span> &lt;span class="c1"># MQTTS (TLS) 端口&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span> - &lt;span class="s2">&amp;#34;8083:8083&amp;#34;&lt;/span> &lt;span class="c1"># WebSocket 端口&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span> - &lt;span class="s2">&amp;#34;18083:18083&amp;#34;&lt;/span> &lt;span class="c1"># Web管理界面&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span> environment:&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span> - &lt;span class="nv">EMQX_LOAD_DEMO&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="nb">true&lt;/span> &lt;span class="c1"># 开启示例数据&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span> volumes:&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span> - ./etc:/opt/emqx/etc&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span> - ./log:/opt/emqx/log&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>Web管理界面&lt;/p>
+&lt;ul>
+&lt;li>通过浏览器访问 http://&lt;broker-ip>:18083 访问 EMQX 管理后台&lt;/li>
+&lt;li>支持用户管理、订阅管理、主题监控、消息发布&lt;/li>
+&lt;li>规则引擎与数据桥接：可将 MQTT 消息桥接到数据库、消息队列或其他云平台&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h2 id="安全与最佳实践" class="heading-element">&lt;span>安全与最佳实践&lt;/span>
+ &lt;a href="#%e5%ae%89%e5%85%a8%e4%b8%8e%e6%9c%80%e4%bd%b3%e5%ae%9e%e8%b7%b5" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h2>&lt;ul>
+&lt;li>&lt;strong>TLS/SSL 加密通信&lt;/strong>：在工业环境中，必须使用 TLS 加密 MQTT 连接，防止数据被窃听或篡改。EMQX 支持 TLS 配置，可通过配置文件设置证书路径和密钥文件。建议在生产环境中启用 TLS，并使用内部 CA 证书管理，避免使用自签名证书。&lt;/li>
+&lt;li>&lt;strong>认证与授权&lt;/strong>：
+&lt;ul>
+&lt;li>用户名/密码认证：EMQX 默认支持，适合简单场景&lt;/li>
+&lt;li>双向认证（双向 TLS）：设备与 broker 都需要证书验证，更安全&lt;/li>
+&lt;li>访问控制列表（ACL）：为不同设备类型设置不同权限，遵循最小权限原则。例如：生产设备只允许发布，不允许订阅；监控系统只允许订阅特定主题，不允许发布&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>最佳实践&lt;/strong>：
+&lt;ul>
+&lt;li>定期轮换密钥和证书，保持安全态势&lt;/li>
+&lt;li>使用专用账户和主题命名规则，避免主题冲突&lt;/li>
+&lt;li>监控连接数和消息速率，设置合理的限流策略&lt;/li>
+&lt;li>在关键应用中启用双因素认证（2FA）以增加安全性&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h2 id="性能优化" class="heading-element">&lt;span>性能优化&lt;/span>
+ &lt;a href="#%e6%80%a7%e8%83%bd%e4%bc%98%e5%8c%96" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h2>&lt;ul>
+&lt;li>&lt;strong>消息批量处理&lt;/strong>：在采集端使用缓冲区，积累至少 100 条消息后一次性发送，可显著提高吞吐量。设置合理的发送间隔（如 1 秒或 100ms），避免频繁连接导致资源消耗。&lt;/li>
+&lt;li>&lt;strong>QoS 与吞吐权衡&lt;/strong>：QoS 0 适合高速低可靠场景，吞吐最高；QoS 1 适合一般工业场景，吞吐适中；QoS 2 适合关键任务数据，吞吐最低但可靠性最高。按数据重要性选级，不要统一上最高级。&lt;/li>
+&lt;li>&lt;strong>集群与扩展&lt;/strong>：使用 EMQX 集群模式，通过多节点分担负载，提高可用性。使用负载均衡器（Load Balancer）将连接分发到多个 broker 节点。根据设备数量调整线程池和内存设置，避免单节点成为瓶颈。&lt;/li>
+&lt;/ul>
+&lt;h2 id="实际工业场景" class="heading-element">&lt;span>实际工业场景&lt;/span>
+ &lt;a href="#%e5%ae%9e%e9%99%85%e5%b7%a5%e4%b8%9a%e5%9c%ba%e6%99%af" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h2>&lt;ul>
+&lt;li>&lt;strong>生产线实时监控&lt;/strong>：实时监测设备状态，实现异常告警；支持多种传感器数据（温度、压力、流量）的统一接入。&lt;/li>
+&lt;li>&lt;strong>预测性维护&lt;/strong>：收集设备历史数据，训练模型预测设备故障；通过 MQTT 将预测结果实时推送给维护系统。&lt;/li>
+&lt;li>&lt;strong>设备远程管理&lt;/strong>：通过 MQTT 控制设备参数变更，实现远程配置更新；支持 OTA（Over-The-Air）固件更新。&lt;/li>
+&lt;li>&lt;strong>多厂家协作&lt;/strong>：不同厂家的设备通过统一的 MQTT 主题结构实现数据互操作；实现跨厂家的数据聚合与分析。&lt;/li>
+&lt;/ul>
+&lt;h2 id="故障排查" class="heading-element">&lt;span>故障排查&lt;/span>
+ &lt;a href="#%e6%95%85%e9%9a%9c%e6%8e%92%e6%9f%a5" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h2>&lt;ul>
+&lt;li>&lt;strong>常见连接问题&lt;/strong>：
+&lt;ul>
+&lt;li>连接超时：检查网络连通性，确认防火墙开放 1883 端口（TLS 则为 8883）&lt;/li>
+&lt;li>TLS 连接失败：验证证书是否有效，检查 CA 配置&lt;/li>
+&lt;li>认证失败：验证用户名/密码或证书是否正确，检查 ACL 规则&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>消息丢失与重试策略&lt;/strong>：
+&lt;ul>
+&lt;li>检查 QoS 设置，确保使用至少 QoS 1&lt;/li>
+&lt;li>确认 broker 是否启用了持久化（persistence）&lt;/li>
+&lt;li>实施重连机制，确保在网络波动时能自动重连&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>监控与日志分析&lt;/strong>：
+&lt;ul>
+&lt;li>使用 &lt;code>mosquitto_sub&lt;/code> 订阅主题，实时监控消息流&lt;/li>
+&lt;li>检查 broker 日志文件，查找错误信息&lt;/li>
+&lt;li>使用 Prometheus 和 Grafana 监控 broker 性能指标&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h2 id="总结" class="heading-element">&lt;span>总结&lt;/span>
+ &lt;a href="#%e6%80%bb%e7%bb%93" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h2>&lt;p>MQTT 作为轻量级的发布/订阅协议，在工业物联网领域展现出巨大的优势。通过合理的主题设计、安全配置和性能优化，MQTT 能够满足从单个传感器到全厂级数据采集的各类需求。随着工业 5.0 的发展，MQTT 将在更多场景中发挥关键作用，特别是在边缘计算和实时数据处理方面。&lt;/p>
+&lt;p>&lt;strong>参考链接&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://www.emqx.com/docs/zh-cn/v5.0/"target="_blank" rel="external nofollow noopener noreferrer">EMQX 官方文档&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://www.mqtt.org/documents/5.0.0/"target="_blank" rel="external nofollow noopener noreferrer">MQTT 5.0 规范&lt;/a>&lt;/li>
 &lt;/ul></description></item><item><title>PowerShell与命令行效率</title><link>https://blog.yyt6801.top/posts/powershell-cli/</link><pubDate>Wed, 29 Apr 2026 00:00:00 +0800</pubDate><author>yyt6801@gmail.com (YYT6801)</author><guid>https://blog.yyt6801.top/posts/powershell-cli/</guid><category domain="https://blog.yyt6801.top/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7%E4%B8%8E%E6%95%88%E7%8E%87/">开发工具与效率</category><description>&lt;h2 id="powershell-vs-cmd-vs-bash" class="heading-element">&lt;span>PowerShell vs CMD vs Bash&lt;/span>
  &lt;a href="#powershell-vs-cmd-vs-bash" class="heading-mark">
  &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
