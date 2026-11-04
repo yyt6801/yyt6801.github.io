@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>编程与开发实践 - 分类 - YYT6801's Blog</title><link>https://blog.yyt6801.top/categories/%E7%BC%96%E7%A8%8B%E4%B8%8E%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5/</link><description>YYT6801's Blog</description><generator>Hugo 0.139.2 &amp; FixIt v0.3.15</generator><language>zh-CN</language><managingEditor>yyt6801@gmail.com (YYT6801)</managingEditor><webMaster>yyt6801@gmail.com (YYT6801)</webMaster><copyright>YYT6801</copyright><lastBuildDate>Wed, 04 Nov 2026 00:00:00 +0800</lastBuildDate><atom:link href="https://blog.yyt6801.top/categories/%E7%BC%96%E7%A8%8B%E4%B8%8E%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5/index.xml" rel="self" type="application/rss+xml"/><item><title>时序数据库深度对比：TimescaleDB vs TDengine vs InfluxDB vs ClickHouse</title><link>https://blog.yyt6801.top/posts/real-time-database-comparison/</link><pubDate>Wed, 04 Nov 2026 00:00:00 +0800</pubDate><author>yyt6801@gmail.com (YYT6801)</author><guid>https://blog.yyt6801.top/posts/real-time-database-comparison/</guid><category domain="https://blog.yyt6801.top/categories/%E7%BC%96%E7%A8%8B%E4%B8%8E%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5/">编程与开发实践</category><description>&lt;h2 id="目录" class="heading-element">&lt;span>目录&lt;/span>
+ &lt;a href="#%e7%9b%ae%e5%bd%95" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h2>&lt;ol>
+&lt;li>&lt;a href="#%e4%bb%80%e4%b9%88%e6%98%af%e6%97%b6%e5%ba%8f%e6%95%b0%e6%8d%ae%e5%ba%93">时序数据库是什么？&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%e6%97%b6%e5%ba%8f%e6%95%b0%e6%8d%ae%e5%ba%93%e7%9a%84%e6%a0%b8%e5%bf%83%e7%89%b9%e6%80%a7">时序数据库的核心特性&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%e6%97%b6%e5%ba%8f%e6%95%b0%e6%8d%ae%e5%ba%93%e5%af%b9%e6%af%94">主流时序数据库对比：TimescaleDB vs TDengine vs InfluxDB vs ClickHouse&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%e9%80%89%e5%9e%8b%e6%8c%87%e5%8d%97">选型指南：如何选择合适的时序数据库&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%e6%80%a7%e8%83%bd%e5%af%b9%e6%af%94">性能对比：写入吞吐、查询延迟、存储效率&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%e5%ae%9e%e6%88%98%e6%a1%88%e4%be%8b%e4%b8%8e%e9%80%89%e5%9e%8b%e5%bb%ba%e8%ae%ae">实战案例与选型建议&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%e5%ae%9e%e6%88%98%e6%a1%88%e4%be%8b%e4%b8%8e%e9%80%89%e5%9e%8b%e5%bb%ba%e8%ae%ae">实战示例：TimescaleDB vs TDengine 简单对比&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%e7%bb%93%e8%ae%ba%e4%b8%8e%e5%bb%ba%e8%ae%ae">结论与建议&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%e5%8f%82%e8%80%83%e6%96%87%e7%8c%ae">参考文献&lt;/a>&lt;/li>
+&lt;/ol>
+&lt;hr>
+&lt;h2 id="什么是时序数据库" class="heading-element">&lt;span>什么是时序数据库&lt;/span>
+ &lt;a href="#%e4%bb%80%e4%b9%88%e6%98%af%e6%97%b6%e5%ba%8f%e6%95%b0%e6%8d%ae%e5%ba%93" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h2>&lt;p>时序数据库（Time Series Database, TSD）是专门设计用于存储&lt;strong>随时间变化的数据&lt;/strong>的数据库。这类数据的典型特征包括：&lt;/p></description></item></channel></rss>
