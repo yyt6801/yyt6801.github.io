@@ -1,57 +1,399 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>YYT6801's Blog</title><link>https://blog.yyt6801.top/</link><description>YYT6801's Blog</description><generator>Hugo 0.139.2 &amp; FixIt v0.3.15</generator><language>zh-CN</language><managingEditor>yyt6801@gmail.com (YYT6801)</managingEditor><webMaster>yyt6801@gmail.com (YYT6801)</webMaster><copyright>YYT6801</copyright><lastBuildDate>Sat, 14 Nov 2026 00:00:00 +0800</lastBuildDate><atom:link href="https://blog.yyt6801.top/index.xml" rel="self" type="application/rss+xml"/><item><title>DeepSeek 模型评估与调优完全指南：基于 lm-evaluation-harness 的大模型评测实践</title><link>https://blog.yyt6801.top/posts/deepseek-harness-guide/</link><pubDate>Sat, 14 Nov 2026 00:00:00 +0800</pubDate><author>yyt6801@gmail.com (YYT6801)</author><guid>https://blog.yyt6801.top/posts/deepseek-harness-guide/</guid><category domain="https://blog.yyt6801.top/categories/%E7%BC%96%E7%A8%8B%E4%B8%8E%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5/">编程与开发实践</category><description>&lt;h2 id="什么是-deepseek-模型评估-harness" class="heading-element">&lt;span>什么是 DeepSeek 模型评估 harness&lt;/span>
- &lt;a href="#%e4%bb%80%e4%b9%88%e6%98%af-deepseek-%e6%a8%a1%e5%9e%8b%e8%af%84%e4%bc%b0-harness" class="heading-mark">
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>YYT6801's Blog</title><link>https://blog.yyt6801.top/</link><description>YYT6801's Blog</description><generator>Hugo 0.139.2 &amp; FixIt v0.3.15</generator><language>zh-CN</language><managingEditor>yyt6801@gmail.com (YYT6801)</managingEditor><webMaster>yyt6801@gmail.com (YYT6801)</webMaster><copyright>YYT6801</copyright><lastBuildDate>Sat, 14 Nov 2026 00:00:00 +0800</lastBuildDate><atom:link href="https://blog.yyt6801.top/index.xml" rel="self" type="application/rss+xml"/><item><title>DeepSeek Harness (DSH) 完全指南：从入门到插件开发实践</title><link>https://blog.yyt6801.top/posts/deepseek-harness-guide/</link><pubDate>Sat, 14 Nov 2026 00:00:00 +0800</pubDate><author>yyt6801@gmail.com (YYT6801)</author><guid>https://blog.yyt6801.top/posts/deepseek-harness-guide/</guid><category domain="https://blog.yyt6801.top/categories/%E7%BC%96%E7%A8%8B%E4%B8%8E%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5/">编程与开发实践</category><description>&lt;h2 id="什么是-deepseek-harness-dsh" class="heading-element">&lt;span>什么是 DeepSeek Harness (DSH)&lt;/span>
+ &lt;a href="#%e4%bb%80%e4%b9%88%e6%98%af-deepseek-harness-dsh" class="heading-mark">
  &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
  &lt;/a>
-&lt;/h2>&lt;p>DeepSeek 是深度求索（DeepSeek AI）开发的大语言模型系列，包括 DeepSeek-V2、DeepSeek-V3、DeepSeek-R1 等多个版本，在代码生成、数学推理、中文理解、长文本处理等方面表现出色。为了客观衡量这些模型的能力，需要使用**模型评估 harness（评测框架）**对其进行系统化的基准测试。&lt;/p>
-&lt;p>本文基于 &lt;a href="https://github.com/EleutherAI/lm-evaluation-harness"target="_blank" rel="external nofollow noopener noreferrer">lm-evaluation-harness&lt;/a>（EleutherAI 开源的大模型评测框架，被广泛用于 Hugging Face Open LLM Leaderboard），结合 DeepSeek 模型的特点，介绍如何搭建、配置、运行 DeepSeek 模型评估并分析结果。&lt;/p>
-&lt;p>&lt;strong>harness（评测框架）的核心价值&lt;/strong>：&lt;/p>
-&lt;ul>
-&lt;li>&lt;strong>标准化&lt;/strong>：使用统一的基准测试集（MMLU、HumanEval、GSM8K 等），结果可比较&lt;/li>
-&lt;li>&lt;strong>自动化&lt;/strong>：一键运行多项评测，生成结构化结果报告&lt;/li>
-&lt;li>&lt;strong>可扩展&lt;/strong>：支持 HuggingFace、vLLM、SGLang、API 等多种模型后端&lt;/li>
-&lt;li>&lt;strong>可重复&lt;/strong>：固定任务提示词和评测指标，保证评测结果的可复现性&lt;/li>
-&lt;/ul>
-&lt;hr>
-&lt;h2 id="环境准备与安装" class="heading-element">&lt;span>环境准备与安装&lt;/span>
- &lt;a href="#%e7%8e%af%e5%a2%83%e5%87%86%e5%a4%87%e4%b8%8e%e5%ae%89%e8%a3%85" class="heading-mark">
+&lt;/h2>&lt;h3 id="一句话概括" class="heading-element">&lt;span>一句话概括&lt;/span>
+ &lt;a href="#%e4%b8%80%e5%8f%a5%e8%af%9d%e6%a6%82%e6%8b%ac" class="heading-mark">
  &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
  &lt;/a>
-&lt;/h2>&lt;h3 id="1-系统要求" class="heading-element">&lt;span>1. 系统要求&lt;/span>
- &lt;a href="#1-%e7%b3%bb%e7%bb%9f%e8%a6%81%e6%b1%82" class="heading-mark">
+&lt;/h3>&lt;p>&lt;strong>DeepSeek Harness (DSH)&lt;/strong> 是一个开源的 coding / 自动化 agent 框架，采用 &lt;strong>一切皆插件&lt;/strong> 的架构：核心只留 AgentLoop 与抽象缝，具体能力全靠插件组合。&lt;/p>
+&lt;h3 id="核心定位" class="heading-element">&lt;span>核心定位&lt;/span>
+ &lt;a href="#%e6%a0%b8%e5%bf%83%e5%ae%9a%e4%bd%8d" class="heading-mark">
  &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
  &lt;/a>
 &lt;/h3>&lt;table>
  &lt;thead>
  &lt;tr>
- &lt;th>项目&lt;/th>
- &lt;th>建议配置&lt;/th>
+ &lt;th>特性&lt;/th>
+ &lt;th>DSH 定位&lt;/th>
  &lt;/tr>
  &lt;/thead>
  &lt;tbody>
  &lt;tr>
- &lt;td>操作系统&lt;/td>
- &lt;td>Ubuntu 20.04+、Windows 10/11 (WSL2)、macOS&lt;/td>
+ &lt;td>&lt;strong>本质&lt;/strong>&lt;/td>
+ &lt;td>独立进程，有自己的配置(&lt;sub>/.dsh/)、会话(&lt;/sub>/.dsh/sessions/)、权限与沙箱体系&lt;/td>
  &lt;/tr>
  &lt;tr>
- &lt;td>Python&lt;/td>
- &lt;td>3.10 ~ 3.11&lt;/td>
+ &lt;td>&lt;strong>交互方式&lt;/strong>&lt;/td>
+ &lt;td>非聊天框，也非 IDE 补全插件，而是可组合的能力平台&lt;/td>
  &lt;/tr>
  &lt;tr>
- &lt;td>GPU&lt;/td>
- &lt;td>NVIDIA GPU（CUDA 11.8+）建议 24GB+ 显存&lt;/td>
+ &lt;td>&lt;strong>模型支持&lt;/strong>&lt;/td>
+ &lt;td>多 Provider、多模型路由（llm-pi-ai），可灵活切换模型&lt;/td>
  &lt;/tr>
  &lt;tr>
- &lt;td>内存&lt;/td>
- &lt;td>32GB+ (大模型推荐 64GB+)&lt;/td>
+ &lt;td>&lt;strong>扩展方式&lt;/strong>&lt;/td>
+ &lt;td>写插件扩展能力，通过 patch 叠加配置而非修改核心&lt;/td>
  &lt;/tr>
  &lt;tr>
- &lt;td>磁盘&lt;/td>
- &lt;td>100GB+ 空闲空间（模型权重 + 临时文件）&lt;/td>
+ &lt;td>&lt;strong>工作台&lt;/strong>&lt;/td>
+ &lt;td>支持 Web 工作台（dsh web）和 CLI 一次性任务（dsh &amp;ndash;profile headless）&lt;/td>
  &lt;/tr>
  &lt;/tbody>
 &lt;/table>
-&lt;h3 id="2-克隆并安装-lm-evaluation-harness" class="heading-element">&lt;span>2. 克隆并安装 lm-evaluation-harness&lt;/span>
- &lt;a href="#2-%e5%85%8b%e9%9a%86%e5%b9%b6%e5%ae%89%e8%a3%85-lm-evaluation-harness" class="heading-mark">
+&lt;blockquote>
+&lt;p>&lt;strong>避免误区&lt;/strong>：DSH 不是固定功能的工具，而是一个&lt;strong>可组合的框架&lt;/strong>。核心不包含具体能力，仅提供循环与抽象接口（ctx.llm、ctx.tools、ctx.sandbox 等），实际能力通过插件完全由社区和用户贡献。&lt;/p>
+&lt;/blockquote>
+&lt;hr>
+&lt;h2 id="dsh-是什么" class="heading-element">&lt;span>DSH 是什么&lt;/span>
+ &lt;a href="#dsh-%e6%98%af%e4%bb%80%e4%b9%88" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h2>&lt;h3 id="1-独立进程的-agent" class="heading-element">&lt;span>1. 独立进程的 Agent&lt;/span>
+ &lt;a href="#1-%e7%8b%ac%e7%ab%8b%e8%bf%9b%e7%a8%8b%e7%9a%84-agent" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h3>&lt;p>DSH 以独立进程运行，拥有独立的配置和会话管理：&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>配置目录&lt;/strong>：&lt;code>~/.dsh/&lt;/code> - 存储用户配置、Profile、Bundle 等&lt;/li>
+&lt;li>&lt;strong>会话目录&lt;/strong>：&lt;code>~/.dsh/sessions/&lt;/code> - 每次会话的历史记录和状态&lt;/li>
+&lt;li>&lt;strong>权限与沙箱&lt;/strong>：内置权限预设和命令沙箱，确保操作的安全性&lt;/li>
+&lt;/ul>
+&lt;h3 id="2-非聊天框的能力平台" class="heading-element">&lt;span>2. 非聊天框的能力平台&lt;/span>
+ &lt;a href="#2-%e9%9d%9e%e8%81%8a%e5%a4%a9%e6%a1%86%e7%9a%84%e8%83%bd%e5%8a%9b%e5%b9%b3%e5%8f%b0" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h3>&lt;p>与其将 DSH 视为聊天机器人，不如将其视为一个&lt;strong>可插拔能力的工作台&lt;/strong>：&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>读写文件&lt;/strong>：&lt;code>tool-fs&lt;/code> 插件处理文件系统操作&lt;/li>
+&lt;li>&lt;strong>执行命令&lt;/strong>：&lt;code>tool-bash&lt;/code> 插件执行 shell 命令&lt;/li>
+&lt;li>&lt;strong>搜索历史&lt;/strong>：&lt;code>session_search&lt;/code> 工具查询历史会话&lt;/li>
+&lt;li>&lt;strong>多模型路由&lt;/strong>：支持多 Provider 模型自由切换&lt;/li>
+&lt;li>&lt;strong>多 Agent 协作&lt;/strong>：可以将任务拆分给多个 Agent 并行执行&lt;/li>
+&lt;/ul>
+&lt;h3 id="3-插件化架构" class="heading-element">&lt;span>3. 插件化架构&lt;/span>
+ &lt;a href="#3-%e6%8f%92%e4%bb%b6%e5%8c%96%e6%9e%b6%e6%9e%84" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h3>&lt;p>&lt;strong>&amp;ldquo;一切皆插件&amp;rdquo;&lt;/strong> 是 DSH 的核心设计哲学：&lt;/p>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th>概念&lt;/th>
+ &lt;th>说明&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td>&lt;strong>SDK&lt;/strong>&lt;/td>
+ &lt;td>从另一进程驱动，基于 JSON-RPC wire protocol / client / server&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;strong>Cordis&lt;/strong>&lt;/td>
+ &lt;td>底座框架，提供 Context/服务注入/插件装载的组合框架&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;strong>Harness&lt;/strong>&lt;/td>
+ &lt;td>组合出来的完整 agent 应用：循环、工具、会话、沙箱&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;strong>Profile&lt;/strong>&lt;/td>
+ &lt;td>插件的组合配置：bundle patch 层叠加用户覆盖层&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;strong>Bundle&lt;/strong>&lt;/td>
+ &lt;td>自带 patch 的插件包，作为一层加入 profile&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;strong>Seam&lt;/strong>&lt;/td>
+ &lt;td>能力缝——抽象能力接口（ctx.llm、ctx.tools、ctx.sandbox…），实现可换各能力包&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;hr>
+&lt;h2 id="dsh-核心概念" class="heading-element">&lt;span>DSH 核心概念&lt;/span>
+ &lt;a href="#dsh-%e6%a0%b8%e5%bf%83%e6%a6%82%e5%bf%b5" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h2>&lt;h3 id="1-主要概念解释" class="heading-element">&lt;span>1. 主要概念解释&lt;/span>
+ &lt;a href="#1-%e4%b8%bb%e8%a6%81%e6%a6%82%e5%bf%b5%e8%a7%a3%e9%87%8a" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h3>&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th>概念&lt;/th>
+ &lt;th>位置/说明&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td>&lt;strong>SDK&lt;/strong>&lt;/td>
+ &lt;td>&lt;code>packages/sdk&lt;/code> - 从另一进程驱动的核心库，实现 client / server 架构&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;strong>Cordis&lt;/strong>&lt;/td>
+ &lt;td>&lt;code>@deepseek-ai/cordis&lt;/code> - 底座框架，提供 Context/服务注入/插件装载功能&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;strong>Harness&lt;/strong>&lt;/td>
+ &lt;td>完整的 agent 应用组合：包含循环机制、工具集、会话管理、沙箱环境&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;strong>Profile&lt;/strong>&lt;/td>
+ &lt;td>&lt;code>$DSH_HOME/profiles/&amp;lt;name&amp;gt;&lt;/code> - 插件的组合配置，支持层叠叠加&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;strong>Bundle&lt;/strong>&lt;/td>
+ &lt;td>自带 patch 的插件包，作为基础层加入到 Profile 中&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;strong>Seam&lt;/strong>&lt;/td>
+ &lt;td>抽象能力接口：&lt;code>ctx.llm&lt;/code>、&lt;code>ctx.tools&lt;/code>、&lt;code>ctx.sandbox&lt;/code> 等，实现能力的可插拔&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;h3 id="2-三种启动方式" class="heading-element">&lt;span>2. 三种启动方式&lt;/span>
+ &lt;a href="#2-%e4%b8%89%e7%a7%8d%e5%90%af%e5%8a%a8%e6%96%b9%e5%bc%8f" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h3>&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th>方式&lt;/th>
+ &lt;th>命令&lt;/th>
+ &lt;th>说明&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td>&lt;strong>Web 工作台&lt;/strong>&lt;/td>
+ &lt;td>&lt;code>npx @deepseek-ai/dsh web&lt;/code>&lt;/td>
+ &lt;td>官方零安装入口，启动 Web UI（默认 127.0.0.1:3080）&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;strong>一次性任务&lt;/strong>&lt;/td>
+ &lt;td>&lt;code>dsh --profile headless &amp;quot;跑一下测试&amp;quot;&lt;/code>&lt;/td>
+ &lt;td>执行完即退出，不启动 Web 界面&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;strong>显式 Profile&lt;/strong>&lt;/td>
+ &lt;td>&lt;code>dsh --profile web&lt;/code>&lt;/td>
+ &lt;td>显式指定使用 web profile&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;blockquote>
+&lt;p>&lt;strong>说明&lt;/strong>：&lt;code>web&lt;/code> 与 &lt;code>headless&lt;/code> 是内置 Profile 模板。&lt;code>--profile headless &amp;lt;task&amp;gt;&lt;/code> 是一次性任务入口（&lt;code>dsh run&lt;/code> 已移除）。&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="3-核心能力速览" class="heading-element">&lt;span>3. 核心能力速览&lt;/span>
+ &lt;a href="#3-%e6%a0%b8%e5%bf%83%e8%83%bd%e5%8a%9b%e9%80%9f%e8%a7%88" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h3>&lt;p>DSH 可以进行以下类型的操作：&lt;/p>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th>场景&lt;/th>
+ &lt;th>如何实现&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td>&lt;strong>改代码 / 读文件&lt;/strong>&lt;/td>
+ &lt;td>&lt;code>tool-fs&lt;/code> / 文件系统插件&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;strong>跑命令&lt;/strong>&lt;/td>
+ &lt;td>&lt;code>tool-bash&lt;/code> 插件&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;strong>搜索历史会话&lt;/strong>&lt;/td>
+ &lt;td>&lt;code>session_search(dsh-tool-session-query)&lt;/code>&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;strong>任务拆分给多 Agent&lt;/strong>&lt;/td>
+ &lt;td>子 Agent / 工作流定义&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;strong>定时提醒/调度&lt;/strong>&lt;/td>
+ &lt;td>定时调度接口&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;strong>接入外部工具 (MCP)&lt;/strong>&lt;/td>
+ &lt;td>MCP 集成插件&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;strong>长期目标推进&lt;/strong>&lt;/td>
+ &lt;td>目标与待办管理系统&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;hr>
+&lt;h2 id="三种启动方式详解" class="heading-element">&lt;span>三种启动方式详解&lt;/span>
+ &lt;a href="#%e4%b8%89%e7%a7%8d%e5%90%af%e5%8a%a8%e6%96%b9%e5%bc%8f%e8%af%a6%e8%a7%a3" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h2>&lt;h3 id="1-npx-deepseek-aidsh-web推荐入口" class="heading-element">&lt;span>1. npx @deepseek-ai/dsh web（推荐入口）&lt;/span>
+ &lt;a href="#1-npx-deepseek-aidsh-web%e6%8e%a8%e8%8d%90%e5%85%a5%e5%8f%a3" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h3>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 全局安装或使用 npx&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">npx @deepseek-ai/dsh web
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 或直接使用 dsh 命令（需提前安装）&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">dsh web&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;strong>效果&lt;/strong>：启动 Web 工作台，访问 http://127.0.0.1:3080，提供可视化的 Agent 交互界面。&lt;/p>
+&lt;h3 id="2-dsh-web---一次性任务" class="heading-element">&lt;span>2. dsh web - 一次性任务&lt;/span>
+ &lt;a href="#2-dsh-web---%e4%b8%80%e6%ac%a1%e6%80%a7%e4%bb%bb%e5%8a%a1" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h3>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 执行一个测试任务，完成后进程退出&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">dsh --profile headless &lt;span class="s2">&amp;#34;列出当前目录下的前 5 个文件&amp;#34;&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;strong>适用场景&lt;/strong>：不需要持久化会话的快速任务执行。&lt;/p>
+&lt;h3 id="3-dsh---profile-web显式指定" class="heading-element">&lt;span>3. dsh &amp;ndash;profile web（显式指定）&lt;/span>
+ &lt;a href="#3-dsh---profile-web%e6%98%be%e5%bc%8f%e6%8c%87%e5%ae%9a" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h3>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">dsh --profile web&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;strong>适用场景&lt;/strong>：明确使用 web profile 的模式，确保加载对应的插件组合。&lt;/p>
+&lt;hr>
+&lt;h2 id="一切皆插件的哲学" class="heading-element">&lt;span>一切皆插件的哲学&lt;/span>
+ &lt;a href="#%e4%b8%80%e5%88%87%e7%9a%86%e6%8f%92%e4%bb%b6%e7%9a%84%e5%93%b2%e5%ad%a6" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h2>&lt;h3 id="1-架构设计原则" class="heading-element">&lt;span>1. 架构设计原则&lt;/span>
+ &lt;a href="#1-%e6%9e%b6%e6%9e%84%e8%ae%be%e8%ae%a1%e5%8e%9f%e5%88%99" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h3>&lt;p>DSH 采用 &lt;strong>&amp;ldquo;一切皆插件&amp;rdquo;&lt;/strong> 的顶层设计：&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;strong>官方原文&lt;/strong>：“它采用了『一切皆插件』的架构：新增能力 = 写插件(工具、服务、事件、UI)，修改行为 = 换插件 / 叠 patch 层,不改核心。核心只留一个 AgentLoop 具体循环：&amp;lsquo;新行为应放入插件,而不是这里&amp;rsquo;。”&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="2-插件类型分类" class="heading-element">&lt;span>2. 插件类型分类&lt;/span>
+ &lt;a href="#2-%e6%8f%92%e4%bb%b6%e7%b1%bb%e5%9e%8b%e5%88%86%e7%b1%bb" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h3>&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th>插件类型&lt;/th>
+ &lt;th>说明&lt;/th>
+ &lt;th>示例&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td>&lt;strong>工具插件&lt;/strong>&lt;/td>
+ &lt;td>提供具体的执行能力（文件、命令、网络等）&lt;/td>
+ &lt;td>&lt;code>tool-fs&lt;/code>、&lt;code>tool-bash&lt;/code>、&lt;code>session_search&lt;/code>&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;strong>服务插件&lt;/strong>&lt;/td>
+ &lt;td>提供持久化或外部服务集成&lt;/td>
+ &lt;td>MCP 集成、数据库连接、API 服务&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;strong>事件插件&lt;/strong>&lt;/td>
+ &lt;td>处理异步事件和钩子&lt;/td>
+ &lt;td>Webhook 规则、定时任务触发&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;strong>UI 面板插件&lt;/strong>&lt;/td>
+ &lt;td>扩展可视化界面&lt;/td>
+ &lt;td>工作台扩展、自定义视图&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;h3 id="3-行为修改机制" class="heading-element">&lt;span>3. 行为修改机制&lt;/span>
+ &lt;a href="#3-%e8%a1%8c%e4%b8%ba%e4%bf%ae%e6%94%b9%e6%9c%ba%e5%88%b6" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h3>&lt;ul>
+&lt;li>&lt;strong>换插件&lt;/strong>：直接替换对应的插件实现&lt;/li>
+&lt;li>&lt;strong>叠 patch 层&lt;/strong>：在 Profile 中通过 patch 机制叠加配置，而不修改核心代码&lt;/li>
+&lt;li>&lt;strong>配置覆盖&lt;/strong>：用户自定义配置优先于默认配置&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h2 id="快速开始" class="heading-element">&lt;span>快速开始&lt;/span>
+ &lt;a href="#%e5%bf%ab%e9%80%9f%e5%bc%80%e5%a7%8b" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h2>&lt;h3 id="1-快速验证当前插件组合" class="heading-element">&lt;span>1. 快速验证当前插件组合&lt;/span>
+ &lt;a href="#1-%e5%bf%ab%e9%80%9f%e9%aa%8c%e8%af%81%e5%bd%93%e5%89%8d%e6%8f%92%e4%bb%b6%e7%bb%84%e5%90%88" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h3>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 查看当前组合的插件树（层叠结构一目了然）&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">dsh web --dump-config
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 查看默认 bundle 的组合结构&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">dsh web --dump-default-config&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="2-从哪开始" class="heading-element">&lt;span>2. 从哪开始？&lt;/span>
+ &lt;a href="#2-%e4%bb%8e%e5%93%aa%e5%bc%80%e5%a7%8b" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h3>&lt;p>根据你的目标，选择对应的学习路径：&lt;/p>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th>目标&lt;/th>
+ &lt;th>推荐入口&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td>&lt;strong>先跑起来&lt;/strong>&lt;/td>
+ &lt;td>快速上手&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;strong>理解架构&lt;/strong>&lt;/td>
+ &lt;td>架构总览&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;strong>理解主循环&lt;/strong>&lt;/td>
+ &lt;td>Agent 主循环&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;strong>动手写插件&lt;/strong>&lt;/td>
+ &lt;td>第一个插件&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;h3 id="3-第一步安装-dsh" class="heading-element">&lt;span>3. 第一步：安装 DSH&lt;/span>
+ &lt;a href="#3-%e7%ac%ac%e4%b8%80%e6%ad%a5%e5%ae%89%e8%a3%85-dsh" class="heading-mark">
  &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
  &lt;/a>
 &lt;/h3>&lt;div class="highlight">&lt;div class="chroma">
@@ -68,283 +410,87 @@
 &lt;/span>&lt;span class="lnt">10
 &lt;/span>&lt;span class="lnt">11
 &lt;/span>&lt;span class="lnt">12
-&lt;/span>&lt;span class="lnt">13
-&lt;/span>&lt;span class="lnt">14
-&lt;/span>&lt;span class="lnt">15
 &lt;/span>&lt;/code>&lt;/pre>&lt;/td>
 &lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 克隆仓库&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git clone https://github.com/EleutherAI/lm-evaluation-harness.git
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">cd&lt;/span> lm-evaluation-harness
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 方法一：使用 npm/npx&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">npm install -g @deepseek-ai/dsh
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 或&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">npx @deepseek-ai/dsh --version
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 安装核心框架&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">pip install -e .
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 方法二：通过 pip (如果有 Python 版本)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">pip install deepseek-harness
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 安装 HuggingFace 后端（用于加载 DeepSeek 模型）&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">pip install &lt;span class="s2">&amp;#34;lm_eval[hf]&amp;#34;&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 安装 vLLM 后端（推荐，推理速度更快）&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">pip install &lt;span class="s2">&amp;#34;lm_eval[vllm]&amp;#34;&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 验证安装&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">lm_eval --help&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 方法三：从源码安装&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git clone https://github.com/deepseek-ai/deepseek-harness.git
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">cd&lt;/span> deepseek-harness
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">pip install -e .&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div>&lt;h3 id="3-准备-deepseek-模型" class="heading-element">&lt;span>3. 准备 DeepSeek 模型&lt;/span>
- &lt;a href="#3-%e5%87%86%e5%a4%87-deepseek-%e6%a8%a1%e5%9e%8b" class="heading-mark">
- &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
- &lt;/a>
-&lt;/h3>&lt;p>DeepSeek 模型可从 Hugging Face Hub 下载，常见模型包括：&lt;/p>
-&lt;table>
- &lt;thead>
- &lt;tr>
- &lt;th>模型&lt;/th>
- &lt;th>Hugging Face 路径&lt;/th>
- &lt;th>参数量&lt;/th>
- &lt;th>特点&lt;/th>
- &lt;/tr>
- &lt;/thead>
- &lt;tbody>
- &lt;tr>
- &lt;td>DeepSeek-V3&lt;/td>
- &lt;td>&lt;code>deepseek-ai/DeepSeek-V3&lt;/code>&lt;/td>
- &lt;td>671B (MoE)&lt;/td>
- &lt;td>混合专家模型，综合能力强&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>DeepSeek-V2.5&lt;/td>
- &lt;td>&lt;code>deepseek-ai/DeepSeek-V2.5&lt;/code>&lt;/td>
- &lt;td>236B&lt;/td>
- &lt;td>通用对话与代码生成&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>DeepSeek-Coder-V2&lt;/td>
- &lt;td>&lt;code>deepseek-ai/DeepSeek-Coder-V2&lt;/code>&lt;/td>
- &lt;td>236B&lt;/td>
- &lt;td>专门针对代码生成优化&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>DeepSeek-R1-Distill-Qwen-7B&lt;/td>
- &lt;td>&lt;code>deepseek-ai/DeepSeek-R1-Distill-Qwen-7B&lt;/code>&lt;/td>
- &lt;td>7B&lt;/td>
- &lt;td>蒸馏版推理模型，轻量高效&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>DeepSeek-R1-Distill-Llama-70B&lt;/td>
- &lt;td>&lt;code>deepseek-ai/DeepSeek-R1-Distill-Llama-70B&lt;/code>&lt;/td>
- &lt;td>70B&lt;/td>
- &lt;td>蒸馏版推理模型&lt;/td>
- &lt;/tr>
- &lt;/tbody>
-&lt;/table>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;span class="lnt">2
-&lt;/span>&lt;span class="lnt">3
-&lt;/span>&lt;span class="lnt">4
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 登录 Hugging Face（如需下载私有模型）&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">huggingface-cli login
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 或直接在代码中指定模型路径&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;hr>
-&lt;h2 id="快速上手运行首次评测" class="heading-element">&lt;span>快速上手：运行首次评测&lt;/span>
- &lt;a href="#%e5%bf%ab%e9%80%9f%e4%b8%8a%e6%89%8b%e8%bf%90%e8%a1%8c%e9%a6%96%e6%ac%a1%e8%af%84%e6%b5%8b" class="heading-mark">
- &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
- &lt;/a>
-&lt;/h2>&lt;h3 id="基础命令示例" class="heading-element">&lt;span>基础命令示例&lt;/span>
- &lt;a href="#%e5%9f%ba%e7%a1%80%e5%91%bd%e4%bb%a4%e7%a4%ba%e4%be%8b" class="heading-mark">
- &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
- &lt;/a>
-&lt;/h3>&lt;p>使用 HuggingFace 后端评测 DeepSeek 模型：&lt;/p>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;span class="lnt">2
-&lt;/span>&lt;span class="lnt">3
-&lt;/span>&lt;span class="lnt">4
-&lt;/span>&lt;span class="lnt">5
-&lt;/span>&lt;span class="lnt">6
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">lm_eval --model hf &lt;span class="se">\
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> --model_args &lt;span class="nv">pretrained&lt;/span>&lt;span class="o">=&lt;/span>deepseek-ai/DeepSeek-R1-Distill-Qwen-7B,dtype&lt;span class="o">=&lt;/span>bfloat16 &lt;span class="se">\
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> --tasks mmlu,gsm8k,humaneval &lt;span class="se">\
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> --device cuda:0 &lt;span class="se">\
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> --batch_size &lt;span class="m">8&lt;/span> &lt;span class="se">\
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> --output_path ./results/deepseek-qwen-7b/&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;p>使用 vLLM 后端（推理更快，适合大模型）：&lt;/p>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;span class="lnt">2
-&lt;/span>&lt;span class="lnt">3
-&lt;/span>&lt;span class="lnt">4
-&lt;/span>&lt;span class="lnt">5
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">lm_eval --model vllm &lt;span class="se">\
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> --model_args &lt;span class="nv">pretrained&lt;/span>&lt;span class="o">=&lt;/span>deepseek-ai/DeepSeek-R1-Distill-Qwen-7B,dtype&lt;span class="o">=&lt;/span>auto,gpu_memory_utilization&lt;span class="o">=&lt;/span>0.8 &lt;span class="se">\
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> --tasks mmlu,gsm8k &lt;span class="se">\
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> --batch_size auto &lt;span class="se">\
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> --output_path ./results/deepseek-vllm/&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;h3 id="命令参数解释" class="heading-element">&lt;span>命令参数解释&lt;/span>
- &lt;a href="#%e5%91%bd%e4%bb%a4%e5%8f%82%e6%95%b0%e8%a7%a3%e9%87%8a" class="heading-mark">
- &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
- &lt;/a>
-&lt;/h3>&lt;table>
- &lt;thead>
- &lt;tr>
- &lt;th>参数&lt;/th>
- &lt;th>说明&lt;/th>
- &lt;th>常用值&lt;/th>
- &lt;/tr>
- &lt;/thead>
- &lt;tbody>
- &lt;tr>
- &lt;td>&lt;code>--model&lt;/code>&lt;/td>
- &lt;td>模型后端类型&lt;/td>
- &lt;td>&lt;code>hf&lt;/code> (HuggingFace), &lt;code>vllm&lt;/code>, &lt;code>sglang&lt;/code>, &lt;code>openai-completions&lt;/code>&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>&lt;code>--model_args&lt;/code>&lt;/td>
- &lt;td>模型构造参数&lt;/td>
- &lt;td>&lt;code>pretrained=路径&lt;/code>, &lt;code>dtype=bfloat16&lt;/code>, &lt;code>device=cuda:0&lt;/code>&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>&lt;code>--tasks&lt;/code>&lt;/td>
- &lt;td>评测任务列表&lt;/td>
- &lt;td>&lt;code>mmlu&lt;/code>, &lt;code>gsm8k&lt;/code>, &lt;code>humaneval&lt;/code>, &lt;code>bbh&lt;/code>, &lt;code>arc&lt;/code>&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>&lt;code>--device&lt;/code>&lt;/td>
- &lt;td>运行设备&lt;/td>
- &lt;td>&lt;code>cuda:0&lt;/code>, &lt;code>cpu&lt;/code>&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>&lt;code>--batch_size&lt;/code>&lt;/td>
- &lt;td>批次大小&lt;/td>
- &lt;td>&lt;code>8&lt;/code>, &lt;code>16&lt;/code>, &lt;code>auto&lt;/code>&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>&lt;code>--output_path&lt;/code>&lt;/td>
- &lt;td>结果输出目录&lt;/td>
- &lt;td>&lt;code>./results/&lt;/code>&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>&lt;code>--limit&lt;/code>&lt;/td>
- &lt;td>限制样本数量（调试用）&lt;/td>
- &lt;td>&lt;code>100&lt;/code>, &lt;code>500&lt;/code>&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>&lt;code>--num_fewshot&lt;/code>&lt;/td>
- &lt;td>few-shot 样本数量&lt;/td>
- &lt;td>&lt;code>0&lt;/code>, &lt;code>5&lt;/code>, &lt;code>10&lt;/code>&lt;/td>
- &lt;/tr>
- &lt;/tbody>
-&lt;/table>
-&lt;hr>
-&lt;h2 id="常用评测任务与基准集" class="heading-element">&lt;span>常用评测任务与基准集&lt;/span>
- &lt;a href="#%e5%b8%b8%e7%94%a8%e8%af%84%e6%b5%8b%e4%bb%bb%e5%8a%a1%e4%b8%8e%e5%9f%ba%e5%87%86%e9%9b%86" class="heading-mark">
- &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
- &lt;/a>
-&lt;/h2>&lt;p>DeepSeek 模型通常在以下维度进行评估：&lt;/p>
-&lt;table>
- &lt;thead>
- &lt;tr>
- &lt;th>任务&lt;/th>
- &lt;th>类型&lt;/th>
- &lt;th>评估维度&lt;/th>
- &lt;th>推荐 few-shot&lt;/th>
- &lt;/tr>
- &lt;/thead>
- &lt;tbody>
- &lt;tr>
- &lt;td>&lt;strong>MMLU&lt;/strong>&lt;/td>
- &lt;td>多选题&lt;/td>
- &lt;td>通用知识（57 个学科）&lt;/td>
- &lt;td>5&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>&lt;strong>GSM8K&lt;/strong>&lt;/td>
- &lt;td>数学应用题&lt;/td>
- &lt;td>数学推理能力&lt;/td>
- &lt;td>5&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>&lt;strong>HumanEval&lt;/strong>&lt;/td>
- &lt;td>代码生成&lt;/td>
- &lt;td>Python 代码编写（pass@1）&lt;/td>
- &lt;td>0&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>&lt;strong>MBPP&lt;/strong>&lt;/td>
- &lt;td>代码生成&lt;/td>
- &lt;td>基础 Python 编程&lt;/td>
- &lt;td>3&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>&lt;strong>BBH&lt;/strong>&lt;/td>
- &lt;td>复杂推理&lt;/td>
- &lt;td>Big-Bench-Hard 困难任务&lt;/td>
- &lt;td>3&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>&lt;strong>ARC&lt;/strong>&lt;/td>
- &lt;td>科学常识&lt;/td>
- &lt;td>科学问答（Easy/Challenge）&lt;/td>
- &lt;td>5&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>&lt;strong>TruthfulQA&lt;/strong>&lt;/td>
- &lt;td>真实性&lt;/td>
- &lt;td>模型是否生成虚假信息&lt;/td>
- &lt;td>0&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>&lt;strong>AGIEval&lt;/strong>&lt;/td>
- &lt;td>中文考试&lt;/td>
- &lt;td>高考/考研/公务员等中文考试&lt;/td>
- &lt;td>3&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>&lt;strong>C-Eval&lt;/strong>&lt;/td>
- &lt;td>中文综合&lt;/td>
- &lt;td>中国高等教育综合评测&lt;/td>
- &lt;td>5&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>&lt;strong>CMMLU&lt;/strong>&lt;/td>
- &lt;td>中文语言&lt;/td>
- &lt;td>中文语言理解与推理&lt;/td>
- &lt;td>5&lt;/td>
- &lt;/tr>
- &lt;/tbody>
-&lt;/table>
-&lt;blockquote>
-&lt;p>&lt;strong>提示&lt;/strong>：中文模型建议优先运行 &lt;code>c-eval&lt;/code>、&lt;code>cmmlu&lt;/code>、&lt;code>agieval&lt;/code> 等中文基准，英文模型优先 &lt;code>mmlu&lt;/code>、&lt;code>gsm8k&lt;/code>、&lt;code>humaneval&lt;/code>。&lt;/p>
-&lt;/blockquote>
-&lt;h3 id="查看所有可用任务" class="heading-element">&lt;span>查看所有可用任务&lt;/span>
- &lt;a href="#%e6%9f%a5%e7%9c%8b%e6%89%80%e6%9c%89%e5%8f%af%e7%94%a8%e4%bb%bb%e5%8a%a1" class="heading-mark">
+&lt;/div>&lt;h3 id="3-第四步启动你的第一个-dsh-会话" class="heading-element">&lt;span>3. 第四步：启动你的第一个 DSH 会话&lt;/span>
+ &lt;a href="#3-%e7%ac%ac%e5%9b%9b%e6%ad%a5%e5%90%af%e5%8a%a8%e4%bd%a0%e7%9a%84%e7%ac%ac%e4%b8%80%e4%b8%aa-dsh-%e4%bc%9a%e8%af%9d" class="heading-mark">
  &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
  &lt;/a>
 &lt;/h3>&lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
 &lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
 &lt;/span>&lt;/code>&lt;/pre>&lt;/td>
 &lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">lm_eval ls tasks&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 启动 Web 工作台（最常用的方式）&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">dsh web
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 或者直接使用 npx&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">npx @deepseek-ai/dsh web&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div>&lt;hr>
-&lt;h2 id="实战示例评测-deepseek-r1-distill-qwen-7b" class="heading-element">&lt;span>实战示例：评测 DeepSeek-R1-Distill-Qwen-7B&lt;/span>
- &lt;a href="#%e5%ae%9e%e6%88%98%e7%a4%ba%e4%be%8b%e8%af%84%e6%b5%8b-deepseek-r1-distill-qwen-7b" class="heading-mark">
+&lt;/div>&lt;p>访问 http://127.0.0.1:3080 即可看到 DSH 的 Web 界面，开始进行文件操作、命令执行等。&lt;/p>
+&lt;h3 id="4-第五步尝试一次性任务" class="heading-element">&lt;span>4. 第五步：尝试一次性任务&lt;/span>
+ &lt;a href="#4-%e7%ac%ac%e4%ba%94%e6%ad%a5%e5%b0%9d%e8%af%95%e4%b8%80%e6%ac%a1%e6%80%a7%e4%bb%bb%e5%8a%a1" class="heading-mark">
  &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
  &lt;/a>
-&lt;/h2>&lt;p>下面是一个完整的中英文综合评测示例，适合对轻量级 DeepSeek 蒸馏模型进行能力验证：&lt;/p>
+&lt;/h3>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 列出当前目录文件&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">dsh --profile headless &lt;span class="s2">&amp;#34;ls -la&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 或者通过 npx&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">npx @deepseek-ai/dsh --profile headless &lt;span class="s2">&amp;#34;pwd &amp;amp;&amp;amp; whoami&amp;#34;&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;hr>
+&lt;h2 id="插件开发实践" class="heading-element">&lt;span>插件开发实践&lt;/span>
+ &lt;a href="#%e6%8f%92%e4%bb%b6%e5%bc%80%e5%8f%91%e5%ae%9e%e8%b7%b5" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h2>&lt;h3 id="1-编写第一个插件" class="heading-element">&lt;span>1. 编写第一个插件&lt;/span>
+ &lt;a href="#1-%e7%bc%96%e5%86%99%e7%ac%ac%e4%b8%80%e4%b8%aa%e6%8f%92%e4%bb%b6" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h3>&lt;p>DSH 的插件系统相对开放，主要涉及以下步骤：&lt;/p>
+&lt;p>&lt;strong>文件结构示例&lt;/strong>：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">my-plugin/
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">├── plugin.json &lt;span class="c1"># 插件元数据定义&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">├── index.js &lt;span class="c1"># 插件主入口&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">├── tool-fs.js &lt;span class="c1"># 文件系统工具实现&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">└── tool-bash.js &lt;span class="c1"># 命令执行工具实现&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;strong>plugin.json 示例&lt;/strong>：&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
 &lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
@@ -357,94 +503,16 @@
 &lt;/span>&lt;span class="lnt">8
 &lt;/span>&lt;/code>&lt;/pre>&lt;/td>
 &lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">lm_eval --model hf &lt;span class="se">\
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> --model_args &lt;span class="nv">pretrained&lt;/span>&lt;span class="o">=&lt;/span>deepseek-ai/DeepSeek-R1-Distill-Qwen-7B,dtype&lt;span class="o">=&lt;/span>bfloat16,trust_remote_code&lt;span class="o">=&lt;/span>True &lt;span class="se">\
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> --tasks mmlu,gsm8k,humaneval,c-eval,cmmlu &lt;span class="se">\
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> --num_fewshot &lt;span class="m">5&lt;/span> &lt;span class="se">\
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> --device cuda:0 &lt;span class="se">\
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> --batch_size &lt;span class="m">4&lt;/span> &lt;span class="se">\
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> --output_path ./results/deepseek-r1-distill-7b/ &lt;span class="se">\
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> --log_samples&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;p>运行完成后，结果会保存在 &lt;code>./results/deepseek-r1-distill-7b/&lt;/code> 目录下，包含：&lt;/p>
-&lt;ul>
-&lt;li>&lt;code>results.json&lt;/code>：各任务的结构化得分&lt;/li>
-&lt;li>&lt;code>log_samples.json&lt;/code>（如启用 &lt;code>--log_samples&lt;/code>）：每条样本的详细预测结果，用于错误分析&lt;/li>
-&lt;/ul>
-&lt;h3 id="结果解读示例" class="heading-element">&lt;span>结果解读示例&lt;/span>
- &lt;a href="#%e7%bb%93%e6%9e%9c%e8%a7%a3%e8%af%bb%e7%a4%ba%e4%be%8b" class="heading-mark">
- &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
- &lt;/a>
-&lt;/h3>&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
-&lt;/span>&lt;span class="lnt"> 2
-&lt;/span>&lt;span class="lnt"> 3
-&lt;/span>&lt;span class="lnt"> 4
-&lt;/span>&lt;span class="lnt"> 5
-&lt;/span>&lt;span class="lnt"> 6
-&lt;/span>&lt;span class="lnt"> 7
-&lt;/span>&lt;span class="lnt"> 8
-&lt;/span>&lt;span class="lnt"> 9
-&lt;/span>&lt;span class="lnt">10
-&lt;/span>&lt;span class="lnt">11
-&lt;/span>&lt;span class="lnt">12
-&lt;/span>&lt;span class="lnt">13
-&lt;/span>&lt;span class="lnt">14
-&lt;/span>&lt;span class="lnt">15
-&lt;/span>&lt;span class="lnt">16
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
 &lt;pre tabindex="0" class="chroma">&lt;code class="language-json" data-lang="json">&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;mmlu&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">{&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;acc&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mf">0.6234&lt;/span>&lt;span class="p">,&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;acc_stderr&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mf">0.0123&lt;/span>&lt;span class="p">,&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;acc_norm&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mf">0.6451&lt;/span>&lt;span class="p">,&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;acc_norm_stderr&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mf">0.0118&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">},&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;gsm8k&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">{&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;exact_match&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mf">0.7120&lt;/span>&lt;span class="p">,&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;exact_match_stderr&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mf">0.0145&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">},&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;humaneval&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">{&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;pass@1&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mf">0.4512&lt;/span>&lt;span class="p">,&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;pass@1_stderr&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mf">0.0231&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;name&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;my-custom-plugin&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;version&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;0.1.0&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;description&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;自定义插件示例&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;provider&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;deepseek-ai&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;seams&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;tool-fs&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;tool-bash&amp;#34;&lt;/span>&lt;span class="p">],&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;entry&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;index.js&amp;#34;&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div>&lt;table>
- &lt;thead>
- &lt;tr>
- &lt;th>指标&lt;/th>
- &lt;th>含义&lt;/th>
- &lt;/tr>
- &lt;/thead>
- &lt;tbody>
- &lt;tr>
- &lt;td>&lt;code>acc&lt;/code>&lt;/td>
- &lt;td>准确率（原始）&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>&lt;code>acc_norm&lt;/code>&lt;/td>
- &lt;td>归一化准确率（考虑 token 概率）&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>&lt;code>exact_match&lt;/code>&lt;/td>
- &lt;td>精确匹配率（用于数学应用题）&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>&lt;code>pass@1&lt;/code>&lt;/td>
- &lt;td>通过率 1（代码生成，至少一次通过测试用例）&lt;/td>
- &lt;/tr>
- &lt;/tbody>
-&lt;/table>
-&lt;hr>
-&lt;h2 id="进阶配置yaml-配置文件" class="heading-element">&lt;span>进阶配置：YAML 配置文件&lt;/span>
- &lt;a href="#%e8%bf%9b%e9%98%b6%e9%85%8d%e7%bd%aeyaml-%e9%85%8d%e7%bd%ae%e6%96%87%e4%bb%b6" class="heading-mark">
- &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
- &lt;/a>
-&lt;/h2>&lt;p>lm-evaluation-harness 支持使用 YAML 配置文件管理评测任务，适合团队协作和重复运行：&lt;/p>
-&lt;p>&lt;strong>文件：&lt;code>deepseek_eval_config.yaml&lt;/code>&lt;/strong>&lt;/p>
+&lt;/div>&lt;p>&lt;strong>index.js 示例&lt;/strong>：&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
 &lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
@@ -462,157 +530,66 @@
 &lt;/span>&lt;span class="lnt">13
 &lt;/span>&lt;span class="lnt">14
 &lt;/span>&lt;span class="lnt">15
-&lt;/span>&lt;span class="lnt">16
 &lt;/span>&lt;/code>&lt;/pre>&lt;/td>
 &lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="line">&lt;span class="cl">&lt;span class="nt">model&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">hf&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">model_args&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">pretrained&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">deepseek-ai/DeepSeek-V3-Chat&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">dtype&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">bfloat16&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">trust_remote_code&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kc">True&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">tasks&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="l">mmlu&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="l">gsm8k&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="l">humaneval&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="l">c-eval&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="l">cmmlu&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">num_fewshot&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="m">5&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">batch_size&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="m">4&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">device&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">cuda:0&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">output_path&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">./results/deepseek-v3/&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">log_samples&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kc">True&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;p>&lt;strong>执行：&lt;/strong>&lt;/p>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">lm_eval --config deepseek_eval_config.yaml&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;hr>
-&lt;h2 id="使用-api-接口评测无需本地-gpu" class="heading-element">&lt;span>使用 API 接口评测（无需本地 GPU）&lt;/span>
- &lt;a href="#%e4%bd%bf%e7%94%a8-api-%e6%8e%a5%e5%8f%a3%e8%af%84%e6%b5%8b%e6%97%a0%e9%9c%80%e6%9c%ac%e5%9c%b0-gpu" class="heading-mark">
- &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
- &lt;/a>
-&lt;/h2>&lt;p>如果通过 API 调用 DeepSeek 模型（如云端推理服务），可使用 &lt;code>openai-completions&lt;/code> 后端：&lt;/p>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;span class="lnt">2
-&lt;/span>&lt;span class="lnt">3
-&lt;/span>&lt;span class="lnt">4
-&lt;/span>&lt;span class="lnt">5
-&lt;/span>&lt;span class="lnt">6
-&lt;/span>&lt;span class="lnt">7
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">export&lt;/span> &lt;span class="nv">DEEPSEEK_API_KEY&lt;/span>&lt;span class="o">=&lt;/span>sk-xxxxxxxx
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="kr">const&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nx">createPlugin&lt;/span> &lt;span class="p">}&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">require&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;@deepseek-ai/cordis&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">lm_eval --model openai-completions &lt;span class="se">\
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> --model_args &lt;span class="nv">model&lt;/span>&lt;span class="o">=&lt;/span>deepseek-chat,base_url&lt;span class="o">=&lt;/span>https://api.deepseek.com/v1,num_concurrent&lt;span class="o">=&lt;/span>&lt;span class="m">5&lt;/span> &lt;span class="se">\
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> --tasks mmlu,gsm8k &lt;span class="se">\
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> --batch_size &lt;span class="m">1&lt;/span> &lt;span class="se">\
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> --output_path ./results/deepseek-api/&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">module&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">exports&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">createPlugin&lt;/span>&lt;span class="p">({&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">name&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s1">&amp;#39;my-custom-plugin&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kr">async&lt;/span> &lt;span class="nx">onLoad&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">context&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// 注册自定义工具
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">context&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">registerTool&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;my-tool&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">description&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s1">&amp;#39;我的自定义工具&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">execute&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="kr">async&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">args&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">=&amp;gt;&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// 实现具体逻辑
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="k">return&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nx">result&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s1">&amp;#39;success&amp;#39;&lt;/span> &lt;span class="p">};&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">});&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">});&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div>&lt;blockquote>
-&lt;p>&lt;strong>注意&lt;/strong>：API 评测不支持 &lt;code>loglikelihood&lt;/code> 类任务（如部分多选题的归一化得分），仅支持 &lt;code>generate_until&lt;/code> 类生成任务。&lt;/p>
-&lt;/blockquote>
-&lt;hr>
-&lt;h2 id="性能优化与加速" class="heading-element">&lt;span>性能优化与加速&lt;/span>
- &lt;a href="#%e6%80%a7%e8%83%bd%e4%bc%98%e5%8c%96%e4%b8%8e%e5%8a%a0%e9%80%9f" class="heading-mark">
+&lt;/div>&lt;h3 id="2-插件开发要点" class="heading-element">&lt;span>2. 插件开发要点&lt;/span>
+ &lt;a href="#2-%e6%8f%92%e4%bb%b6%e5%bc%80%e5%8f%91%e8%a6%81%e7%82%b9" class="heading-mark">
  &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
  &lt;/a>
-&lt;/h2>&lt;h3 id="1-使用-vllm-加速推理" class="heading-element">&lt;span>1. 使用 vLLM 加速推理&lt;/span>
- &lt;a href="#1-%e4%bd%bf%e7%94%a8-vllm-%e5%8a%a0%e9%80%9f%e6%8e%a8%e7%90%86" class="heading-mark">
- &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
- &lt;/a>
-&lt;/h3>&lt;p>vLLM 的连续批处理（Continuous Batching）和 PagedAttention 能显著提升评测吞吐量：&lt;/p>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;span class="lnt">2
-&lt;/span>&lt;span class="lnt">3
-&lt;/span>&lt;span class="lnt">4
-&lt;/span>&lt;span class="lnt">5
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">lm_eval --model vllm &lt;span class="se">\
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> --model_args &lt;span class="nv">pretrained&lt;/span>&lt;span class="o">=&lt;/span>deepseek-ai/DeepSeek-V2-Chat,dtype&lt;span class="o">=&lt;/span>auto,tensor_parallel_size&lt;span class="o">=&lt;/span>2,gpu_memory_utilization&lt;span class="o">=&lt;/span>0.9 &lt;span class="se">\
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> --tasks mmlu,gsm8k,humaneval &lt;span class="se">\
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> --batch_size auto &lt;span class="se">\
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> --output_path ./results/deepseek-v2-vllm/&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;table>
+&lt;/h3>&lt;table>
  &lt;thead>
  &lt;tr>
- &lt;th>优化项&lt;/th>
- &lt;th>建议&lt;/th>
+ &lt;th>要点&lt;/th>
  &lt;th>说明&lt;/th>
  &lt;/tr>
  &lt;/thead>
  &lt;tbody>
  &lt;tr>
- &lt;td>&lt;code>tensor_parallel_size&lt;/code>&lt;/td>
- &lt;td>2~8&lt;/td>
- &lt;td>根据 GPU 数量设置，跨卡分布模型&lt;/td>
+ &lt;td>&lt;strong>Seam 注册&lt;/strong>&lt;/td>
+ &lt;td>在 &lt;code>onLoad&lt;/code> 中通过 &lt;code>context.registerTool()&lt;/code>、&lt;code>context.registerService()&lt;/code> 注册能力&lt;/td>
  &lt;/tr>
  &lt;tr>
- &lt;td>&lt;code>gpu_memory_utilization&lt;/code>&lt;/td>
- &lt;td>0.8~0.9&lt;/td>
- &lt;td>提高显存利用率，允许更大 batch size&lt;/td>
+ &lt;td>&lt;strong>Context 获取&lt;/strong>&lt;/td>
+ &lt;td>通过 &lt;code>context.llm&lt;/code>、&lt;code>context.tools&lt;/code>、&lt;code>context.sandbox&lt;/code> 等获取核心能力&lt;/td>
  &lt;/tr>
  &lt;tr>
- &lt;td>&lt;code>--batch_size auto&lt;/code>&lt;/td>
- &lt;td>自动&lt;/td>
- &lt;td>vLLM 推荐，自动调整最大批次&lt;/td>
+ &lt;td>&lt;strong>Patch 机制&lt;/strong>&lt;/td>
+ &lt;td>通过 Profile 的 patch 层实现配置的叠加和自定义&lt;/td>
  &lt;/tr>
  &lt;tr>
- &lt;td>&lt;code>dtype&lt;/code>&lt;/td>
- &lt;td>&lt;code>auto&lt;/code> 或 &lt;code>bfloat16&lt;/code>&lt;/td>
- &lt;td>减少显存占用，保持精度&lt;/td>
+ &lt;td>&lt;strong>版本兼容&lt;/strong>&lt;/td>
+ &lt;td>注意插件版本与 DSH/Core 版本的兼容性&lt;/td>
  &lt;/tr>
  &lt;/tbody>
 &lt;/table>
-&lt;h3 id="2-多-gpu-并行评测huggingface-后端" class="heading-element">&lt;span>2. 多 GPU 并行评测（HuggingFace 后端）&lt;/span>
- &lt;a href="#2-%e5%a4%9a-gpu-%e5%b9%b6%e8%a1%8c%e8%af%84%e6%b5%8bhuggingface-%e5%90%8e%e7%ab%af" class="heading-mark">
+&lt;h3 id="3-发布与分享插件" class="heading-element">&lt;span>3. 发布与分享插件&lt;/span>
+ &lt;a href="#3-%e5%8f%91%e5%b8%83%e4%b8%8e%e5%88%86%e4%ba%ab%e6%8f%92%e4%bb%b6" class="heading-mark">
  &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
  &lt;/a>
-&lt;/h3>&lt;p>使用 &lt;code>accelerate&lt;/code> 进行数据并行：&lt;/p>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;span class="lnt">2
-&lt;/span>&lt;span class="lnt">3
-&lt;/span>&lt;span class="lnt">4
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">accelerate launch -m lm_eval --model hf &lt;span class="se">\
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> --model_args &lt;span class="nv">pretrained&lt;/span>&lt;span class="o">=&lt;/span>deepseek-ai/DeepSeek-V2-Chat,dtype&lt;span class="o">=&lt;/span>bfloat16 &lt;span class="se">\
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> --tasks mmlu,gsm8k,humaneval &lt;span class="se">\
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> --batch_size &lt;span class="m">16&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;h3 id="3-推理参数调优" class="heading-element">&lt;span>3. 推理参数调优&lt;/span>
- &lt;a href="#3-%e6%8e%a8%e7%90%86%e5%8f%82%e6%95%b0%e8%b0%83%e4%bc%98" class="heading-mark">
- &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
- &lt;/a>
-&lt;/h3>&lt;p>在 &lt;code>--model_args&lt;/code> 中传递生成参数：&lt;/p>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;span class="lnt">2
-&lt;/span>&lt;span class="lnt">3
-&lt;/span>&lt;span class="lnt">4
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">lm_eval --model hf &lt;span class="se">\
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> --model_args &lt;span class="nv">pretrained&lt;/span>&lt;span class="o">=&lt;/span>deepseek-ai/DeepSeek-R1-Distill-Qwen-7B,max_new_tokens&lt;span class="o">=&lt;/span>4096,temperature&lt;span class="o">=&lt;/span>0.6,top_p&lt;span class="o">=&lt;/span>0.95 &lt;span class="se">\
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> --tasks gsm8k &lt;span class="se">\
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> --batch_size &lt;span class="m">4&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;hr>
-&lt;h2 id="常见问题排查" class="heading-element">&lt;span>常见问题排查&lt;/span>
- &lt;a href="#%e5%b8%b8%e8%a7%81%e9%97%ae%e9%a2%98%e6%8e%92%e6%9f%a5" class="heading-mark">
+&lt;/h3>&lt;ul>
+&lt;li>将插件发布到 npm: &lt;code>npm publish&lt;/code>&lt;/li>
+&lt;li>或提交到 DeepSeek Harness 社区仓库&lt;/li>
+&lt;li>配合 Profile 进行版本管理和分发&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h2 id="常见问题与排查" class="heading-element">&lt;span>常见问题与排查&lt;/span>
+ &lt;a href="#%e5%b8%b8%e8%a7%81%e9%97%ae%e9%a2%98%e4%b8%8e%e6%8e%92%e6%9f%a5" class="heading-mark">
  &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
  &lt;/a>
 &lt;/h2>&lt;table>
@@ -625,44 +602,39 @@
  &lt;/thead>
  &lt;tbody>
  &lt;tr>
- &lt;td>&lt;code>OutOfMemoryError&lt;/code> / CUDA OOM&lt;/td>
- &lt;td>模型过大或 batch_size 过大&lt;/td>
- &lt;td>减小 &lt;code>--batch_size&lt;/code>，使用 &lt;code>dtype=bfloat16&lt;/code>，或改用 vLLM&lt;/td>
+ &lt;td>&lt;code>Command not found: dsh&lt;/code>&lt;/td>
+ &lt;td>未安装或未配置环境变量&lt;/td>
+ &lt;td>&lt;code>npm install -g @deepseek-ai/dsh&lt;/code> 或检查 PATH&lt;/td>
  &lt;/tr>
  &lt;tr>
- &lt;td>&lt;code>ConnectionError&lt;/code> / 下载模型失败&lt;/td>
- &lt;td>网络不通或 HuggingFace 限速&lt;/td>
- &lt;td>配置代理，或使用 &lt;code>HF_ENDPOINT=https://hf-mirror.com&lt;/code>&lt;/td>
+ &lt;td>Web 界面启动失败（端口占用）&lt;/td>
+ &lt;td>3080 端口被占用&lt;/td>
+ &lt;td>修改配置：&lt;code>dsh web --port 3081&lt;/code> 或杀占用进程&lt;/td>
  &lt;/tr>
  &lt;tr>
- &lt;td>&lt;code>ModuleNotFoundError: transformers&lt;/code>&lt;/td>
- &lt;td>缺少依赖&lt;/td>
- &lt;td>执行 &lt;code>pip install &amp;quot;lm_eval[hf]&amp;quot;&lt;/code>&lt;/td>
+ &lt;td>插件加载失败&lt;/td>
+ &lt;td>版本不兼容或 plugin.json 格式错误&lt;/td>
+ &lt;td>检查 DSH 版本，验证 plugin.json 结构&lt;/td>
  &lt;/tr>
  &lt;tr>
- &lt;td>评测结果异常偏低&lt;/td>
- &lt;td>Prompt 模板不匹配&lt;/td>
- &lt;td>确认模型对应的任务模板，必要时自定义 YAML task&lt;/td>
+ &lt;td>权限被拒绝&lt;/td>
+ &lt;td>缺少沙箱权限或配置错误&lt;/td>
+ &lt;td>检查 &lt;code>~/.dsh/config.json&lt;/code> 的权限设置&lt;/td>
  &lt;/tr>
  &lt;tr>
- &lt;td>代码生成 pass@1 为 0&lt;/td>
- &lt;td>生成长度不足或格式错误&lt;/td>
- &lt;td>增加 &lt;code>max_new_tokens&lt;/code>，检查停止词（stop tokens）&lt;/td>
+ &lt;td>模型路由不生效&lt;/td>
+ &lt;td>缺少 Provider 配置&lt;/td>
+ &lt;td>在 &lt;code>--model_args&lt;/code> 中指定模型提供者&lt;/td>
  &lt;/tr>
  &lt;tr>
- &lt;td>中文任务乱码&lt;/td>
- &lt;td>编码问题&lt;/td>
- &lt;td>确保环境 UTF-8，&lt;code>PYTHONIOENCODING=utf-8&lt;/code>&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>&lt;code>trust_remote_code&lt;/code> 报错&lt;/td>
- &lt;td>模型需执行远程代码&lt;/td>
- &lt;td>在 &lt;code>--model_args&lt;/code> 中加入 &lt;code>trust_remote_code=True&lt;/code>&lt;/td>
+ &lt;td>任务卡死或超时&lt;/td>
+ &lt;td>循环未终止或工具执行错误&lt;/td>
+ &lt;td>检查任务是否有明确的结束条件&lt;/td>
  &lt;/tr>
  &lt;/tbody>
 &lt;/table>
-&lt;h3 id="设置-huggingface-镜像国内网络推荐" class="heading-element">&lt;span>设置 HuggingFace 镜像（国内网络推荐）&lt;/span>
- &lt;a href="#%e8%ae%be%e7%bd%ae-huggingface-%e9%95%9c%e5%83%8f%e5%9b%bd%e5%86%85%e7%bd%91%e7%bb%9c%e6%8e%a8%e8%8d%90" class="heading-mark">
+&lt;h3 id="设置自定义端口" class="heading-element">&lt;span>设置自定义端口&lt;/span>
+ &lt;a href="#%e8%ae%be%e7%bd%ae%e8%87%aa%e5%ae%9a%e4%b9%89%e7%ab%af%e5%8f%a3" class="heading-mark">
  &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
  &lt;/a>
 &lt;/h3>&lt;div class="highlight">&lt;div class="chroma">
@@ -671,21 +643,30 @@
 &lt;/span>&lt;span class="lnt">2
 &lt;/span>&lt;/code>&lt;/pre>&lt;/td>
 &lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">export&lt;/span> &lt;span class="nv">HF_ENDPOINT&lt;/span>&lt;span class="o">=&lt;/span>https://hf-mirror.com
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">export&lt;/span> &lt;span class="nv">HF_HOME&lt;/span>&lt;span class="o">=&lt;/span>/path/to/hf-cache&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">dsh web --port &lt;span class="m">3090&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 访问 http://127.0.0.1:3090&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div>&lt;hr>
+&lt;/div>&lt;h3 id="配置文件位置" class="heading-element">&lt;span>配置文件位置&lt;/span>
+ &lt;a href="#%e9%85%8d%e7%bd%ae%e6%96%87%e4%bb%b6%e4%bd%8d%e7%bd%ae" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h3>&lt;ul>
+&lt;li>&lt;code>~/.dsh/config.json&lt;/code> - 主配置文件&lt;/li>
+&lt;li>&lt;code>~/.dsh/profiles/&lt;/code> - Profile 目录&lt;/li>
+&lt;li>&lt;code>~/.dsh/sessions/&lt;/code> - 会话目录&lt;/li>
+&lt;/ul>
+&lt;hr>
 &lt;h2 id="最佳实践建议" class="heading-element">&lt;span>最佳实践建议&lt;/span>
  &lt;a href="#%e6%9c%80%e4%bd%b3%e5%ae%9e%e8%b7%b5%e5%bb%ba%e8%ae%ae" class="heading-mark">
  &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
  &lt;/a>
 &lt;/h2>&lt;ol>
-&lt;li>&lt;strong>先小后大&lt;/strong>：正式评测前，先用 &lt;code>--limit 100&lt;/code> 跑通流程，确认任务模板和结果解析无误。&lt;/li>
-&lt;li>&lt;strong>固定种子&lt;/strong>：添加 &lt;code>--seed 42&lt;/code> 保证 few-shot 样本采样和评测结果的可复现性。&lt;/li>
-&lt;li>&lt;strong>区分基础模型与对齐模型&lt;/strong>：Base 模型适合 &lt;code>loglikelihood&lt;/code> 任务（如 MMLU 原始得分），Chat 模型适合 &lt;code>generate_until&lt;/code> 任务（如 GSM8K 应用题）。&lt;/li>
-&lt;li>&lt;strong>结果留痕&lt;/strong>：将所有评测配置 YAML 和结果 JSON 纳入 Git 版本管理，便于模型版本间对比。&lt;/li>
-&lt;li>&lt;strong>关注置信区间&lt;/strong>：查看 &lt;code>*_stderr&lt;/code> 字段，评估得分的统计显著性，避免因样本量过小导致结论偏差。&lt;/li>
-&lt;li>&lt;strong>中文场景重点&lt;/strong>：国内场景下，&lt;code>c-eval&lt;/code>、&lt;code>cmmlu&lt;/code>、&lt;code>agieval&lt;/code> 的得分往往比通用英文基准更具参考价值。&lt;/li>
+&lt;li>&lt;strong>先用 Web 工作台&lt;/strong>：熟悉 DSH 界面和基本操作后，再尝试 CLI 与插件开发。&lt;/li>
+&lt;li>&lt;strong>使用 Profile 进行自定义&lt;/strong>：通过创建自定义 Profile，在不修改核心的情况下组合所需插件。&lt;/li>
+&lt;li>&lt;strong>利用 Patch 机制&lt;/strong>：对于常用的微调，使用 patch 而非 Fork 核心代码。&lt;/li>
+&lt;li>&lt;strong>关注社区生态&lt;/strong>：DeepSeek Harness 社区已有众多插件，优先检查现有插件是否满足需求。&lt;/li>
+&lt;li>&lt;strong>配合 MCP 使用&lt;/strong>：MCP (Model-Controller-Protocol) 集成可显著扩展 DSH 的自动化能力。&lt;/li>
+&lt;li>&lt;strong>保持插件轻量&lt;/strong>：插件应专注于单一职责，避免过于臃肿，便于维护和复用。&lt;/li>
 &lt;/ol>
 &lt;hr>
 &lt;h2 id="参考链接" class="heading-element">&lt;span>参考链接&lt;/span>
@@ -693,15 +674,14 @@
  &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
  &lt;/a>
 &lt;/h2>&lt;ul>
-&lt;li>&lt;a href="https://github.com/EleutherAI/lm-evaluation-harness"target="_blank" rel="external nofollow noopener noreferrer">lm-evaluation-harness 官方仓库&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://github.com/deepseek-ai"target="_blank" rel="external nofollow noopener noreferrer">DeepSeek 官方 GitHub&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://huggingface.co/deepseek-ai"target="_blank" rel="external nofollow noopener noreferrer">DeepSeek 模型 Hugging Face 页面&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://huggingface.co/spaces/HuggingFaceH4/open_llm_leaderboard"target="_blank" rel="external nofollow noopener noreferrer">Hugging Face Open LLM Leaderboard&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://github.com/SuzheShi/C-Eval"target="_blank" rel="external nofollow noopener noreferrer">C-Eval 官方仓库&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://github.com/haonan-li/CMMLU"target="_blank" rel="external nofollow noopener noreferrer">CMMLU 官方仓库&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://deepseekdocs.com/docs/learn/intro/what-is-dsh"target="_blank" rel="external nofollow noopener noreferrer">DeepSeek Harness 官方文档&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://github.com/deepseek-ai/deepseek-harness"target="_blank" rel="external nofollow noopener noreferrer">DeepSeek Harness GitHub 仓库&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://github.com/deepseek-ai/cordis"target="_blank" rel="external nofollow noopener noreferrer">Cordis 框架文档&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://deepseekdocs.com"target="_blank" rel="external nofollow noopener noreferrer">DSH Community 教程站&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://github.com/deepseek-ai/deepseek-harness/releases/tag/v0.1.5-alpha.1"target="_blank" rel="external nofollow noopener noreferrer">DSH v0.1.5-alpha.1 发布说明&lt;/a>&lt;/li>
 &lt;/ul>
 &lt;hr>
-&lt;p>&lt;strong>编者注&lt;/strong>：本文基于 lm-evaluation-harness 开源框架整理，实际评测结果受模型版本、推理后端、量化精度、Prompt 模板等因素影响，建议在生产环境部署前结合多个基准集进行综合评估。&lt;/p></description></item><item><title>DataX 完全使用指南：从入门到生产环境部署</title><link>https://blog.yyt6801.top/posts/datax-complete-guide/</link><pubDate>Sat, 07 Nov 2026 00:00:00 +0800</pubDate><author>yyt6801@gmail.com (YYT6801)</author><guid>https://blog.yyt6801.top/posts/datax-complete-guide/</guid><category domain="https://blog.yyt6801.top/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7%E4%B8%8E%E6%95%88%E7%8E%87/">开发工具与效率</category><description>&lt;p>DataX 是阿里巴巴开源的离线数据同步工具，广泛应用于阿里内部各种异构数据源的离线同步场景，每天处理 TB 级别的数据。它支持关系型数据库（MySQL、Oracle、PostgreSQL、SQL Server）、NoSQL（MongoDB、Redis）、大数据平台（HDFS、Hive、MaxCompute、ClickHouse）等数十种数据源，是国内数据仓库和数据湖建设中常用的数据迁移与同步工具。&lt;/p>
+&lt;p>&lt;strong>编者注&lt;/strong>：本文基于 DeepSeek Harness 官方文档（v0.1.5-alpha.1）整理。DSH 目前处于 Developer Preview 阶段，API 和功能可能在后续版本中发生变化。建议关注官方仓库以获取最新动态。&lt;/p></description></item><item><title>DataX 完全使用指南：从入门到生产环境部署</title><link>https://blog.yyt6801.top/posts/datax-complete-guide/</link><pubDate>Sat, 07 Nov 2026 00:00:00 +0800</pubDate><author>yyt6801@gmail.com (YYT6801)</author><guid>https://blog.yyt6801.top/posts/datax-complete-guide/</guid><category domain="https://blog.yyt6801.top/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7%E4%B8%8E%E6%95%88%E7%8E%87/">开发工具与效率</category><description>&lt;p>DataX 是阿里巴巴开源的离线数据同步工具，广泛应用于阿里内部各种异构数据源的离线同步场景，每天处理 TB 级别的数据。它支持关系型数据库（MySQL、Oracle、PostgreSQL、SQL Server）、NoSQL（MongoDB、Redis）、大数据平台（HDFS、Hive、MaxCompute、ClickHouse）等数十种数据源，是国内数据仓库和数据湖建设中常用的数据迁移与同步工具。&lt;/p>
 &lt;p>&lt;strong>核心优势&lt;/strong>：&lt;/p>
 &lt;ul>
 &lt;li>&lt;strong>开源免费&lt;/strong>：基于 Apache 2.0 协议，无商业授权限制&lt;/li>
