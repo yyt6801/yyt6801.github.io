@@ -1,4 +1,356 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>YYT6801's Blog</title><link>https://blog.yyt6801.top/</link><description>YYT6801's Blog</description><generator>Hugo 0.139.2 &amp; FixIt v0.3.15</generator><language>zh-CN</language><managingEditor>yyt6801@gmail.com (YYT6801)</managingEditor><webMaster>yyt6801@gmail.com (YYT6801)</webMaster><copyright>YYT6801</copyright><lastBuildDate>Sat, 14 Nov 2026 00:00:00 +0800</lastBuildDate><atom:link href="https://blog.yyt6801.top/index.xml" rel="self" type="application/rss+xml"/><item><title>DeepSeek Harness (DSH) 完全指南：从入门到插件开发实践</title><link>https://blog.yyt6801.top/posts/deepseek-harness-guide/</link><pubDate>Sat, 14 Nov 2026 00:00:00 +0800</pubDate><author>yyt6801@gmail.com (YYT6801)</author><guid>https://blog.yyt6801.top/posts/deepseek-harness-guide/</guid><category domain="https://blog.yyt6801.top/categories/%E7%BC%96%E7%A8%8B%E4%B8%8E%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5/">编程与开发实践</category><description>&lt;h2 id="什么是-deepseek-harness-dsh" class="heading-element">&lt;span>什么是 DeepSeek Harness (DSH)&lt;/span>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>YYT6801's Blog</title><link>https://blog.yyt6801.top/</link><description>YYT6801's Blog</description><generator>Hugo 0.139.2 &amp; FixIt v0.3.15</generator><language>zh-CN</language><managingEditor>yyt6801@gmail.com (YYT6801)</managingEditor><webMaster>yyt6801@gmail.com (YYT6801)</webMaster><copyright>YYT6801</copyright><lastBuildDate>Sat, 21 Nov 2026 00:00:00 +0800</lastBuildDate><atom:link href="https://blog.yyt6801.top/index.xml" rel="self" type="application/rss+xml"/><item><title>AI Agent 编排：从 SpaceX AI 到 Michelin 厨房的实践</title><link>https://blog.yyt6801.top/posts/ai-agent-orchestration/</link><pubDate>Sat, 21 Nov 2026 00:00:00 +0800</pubDate><author>yyt6801@gmail.com (YYT6801)</author><guid>https://blog.yyt6801.top/posts/ai-agent-orchestration/</guid><category domain="https://blog.yyt6801.top/categories/%E7%BC%96%E7%A8%8B%E4%B8%8E%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5/">编程与开发实践</category><description>&lt;h2 id="引言从软件工厂到michelin-厨房" class="heading-element">&lt;span>引言：从“软件工厂”到“Michelin 厨房”&lt;/span>
+ &lt;a href="#%e5%bc%95%e8%a8%80%e4%bb%8e%e8%bd%af%e4%bb%b6%e5%b7%a5%e5%8e%82%e5%88%b0michelin-%e5%8e%a8%e6%88%bf" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h2>&lt;p>在 2026 年，SpaceX AI 的首席工程师 Lauren Tan（X 账号 @poteto）揭示了她团队如何在短短一个月内合并 &lt;strong>2,500 个 PR 到生产环境&lt;/strong>。她明确表示，这一数字的背后并非魔法，而是两件大多数团队会忽略的事情：&lt;/p>
+&lt;ol>
+&lt;li>&lt;strong>构建 Agent 工作的环境&lt;/strong>&lt;/li>
+&lt;li>&lt;strong>提供验证机制，让 Agent 能检查自己的工作&lt;/strong>&lt;/li>
+&lt;/ol>
+&lt;p>她将流行的“软件工厂”比喻重新定义为 &lt;strong>Michelin 厨房&lt;/strong>——因为工厂式生产不具备“工匠精神”和品质保证。正如她所说：&lt;/p>
+&lt;blockquote>
+&lt;p>“我希望能够同时实现&lt;strong>品质&lt;/strong>与&lt;strong>规模&lt;/strong>——这正是米其林厨房的核心理念。”&lt;/p>
+&lt;/blockquote>
+&lt;hr>
+&lt;h2 id="lauren-tan-与-spacex-ai-的-agent-编排体系" class="heading-element">&lt;span>Lauren Tan 与 SpaceX AI 的 Agent 编排体系&lt;/span>
+ &lt;a href="#lauren-tan-%e4%b8%8e-spacex-ai-%e7%9a%84-agent-%e7%bc%96%e6%8e%92%e4%bd%93%e7%b3%bb" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h2>&lt;h3 id="三层架构协调执行编排" class="heading-element">&lt;span>三层架构：协调、执行、编排&lt;/span>
+ &lt;a href="#%e4%b8%89%e5%b1%82%e6%9e%b6%e6%9e%84%e5%8d%8f%e8%b0%83%e6%89%a7%e8%a1%8c%e7%bc%96%e6%8e%92" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h3>&lt;p>Tan 在多场工作坊和直播中阐述，她将 Agent 组织为三个层级：&lt;/p>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th>层级&lt;/th>
+ &lt;th>名称&lt;/th>
+ &lt;th>职责&lt;/th>
+ &lt;th>典型规模&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td>&lt;strong>第一层&lt;/strong>&lt;/td>
+ &lt;td>&lt;strong>协调层&lt;/strong>&lt;/td>
+ &lt;td>Chief of Staff 编写不写码，只负责解释任务、拆解工作、分配角色、跟踪进度&lt;/td>
+ &lt;td>超过 10 个编排器同时运行&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;strong>第二层&lt;/strong>&lt;/td>
+ &lt;td>&lt;strong>执行层&lt;/strong>&lt;/td>
+ &lt;td>运行 10-20+ 个 Grok Bot 并行代理，覆盖移动端、桌面端、基础设施、测试框架&lt;/td>
+ &lt;td>并发执行规模&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;strong>第三层&lt;/strong>&lt;/td>
+ &lt;td>&lt;strong>编排层&lt;/strong>&lt;/td>
+ &lt;td>&lt;code>/poteto-mode&lt;/code> 入口，根据任务类型选择 Playbook，调用 &lt;code>/loop&lt;/code>、&lt;code>/goal&lt;/code>、&lt;code>/swarm&lt;/code>、&lt;code>/arena&lt;/code>、&lt;code>/interrogate&lt;/code> 等命令&lt;/td>
+ &lt;td>任务驱动型&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;blockquote>
+&lt;p>&lt;strong>关键洞察&lt;/strong>：协调层的 Agent &lt;strong>不编写代码&lt;/strong>，只负责解释任务和分配。执行层则是大规模并行的 Agent 池。编排层则负责根据任务类型动态选择策略。&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="编排命令体系" class="heading-element">&lt;span>编排命令体系&lt;/span>
+ &lt;a href="#%e7%bc%96%e6%8e%92%e5%91%bd%e4%bb%a4%e4%bd%93%e7%b3%bb" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h3>&lt;p>Tan 开源的 &lt;strong>pstack&lt;/strong> 工具提供了丰富的编排命令：&lt;/p>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th>命令&lt;/th>
+ &lt;th>说明&lt;/th>
+ &lt;th>典型用例&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td>&lt;code>/loop&lt;/code>&lt;/td>
+ &lt;td>迭代循环&lt;/td>
+ &lt;td>持续改进、重构&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;code>/goal&lt;/code>&lt;/td>
+ &lt;td>长期目标&lt;/td>
+ &lt;td>大型项目拆解&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;code>/swarm&lt;/code>&lt;/td>
+ &lt;td>并行分片&lt;/td>
+ &lt;td>大任务并行拆解&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;code>/arena&lt;/code>&lt;/td>
+ &lt;td>竞争性解&lt;/td>
+ &lt;td>多 Agent 竞争最佳方案&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;code>/interrogate&lt;/code>&lt;/td>
+ &lt;td>跨模型审查&lt;/td>
+ &lt;td>不同模型相互审查工作&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;blockquote>
+&lt;p>&lt;strong>任务类型固定流程&lt;/strong>：&lt;/p>
+&lt;ul>
+&lt;li>Bug 修复：先复现问题 → 找根 cause → 验证修复 → 自动合并&lt;/li>
+&lt;li>重构：记录当前行为 → 证明行为不变 → 进行重构 → 验证&lt;/li>
+&lt;/ul>
+&lt;/blockquote>
+&lt;hr>
+&lt;h2 id="核心原则三大支柱" class="heading-element">&lt;span>核心原则：三大支柱&lt;/span>
+ &lt;a href="#%e6%a0%b8%e5%bf%83%e5%8e%9f%e5%88%99%e4%b8%89%e5%a4%a7%e6%94%af%e6%9f%b1" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h2>&lt;h3 id="1-验证是核心技能" class="heading-element">&lt;span>1. 验证是核心技能&lt;/span>
+ &lt;a href="#1-%e9%aa%8c%e8%af%81%e6%98%af%e6%a0%b8%e5%bf%83%e6%8a%80%e8%83%bd" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h3>&lt;p>Tan 明确指出，她之所以能信任 Agent，并非因为模型变聪明，而是因为&lt;strong>验证和工程防护层变强&lt;/strong>。&lt;/p>
+&lt;blockquote>
+&lt;p>“单最重要的技能应该在你工具箱里的是&lt;strong>验证&lt;/strong>。”&lt;/p>
+&lt;/blockquote>
+&lt;p>&lt;strong>验证的三要素&lt;/strong>：&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>给 Agent “手和眼睛”&lt;/strong>：Agent 能够运行代码，交互式调试，取 traces 和 snapshots&lt;/li>
+&lt;li>&lt;strong>循环的关键&lt;/strong>：验证是循环中最重要的部分，因为 Agent 能自行检查工作，将人从方程中移出&lt;/li>
+&lt;li>&lt;strong>自动化基础设施&lt;/strong>：Cursor 和 xAI 的每个应用都有内置的、自动维护的验证技能，已成为团队的关键基础设施&lt;/li>
+&lt;/ul>
+&lt;p>&lt;strong>验证能力的具体表现&lt;/strong>：&lt;/p>
+&lt;ul>
+&lt;li>Chrome DevTools Protocol（控制浏览器、截图、点击元素、读取控制台日志）&lt;/li>
+&lt;li>移动端模拟器通过用户流驱动&lt;/li>
+&lt;li>代码运行与调试&lt;/li>
+&lt;li>CI/CD 集成的回归测试&lt;/li>
+&lt;/ul>
+&lt;h3 id="2-两层循环架构" class="heading-element">&lt;span>2. 两层循环架构&lt;/span>
+ &lt;a href="#2-%e4%b8%a4%e5%b1%82%e5%be%aa%e7%8e%af%e6%9e%b6%e6%9e%84" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h3>&lt;p>Tan 运行两个相互关联的循环：&lt;/p>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th>内层循环&lt;/th>
+ &lt;th>外层循环&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td>Agent 工程师在代码中工作，朝着&lt;strong>意图的快照&lt;/strong>努力&lt;/td>
+ &lt;td>代码库之外的一切：Slack、Linear、X 上的 Bug 报告&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>快照可能会过期，需要人作代理&lt;/td>
+ &lt;td>新信息出现，需要人充当代理&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;p>&lt;strong>具体布线示例&lt;/strong>：&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>Slack MCP&lt;/strong> 或订阅单一频道：Bot 监听，Bug 报告时自动复现问题，用验证技能确认 Bug 在 main 上仍存在，将其放入 Cursor 项目&lt;/li>
+&lt;li>“Cursor 项目是我的内层循环，Grok Bot 是我的外层循环。”&lt;/li>
+&lt;/ul>
+&lt;h3 id="3-缓冲而非逐一修复" class="heading-element">&lt;span>3. 缓冲而非逐一修复&lt;/span>
+ &lt;a href="#3-%e7%bc%93%e5%86%b2%e8%80%8c%e9%9d%9e%e9%80%90%e4%b8%80%e4%bf%ae%e5%a4%8d" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h3>&lt;blockquote>
+&lt;p>“我并不告诉它先修复每个 React 脚手架陷阱。我让它将其追加到一个文档中，每隔 couple 天我查看一下，发现它们都是同一类问题。”&lt;/p>
+&lt;/blockquote>
+&lt;p>&lt;strong>为什么要用缓冲？&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>纯执行模式下，有时会错失大局&lt;/li>
+&lt;li>缓冲强制 Agent（和自己）思考大局&lt;/li>
+&lt;li>给 Agent 和自己提供识别可能错过的模式的方式&lt;/li>
+&lt;/ul>
+&lt;h3 id="4-一次性门-vs-两次性门" class="heading-element">&lt;span>4. 一次性门 vs 两次性门&lt;/span>
+ &lt;a href="#4-%e4%b8%80%e6%ac%a1%e6%80%a7%e9%97%a8-vs-%e4%b8%a4%e6%ac%a1%e6%80%a7%e9%97%a8" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h3>&lt;p>Tan 强调区分两类 PR：&lt;/p>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th>两次性门&lt;/th>
+ &lt;th>一次性门&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td>可 merge 并 revert（廉价回退）&lt;/td>
+ &lt;td>会导致数据丢失或不可逆操作&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>安全不敏感领域&lt;/td>
+ &lt;td>医疗、法律、金融等敏感领域&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;p>&lt;strong>关键判断&lt;/strong>：&lt;/p>
+&lt;ul>
+&lt;li>关于是否可验证程序化决定&lt;/li>
+&lt;li>对数学、证明等领域是可验证的&lt;/li>
+&lt;li>软件和数学部分是可验证的&lt;/li>
+&lt;/ul>
+&lt;blockquote>
+&lt;p>“如果大多数 PR 都是一次性门，我无自动合并的答案。人仍需在敏感领域签 off。”&lt;/p>
+&lt;/blockquote>
+&lt;hr>
+&lt;h2 id="实际编排实践指南" class="heading-element">&lt;span>实际编排实践指南&lt;/span>
+ &lt;a href="#%e5%ae%9e%e9%99%85%e7%bc%96%e6%8e%92%e5%ae%9e%e8%b7%b5%e6%8c%87%e5%8d%97" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h2>&lt;h3 id="1-从本地开始再扩大规模" class="heading-element">&lt;span>1. 从本地开始，再扩大规模&lt;/span>
+ &lt;a href="#1-%e4%bb%8e%e6%9c%ac%e5%9c%b0%e5%bc%80%e5%a7%8b%e5%86%8d%e6%89%a9%e5%a4%a7%e8%a7%84%e6%a8%a1" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h3>&lt;blockquote>
+&lt;p>“Tan 推荐在局部运行工作流后，再扩展到云端代理。”&lt;/p>
+&lt;/blockquote>
+&lt;p>&lt;strong>建议路径&lt;/strong>：&lt;/p>
+&lt;ol>
+&lt;li>本地验证工作流运行正确&lt;/li>
+&lt;li>任务必须具备可验证性（可通过代码验证）&lt;/li>
+&lt;li>变更必须可逆（或有回滚机制）&lt;/li>
+&lt;li>再逐步引入云端 Agent&lt;/li>
+&lt;/ol>
+&lt;h3 id="2-技能--过程转化为文字" class="heading-element">&lt;span>2. 技能 = 过程转化为文字&lt;/span>
+ &lt;a href="#2-%e6%8a%80%e8%83%bd--%e8%bf%87%e7%a8%8b%e8%bd%ac%e5%8c%96%e4%b8%ba%e6%96%87%e5%ad%97" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h3>&lt;p>Tan 同意“skill（技能）= 过程转化为文字”。随着模型改进，技能会&lt;strong>收缩&lt;/strong>（即表述更简洁，但涵盖更广）。&lt;/p>
+&lt;p>&lt;strong>技能构建建议&lt;/strong>：&lt;/p>
+&lt;ul>
+&lt;li>将具体的业务过程提炼为清晰的文字描述&lt;/li>
+&lt;li>包含前置条件、执行步骤、验证标准&lt;/li>
+&lt;li>作为 Agent 的系统提示词一部分&lt;/li>
+&lt;/ul>
+&lt;h3 id="3-协调-agent-不做单独工作" class="heading-element">&lt;span>3. 协调 Agent 不做单独工作&lt;/span>
+ &lt;a href="#3-%e5%8d%8f%e8%b0%83-agent-%e4%b8%8d%e5%81%9a%e5%8d%95%e7%8b%ac%e5%b7%a5%e4%bd%9c" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h3>&lt;blockquote>
+&lt;p>“Cursor 的 projects 特性是‘协调 Agent’，它有自己的‘计算机’，是经理/主厨。它不自己做工作，而是分配和协调。”&lt;/p>
+&lt;/blockquote>
+&lt;p>&lt;strong>反模式&lt;/strong>：&lt;/p>
+&lt;ul>
+&lt;li>每个任务 spawn 一个 Agent（“一人一任务”）会导致线程断裂&lt;/li>
+&lt;li>可能重复工作，或错过高层级问题&lt;/li>
+&lt;/ul>
+&lt;p>&lt;strong>推荐模式&lt;/strong>：&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>多个 Bug 报告&lt;/strong>让协调 Agent “zoom out”，发现真正的 Bug 在别处&lt;/li>
+&lt;li>协调 Agent 分配给子 Agent，保持工作连贯性&lt;/li>
+&lt;/ul>
+&lt;h3 id="4-模型路由与任务匹配" class="heading-element">&lt;span>4. 模型路由与任务匹配&lt;/span>
+ &lt;a href="#4-%e6%a8%a1%e5%9e%8b%e8%b7%af%e7%94%b1%e4%b8%8e%e4%bb%bb%e5%8a%a1%e5%8c%b9%e9%85%8d" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h3>&lt;p>Tan 提到，根据任务类型调整模型和推理级别：&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>straightforward tasks&lt;/strong>：更快的模型，较低的推理级别&lt;/li>
+&lt;li>&lt;strong>需要规划和推理的任务&lt;/strong>：更强的模型，较高的推理级别&lt;/li>
+&lt;li>&lt;strong>云代理&lt;/strong>提供细粒度控制，可根据任务类型切换模型&lt;/li>
+&lt;/ul>
+&lt;h3 id="5-环境优化优于-agent-优化" class="heading-element">&lt;span>5. 环境优化优于 Agent 优化&lt;/span>
+ &lt;a href="#5-%e7%8e%af%e5%a2%83%e4%bc%98%e5%8c%96%e4%bc%98%e4%ba%8e-agent-%e4%bc%98%e5%8c%96" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h3>&lt;blockquote>
+&lt;p>“审视 Pull Request 中的低效模式和坏习惯，思考如何修正&lt;strong>环境&lt;/strong>，而非单个 Agent。”&lt;/p>
+&lt;/blockquote>
+&lt;p>&lt;strong>环境修正的例子&lt;/strong>：&lt;/p>
+&lt;ul>
+&lt;li>技能（Skills）&lt;/li>
+&lt;li>约束（Constraints）&lt;/li>
+&lt;li>Lint 规则&lt;/li>
+&lt;li>类型系统&lt;/li>
+&lt;/ul>
+&lt;blockquote>
+&lt;p>“如果是一时的偶发问题，无妨。如果多个 Agent 有相同的问题、同样的捷径、同样的变通方法——那是修正‘厨房’（技能、约束、Lint、类型系统）的信号。”&lt;/p>
+&lt;/blockquote>
+&lt;hr>
+&lt;h2 id="总结与展望" class="heading-element">&lt;span>总结与展望&lt;/span>
+ &lt;a href="#%e6%80%bb%e7%bb%93%e4%b8%8e%e5%b1%95%e6%9c%9b" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h2>&lt;p>Lauren Tan 在 SpaceX AI 的实践为 AI Agent 编排提供了宝贵的经验：&lt;/p>
+&lt;h3 id="关键取得" class="heading-element">&lt;span>关键取得：&lt;/span>
+ &lt;a href="#%e5%85%b3%e9%94%ae%e5%8f%96%e5%be%97" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h3>&lt;ol>
+&lt;li>&lt;strong>验证是基础&lt;/strong>：没有强大的验证机制，大规模 Agent 编排就是灾难&lt;/li>
+&lt;li>&lt;strong>两层循环&lt;/strong>：内层关注代码意图，外层关注代码库之外的上下文&lt;/li>
+&lt;li>&lt;strong>Michelin 厨房思维&lt;/strong>：在规模中保持品质，而非纯粹的 mass production&lt;/li>
+&lt;li>&lt;strong>环境优先&lt;/strong>：通过优化技能、约束和系统来修正环境，而非不断微调 Agent&lt;/li>
+&lt;li>&lt;strong>一次性门/两次性门&lt;/strong>：基于验证质量判断哪些可以自动合并&lt;/li>
+&lt;/ol>
+&lt;h3 id="经典语录" class="heading-element">&lt;span>经典语录：&lt;/span>
+ &lt;a href="#%e7%bb%8f%e5%85%b8%e8%af%ad%e5%bd%95" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h3>&lt;blockquote>
+&lt;p>“The 2,500 PRs are not 2,500 features. A lot of the work is spent on gardening.”—— Lauren Tan&lt;/p>
+&lt;/blockquote>
+&lt;blockquote>
+&lt;p>“It all comes back to the quality of the verification you can get out of your agent.”—— Lauren Tan&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="实施路线图" class="heading-element">&lt;span>实施路线图：&lt;/span>
+ &lt;a href="#%e5%ae%9e%e6%96%bd%e8%b7%af%e7%ba%bf%e5%9b%be" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h3>&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th>步骤&lt;/th>
+ &lt;th>描述&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td>&lt;strong>第一步&lt;/strong>&lt;/td>
+ &lt;td>构建验证能力：给 Agent “手和眼睛”，确保能运行代码和交互&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;strong>第二步&lt;/strong>&lt;/td>
+ &lt;td>搭建两层循环：内层关注代码意图，外层收集外部上下文&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;strong>第三步&lt;/strong>&lt;/td>
+ &lt;td>实施三层编排：协调层→执行层→编排层&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;strong>第四步&lt;/strong>&lt;/td>
+ &lt;td>建立缓冲机制：用文档/队列收集模式，而非逐一修复&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;strong>第五步&lt;/strong>&lt;/td>
+ &lt;td>定义一/二次性门：基于验证质量判断自动合并边界&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;hr>
+&lt;h2 id="参考链接" class="heading-element">&lt;span>参考链接&lt;/span>
+ &lt;a href="#%e5%8f%82%e8%80%83%e9%93%be%e6%8e%a5" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h2>&lt;ul>
+&lt;li>&lt;a href="https://x.com/poteto"target="_blank" rel="external nofollow noopener noreferrer">Lauren Tan @poteto on X&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://github.com/deepseek-ai/pstack"target="_blank" rel="external nofollow noopener noreferrer">pstack 开源项目&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://grok.x.ai"target="_blank" rel="external nofollow noopener noreferrer">SpaceX AI Grok Bot&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://ai.engineer/code/2026/talks/lauren-tan"target="_blank" rel="external nofollow noopener noreferrer">All Code Is Slop (Except Mine) | AI Engineer CODE 2026&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://podcastrex.com/shows/behind-the-craft/we-built-grok-bot-here-are-our-14-best-bots-peng-zheng-lauren-tan"target="_blank" rel="external nofollow noopener noreferrer">We Built Grok Bot. Here Are Our 14 Best Bots | Podcast Rex&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://www.youtube.com/watch?v=PaPpyQocMww"target="_blank" rel="external nofollow noopener noreferrer">SpaceX AI Engineer Lauren Tan: Part 1 - YouTube&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;p>&lt;strong>文章完成于 2026-11-21&lt;/strong>。内容基于 Lauren Tan 在 SpaceX AI 的公开分享、访谈及其开源工具 pstack，旨在总结 AI Agent 编排的核心方法论与最佳实践。&lt;/p></description></item><item><title>DeepSeek Harness (DSH) 完全指南：从入门到插件开发实践</title><link>https://blog.yyt6801.top/posts/deepseek-harness-guide/</link><pubDate>Sat, 14 Nov 2026 00:00:00 +0800</pubDate><author>yyt6801@gmail.com (YYT6801)</author><guid>https://blog.yyt6801.top/posts/deepseek-harness-guide/</guid><category domain="https://blog.yyt6801.top/categories/%E7%BC%96%E7%A8%8B%E4%B8%8E%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5/">编程与开发实践</category><description>&lt;h2 id="什么是-deepseek-harness-dsh" class="heading-element">&lt;span>什么是 DeepSeek Harness (DSH)&lt;/span>
  &lt;a href="#%e4%bb%80%e4%b9%88%e6%98%af-deepseek-harness-dsh" class="heading-mark">
  &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
  &lt;/a>
@@ -4189,65 +4541,4 @@
 &lt;ul>
 &lt;li>&lt;a href="https://www.emqx.com/docs/zh-cn/v5.0/"target="_blank" rel="external nofollow noopener noreferrer">EMQX 官方文档&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://www.mqtt.org/documents/5.0.0/"target="_blank" rel="external nofollow noopener noreferrer">MQTT 5.0 规范&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>PowerShell与命令行效率</title><link>https://blog.yyt6801.top/posts/powershell-cli/</link><pubDate>Wed, 29 Apr 2026 00:00:00 +0800</pubDate><author>yyt6801@gmail.com (YYT6801)</author><guid>https://blog.yyt6801.top/posts/powershell-cli/</guid><category domain="https://blog.yyt6801.top/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7%E4%B8%8E%E6%95%88%E7%8E%87/">开发工具与效率</category><description>&lt;h2 id="powershell-vs-cmd-vs-bash" class="heading-element">&lt;span>PowerShell vs CMD vs Bash&lt;/span>
- &lt;a href="#powershell-vs-cmd-vs-bash" class="heading-mark">
- &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
- &lt;/a>
-&lt;/h2>&lt;ul>
-&lt;li>定位差异与适用场景&lt;/li>
-&lt;li>何时使用哪个&lt;/li>
-&lt;/ul>
-&lt;h2 id="powershell核心概念" class="heading-element">&lt;span>PowerShell核心概念&lt;/span>
- &lt;a href="#powershell%e6%a0%b8%e5%bf%83%e6%a6%82%e5%bf%b5" class="heading-mark">
- &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
- &lt;/a>
-&lt;/h2>&lt;ul>
-&lt;li>Cmdlet命名规范（动词-名词）&lt;/li>
-&lt;li>管道与对象传递&lt;/li>
-&lt;li>别名的使用&lt;/li>
-&lt;/ul>
-&lt;h2 id="常用操作速查" class="heading-element">&lt;span>常用操作速查&lt;/span>
- &lt;a href="#%e5%b8%b8%e7%94%a8%e6%93%8d%e4%bd%9c%e9%80%9f%e6%9f%a5" class="heading-mark">
- &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
- &lt;/a>
-&lt;/h2>&lt;h3 id="文件与目录" class="heading-element">&lt;span>文件与目录&lt;/span>
- &lt;a href="#%e6%96%87%e4%bb%b6%e4%b8%8e%e7%9b%ae%e5%bd%95" class="heading-mark">
- &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
- &lt;/a>
-&lt;/h3>&lt;ul>
-&lt;li>Get-ChildItem、Set-Location、Copy-Item、Remove-Item&lt;/li>
-&lt;/ul>
-&lt;h3 id="内容处理" class="heading-element">&lt;span>内容处理&lt;/span>
- &lt;a href="#%e5%86%85%e5%ae%b9%e5%a4%84%e7%90%86" class="heading-mark">
- &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
- &lt;/a>
-&lt;/h3>&lt;ul>
-&lt;li>Get-Content、Select-String（类似grep）&lt;/li>
-&lt;li>Where-Object、Sort-Object、Group-Object&lt;/li>
-&lt;/ul>
-&lt;h3 id="系统管理" class="heading-element">&lt;span>系统管理&lt;/span>
- &lt;a href="#%e7%b3%bb%e7%bb%9f%e7%ae%a1%e7%90%86" class="heading-mark">
- &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
- &lt;/a>
-&lt;/h3>&lt;ul>
-&lt;li>Get-Process、Get-Service、Get-EventLog&lt;/li>
-&lt;/ul>
-&lt;h2 id="脚本基础" class="heading-element">&lt;span>脚本基础&lt;/span>
- &lt;a href="#%e8%84%9a%e6%9c%ac%e5%9f%ba%e7%a1%80" class="heading-mark">
- &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
- &lt;/a>
-&lt;/h2>&lt;ul>
-&lt;li>变量与数据类型&lt;/li>
-&lt;li>条件与循环&lt;/li>
-&lt;li>函数定义&lt;/li>
-&lt;li>错误处理&lt;/li>
-&lt;/ul>
-&lt;h2 id="配置文件" class="heading-element">&lt;span>配置文件&lt;/span>
- &lt;a href="#%e9%85%8d%e7%bd%ae%e6%96%87%e4%bb%b6" class="heading-mark">
- &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
- &lt;/a>
-&lt;/h2>&lt;ul>
-&lt;li>$PROFILE 配置&lt;/li>
-&lt;li>自定义提示符&lt;/li>
-&lt;li>常见Module推荐&lt;/li>
 &lt;/ul></description></item></channel></rss>
